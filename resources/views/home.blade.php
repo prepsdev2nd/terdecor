@@ -29,7 +29,19 @@
     <script src="{{ asset('user/js/modernizr.js') }}"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        .title {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-weight: bold;
+            text-align: center;
+            text-transform: capitalize;
+        }
 
+        .carousel-inner img {
+            border: 3px solid #c79677;
+            padding: 5px;
+        }
+    </style>
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#navbar-example2" tabindex="0">
@@ -199,7 +211,7 @@
                 </div>
 
                 <div class="col-lg-6">
-                    <h1 class=" text-capitalize  lh-1 my-3">Bisa Bikin Ruanganmu dari <span class="text-danger">Red
+                    <h1 class="  lh-1 my-3">Bisa Bikin Ruanganmu dari <span class="text-danger">Red
                             Flag</span>
                         jadi
                         <span class="text-success">Green Flag</span>
@@ -244,9 +256,142 @@
         </div>
     </section>
 
+    <section id="package" class="py-5"
+        style="background: linear-gradient(270deg, #c79677 0.01%, rgba(26, 36, 47, 0.00) 100%);">
+        <div class="container-lg my-5">
+
+            <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        <div class="card-header py-3">
+                            <h4 class="my-0 fw-normal">Paket Pertama</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="carouselExampleControls1" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="{{ asset('user/images/caro1.JPG') }}"
+                                            class="d-block w-100 border rounded" alt="Image 1">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="{{ asset('user/images/caro2.JPG') }}"
+                                            class="d-block w-100 border rounded" alt="Image 1">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                    data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>Ruang Tengah</li>
+                                <li>2 Kamar Tidur</li>
+                                <li>Material Kayu</li>
+                                <li>Aestethic</li>
+                            </ul>
+                            <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">mulai
+                                    dari</small><br> Rp 1.999.999
+                            </h1>
+                            <button type="button" class="w-100 btn btn-lg btn-primary">Hubungi Kami</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        <div class="card-header py-3">
+                            <h4 class="my-0 fw-normal">Paket Kedua</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="carouselExampleControls2" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="{{ asset('user/images/caro1.JPG') }}"
+                                            class="d-block w-100 border rounded" alt="Image 1">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="{{ asset('user/images/caro2.JPG') }}"
+                                            class="d-block w-100 border rounded" alt="Image 1">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#carouselExampleControls2" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                    data-bs-target="#carouselExampleControls2" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>Ruang Tengah</li>
+                                <li>2 Kamar Tidur</li>
+                                <li>Material Kayu</li>
+                                <li>Aestethic</li>
+                            </ul>
+                            <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">mulai
+                                    dari</small><br> Rp 1.999.999
+                            </h1>
+                            <button type="button" class="w-100 btn btn-lg btn-primary">Hubungi Kami</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        <div class="card-header py-3">
+                            <h4 class="my-0 fw-normal">Paket Ketiga</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="carouselExampleControls3" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="{{ asset('user/images/caro1.JPG') }}"
+                                            class="d-block w-100 border rounded" alt="Image 1">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="{{ asset('user/images/caro2.JPG') }}"
+                                            class="d-block w-100 border rounded" alt="Image 1">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#carouselExampleControls3" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                    data-bs-target="#carouselExampleControls3" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>Ruang Tengah</li>
+                                <li>2 Kamar Tidur</li>
+                                <li>Material Kayu</li>
+                                <li>Aestethic</li>
+                            </ul>
+                            <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">mulai
+                                    dari</small><br> Rp 1.999.999
+                            </h1>
+                            <button type="button" class="w-100 btn btn-lg btn-primary">Hubungi Kami</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
     <section id="design">
         <div class="container  my-5 py-5">
-            <h2 class="text-capitalize m-0 py-lg-5 text-main">Desain Interior</h2>
+            <h2 class="m-0 py-lg-5 title">Desain Interior</h2>
 
             <div class="swiper-button-next residence-swiper-next  residence-arrow"></div>
             <div class="swiper-button-prev residence-swiper-prev residence-arrow"></div>
@@ -375,7 +520,7 @@
         <div class="container">
             <div class="row py-lg-5">
 
-                <h2 class="text-capitalize text-center m-0 py-lg-5">Kenapa Harus Dengan Terdecor.id</h2>
+                <h2 class="text-center title m-0 py-lg-5">Kenapa Harus Dengan Terdecor.id</h2>
 
                 <div class="text-center col-lg-4">
                     <img src="{{ asset('user/images/responsive.png') }}" class="" alt="Bootstrap Themes"
@@ -406,7 +551,7 @@
         <div class="container my-5 py-5">
             <div class="row featurette py-lg-5 ">
                 <div class="col-md-5 order-md-1 d-flex">
-                    <h1 class="text-capitalize  lh-1 mb-3">Ciptakan Rumah Idamanmu Bersama terdecor.id</h1>
+                    <h1 class=" lh-1 mb-3">Ciptakan Rumah Idamanmu Bersama terdecor.id</h1>
                 </div>
                 <div class="col-md-7 order-md-2">
                     <div class="text-content ps-md-5 mt-4 mt-md-0">
@@ -423,16 +568,16 @@
     <section id="testimonial">
         <div class="container my-5">
 
-            <h2 class="text-capitalize text-center">Apa Kata Orang Tentang Terdecor.id</h2>
+            <h2 class="text-center title">Apa Kata Orang Tentang Terdecor.id</h2>
             <div
                 class="swiper testimonial-swiper swiper-initialized swiper-horizontal swiper-free-mode swiper-backface-hidden">
                 <div class="swiper-wrapper" id="swiper-wrapper-039bef7af10aeb77d" aria-live="polite">
                     @foreach ($testi as $row)
                         <div class="swiper-slide swiper-slide-active" style="width: 390px; margin-right: 30px;"
                             role="group" aria-label="1 / 3">
-                            <div class="row my-5 py-lg-5">
+                            <div class="row py-lg-5">
                                 <div class="col-md-8 mx-auto">
-                                    <img src="{{ asset('user/images/quote.png') }}" class="rounded mx-auto d-inline"
+                                    <img src="{{ asset('user/images/quote.svg') }}" class="rounded mx-auto d-inline"
                                         style="max-height: 125px" alt="...">
                                     <p class="testimonial-p mt-4">{{ $row->testi }}
                                     </p>
@@ -452,11 +597,11 @@
                 <div class="testimonial-swiper-button col-md-3 position-absolute">
                     <div class="swiper-button-prev testimonial-arrow swiper-button-disabled" tabindex="-1"
                         role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-039bef7af10aeb77d"
-                        aria-disabled="true"></div>
+                        aria-disabled="true" style="color:#c79677"></div>
                     <div class="arrow-divider"> | </div>
                     <div class="swiper-button-next testimonial-arrow" tabindex="0" role="button"
                         aria-label="Next slide" aria-controls="swiper-wrapper-039bef7af10aeb77d"
-                        aria-disabled="false"></div>
+                        aria-disabled="false" style="color:#c79677"></div>
                 </div>
 
                 <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
@@ -466,7 +611,7 @@
 
     <section id="complaint" style="background: linear-gradient(270deg, #c79677 0.01%, rgba(26, 36, 47, 0.00) 100%);">
         <div class="container my-5 py-5">
-            <h2 class="text-capitalize text-center">Kritik dan Saran</h2>
+            <h2 class="text-center title">Kritik dan Saran</h2>
             <div class="card">
                 <div class="card-body">
                     <form class="row justify-content-center" id="testimony"
