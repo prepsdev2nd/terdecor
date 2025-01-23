@@ -76,6 +76,4 @@ class SurveyController extends Controller
 
         return redirect()->route('survey.form')->with('success', 'Survey berhasil disubmit.');
     }
-
-    public function testapi() {}
 }

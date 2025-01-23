@@ -10,6 +10,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\TestimonyController;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -19,6 +20,34 @@ Route::get('/testapi', [SurveyController::class, 'testapi'])->name('survey.testa
 Route::get('/testimony', [TestimonyController::class, 'form'])->name('testimony.form');
 Route::post('/testimony', [TestimonyController::class, 'userstore'])->name('testimonyuser.store');
 Route::post('/complaint', [ComplaintController::class, 'userstore'])->name('complaint.userstore');
+
+Route::get('/api/provinces', function () {
+    try {
+        $response = Http::get('https://emsifa.github.io/api-wilayah-indonesia/api/provinces.json');
+
+        if ($response->successful()) {
+            return $response->json();
+        } else {
+            return response()->json(['message' => 'Failed to fetch provinces'], 500);
+        }
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Error fetching provinces: ' . $e->getMessage()], 500);
+    }
+});
+
+Route::get('/api/kabupaten-kota/{provinceId}', function ($provinceId) {
+    try {
+        $response = Http::get("https://emsifa.github.io/api-wilayah-indonesia/api/regencies/{$provinceId}.json");
+
+        if ($response->successful()) {
+            return $response->json();
+        } else {
+            return response()->json(['message' => 'Failed to fetch kabupaten/kota'], 500);
+        }
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Error fetching kabupaten/kota: ' . $e->getMessage()], 500);
+    }
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

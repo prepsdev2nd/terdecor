@@ -278,7 +278,39 @@
                 <div class="nav-sticky">
                     <div class="card">
                         <div class="card-body">
-
+                            <div class="col-sm-12">
+                                <label for="price" class="form-label">Harga Mulai dari <span
+                                        class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-sm-12 mb-3">
+                                <input type="text" class="form-control @error('price') is-invalid @enderror"
+                                    id="price" name="price" placeholder="Rp. xxx.xxx" required>
+                                @error('price')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="price" class="form-label">Material<span
+                                        class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-sm-12 mb-3">
+                                <input type="text" class="form-control @error('material') is-invalid @enderror"
+                                    id="material" name="material" placeholder="Material Pembuatan" required>
+                                @error('material')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="price" class="form-label">Type Decoration<span
+                                        class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-sm-12 mb-3">
+                                <input type="text" class="form-control @error('type') is-invalid @enderror"
+                                    id="type" name="type" placeholder="Type Decoration" required>
+                                @error('type')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <div class="mb-3">
                                 <label for="tags" class="form-label">Tagar<span class="text-danger">*</span></label>
                                 <select class="form-control @error('tags') is-invalid @enderror" id="tags"
@@ -288,7 +320,7 @@
                                 @enderror
                             </div>
 
-                            <div class="mb-3">
+                            {{-- <div class="mb-3">
                                 <div class="form-label">Status</div>
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" role="switch" id="status-switch"
@@ -298,7 +330,7 @@
                                 @error('status')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                            </div>
+                            </div> --}}
 
                             <div class="mt-3">
                                 <button type="submit" class="btn btn-primary" style="width:100%;">Submit</button>
@@ -345,6 +377,27 @@
         document.getElementById('status-switch').addEventListener('change', function() {
             const statusLabel = document.getElementById('status-label');
             statusLabel.textContent = this.checked ? 'Publikasikan' : 'Draft';
+        });
+    </script>
+    <script>
+        function formatRupiah(angka, prefix) {
+            let number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                let separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix === undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+        }
+
+        document.getElementById('price').addEventListener('keyup', function(e) {
+            this.value = formatRupiah(this.value, 'Rp. ');
         });
     </script>
 

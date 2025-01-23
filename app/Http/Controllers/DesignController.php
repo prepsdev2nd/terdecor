@@ -21,7 +21,7 @@ class DesignController extends Controller
 
     public function getData()
     {
-        $data = Design::orderBy('id', 'desc')->get();
+        $data = Design::orderBy('id', 'asc')->get();
         return DataTables::of($data)
             ->addColumn('action', function ($data) {
                 return '<div class="btn-group"><a href="' . route('admin.design.edit', $data->id) . '" class="btn btn-sm btn-warning"><i data-feather="edit"></i></a><button class="btn btn-sm btn-danger" onclick="deleteRow(`' . route('admin.design.delete', $data->id) . '`)"><i data-feather="trash-2"></i></button></div>';
@@ -35,6 +35,9 @@ class DesignController extends Controller
                 return collect($tags)->map(function ($tag) {
                     return '<span class="badge bg-purple-soft text-purple">' . e($tag) . '</span>';
                 })->implode(' ');
+            })
+            ->editColumn('style', function ($data) {
+                return $data->material . ' - ' . $data->type;
             })
             ->editColumn('image', function ($data) {
                 return '<img src="' . asset('images/designs/' . $data->pic1) . '" alt="' . e($data->title) . '" style="max-height: 150px; max-width: 150px;">';
@@ -58,6 +61,9 @@ class DesignController extends Controller
             'pic4' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'pic5' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'tags' => 'required',
+            'price'=> 'required',
+            'type'=> 'required',
+            'material' => 'required'
         ]);
 
         if ($request->hasFile('pic1')) {
@@ -85,6 +91,8 @@ class DesignController extends Controller
             $request->pic5->move(public_path('images/designs'), $imageName5);
         }
 
+        $price = str_replace('.', '', str_replace('Rp. ', '', $request->input('price')));
+
         $data = new Design();
         $data->title = $request->input('title');
         $data->slug = Str::slug($request->input('title'));
@@ -93,6 +101,9 @@ class DesignController extends Controller
         $data->pic3 = $imageName3 ?? null;
         $data->pic4 = $imageName4 ?? null;
         $data->pic5 = $imageName5 ?? null;
+        $data->price = (int) $price;
+        $data->type = $request->input('type');
+        $data->material = $request->input('material');
         $data->description = $request->input('content');
         $data->tags = implode(', ', $request->input('tags'));
 

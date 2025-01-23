@@ -23,6 +23,16 @@
 
     <!-- Icons css -->
     <link href="https://coderthemes.com/hyper-admin/saas/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.css">
+    <style>
+        .text-center .form-check {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 25px;
+        }
+    </style>
 </head>
 
 <body>
@@ -80,6 +90,30 @@
                                                             name="name" placeholder="Nama Lengkap">
                                                     </div>
                                                 </div>
+
+                                                <div class="row mb-3">
+                                                    <label class="col-md-3 col-form-label" for="domisili">Provinsi
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <select class="form-control" id="provinsi" name="provinsi">
+                                                            <option value="">Pilih Provinsi</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-3">
+                                                    <label class="col-md-3 col-form-label"
+                                                        for="domisili">Kabupaten/Kota
+                                                    </label>
+                                                    <div class="col-md-9">
+
+                                                        <select class="form-control" id="kabupatenKota"
+                                                            name="kabupatenKota">
+                                                            <option value="">Pilih Kabupaten/Kota</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
                                                 <div class="row mb-3">
                                                     <label class="col-md-3 col-form-label" for="alamat">Alamat
                                                     </label>
@@ -89,7 +123,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3">
-                                                    <label class="col-md-3 col-form-label" for="handphone">No Handphone
+                                                    <label class="col-md-3 col-form-label" for="handphone">No
+                                                        Handphone
                                                     </label>
                                                     <div class="col-md-9">
                                                         <input type="text" class="form-control" id="handphone"
@@ -435,7 +470,7 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="text-center">
-                                                    <h2 class="mt-0"><i class="mdi mdi-check-all"></i></h2>
+                                                    <h2 class="mt-0"><i data-feather="check"></i> </h2>
                                                     <h3 class="mt-0">Terima Kasih!</h3>
 
                                                     <p class="w-75 mb-2 mx-auto">Apakah anda sudah mengisi data
@@ -444,7 +479,15 @@
                                                         <b>SUBMIT</b>.<br>Kami akan memberikan infomasi melalui Whatsapp
                                                         yang telah anda berikan sebagai feedback dari kami.
                                                     </p>
-
+                                                    <div class="text-center">
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                id="confirmCheckbox" required>
+                                                            <label class="form-check-label" for="confirmCheckbox"
+                                                                style="margin-left: 5px;">Saya bersedia dilakukan
+                                                                Survey oleh tim Terdecor.</label>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div> <!-- end col -->
                                         </div> <!-- end row -->
@@ -474,7 +517,7 @@
 
     <!-- Vendor js -->
     <script src="https://coderthemes.com/hyper-admin/saas/assets/js/vendor.min.js"></script>
-
+    <script src="https://unpkg.com/feather-icons"></script>
     <!-- Bootstrap Wizard Form js -->
     <script
         src="https://coderthemes.com/hyper-admin/saas/assets/vendor/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js">
@@ -488,6 +531,10 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        feather.replace();
+    </script>
     <script>
         $(document).ready(function() {
             $('#kebutuhan_ruangan_1').on('change', function() {
@@ -510,6 +557,68 @@
                     $('#others-input').show();
                 } else {
                     $('#others-input').hide();
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Initialize Select2 for Provinsi
+            $('#provinsi').select2({
+                placeholder: "Pilih Provinsi",
+                allowClear: true,
+                ajax: {
+                    url: '/api/provinces',
+                    dataType: 'json',
+                    delay: 250, // Delay in milliseconds before triggering the request
+                    processResults: function(data) {
+                        return {
+                            results: data.map(item => ({
+                                id: item.id,
+                                text: item.name
+                            }))
+                        };
+                    }
+                }
+            });
+
+            // Initialize Select2 for Kabupaten/Kota (initially disabled)
+            $('#kabupatenKota').select2({
+                placeholder: "Pilih Kabupaten/Kota",
+                allowClear: true,
+                disabled: true
+            });
+
+            $('#provinsi').on('change', function() {
+                const selectedProvinsiId = $(this).val();
+                $('#kabupatenKota').empty(); // Clear previous options
+
+                if (selectedProvinsiId) {
+                    $('#kabupatenKota').prop('disabled', false); // Enable Kabupaten/Kota select
+
+                    // Show loading indicator (optional)
+                    $('#kabupatenKota').append('<option value="" disabled>Loading...</option>');
+
+                    fetch(`/api/kabupaten-kota/${selectedProvinsiId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            $('#kabupatenKota').empty(); // Remove loading indicator
+                            const options = data.map(kabupatenKota => ({
+                                id: kabupatenKota.id,
+                                text: kabupatenKota.name
+                            }));
+                            $('#kabupatenKota').select2({
+                                data: options
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error fetching kabupaten/kota:', error);
+                            $('#kabupatenKota').empty();
+                            $('#kabupatenKota').append(
+                                '<option value="" disabled>Gagal memuat data</option>');
+                        });
+                } else {
+                    $('#kabupatenKota').prop('disabled', true);
                 }
             });
         });

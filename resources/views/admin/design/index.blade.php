@@ -37,6 +37,7 @@
                             <th width="200">Sampul</th>
                             <th width="300">Judul</th>
                             <th width="200">Description</th>
+                            <th width="100">Style</th>
                             <th width="100">Kategori</th>
                             <th width="100">Aksi</th>
                         </tr>
@@ -78,6 +79,10 @@
                     {
                         data: 'description',
                         name: 'description'
+                    },
+                    {
+                        data: 'style',
+                        name: 'style'
                     },
                     {
                         data: 'tags',
