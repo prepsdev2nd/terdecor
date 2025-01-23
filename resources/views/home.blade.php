@@ -264,7 +264,7 @@
                 <div class="col">
                     <div class="card mb-4 rounded-3 shadow-sm">
                         <div class="card-header py-3">
-                            <h4 class="my-0 fw-normal">Paket Pertama</h4>
+                            <h4 class="my-0 fw-bold title">Paket Pertama</h4>
                         </div>
                         <div class="card-body">
                             <div id="carouselExampleControls1" class="carousel slide" data-bs-ride="carousel">
@@ -305,7 +305,7 @@
                 <div class="col">
                     <div class="card mb-4 rounded-3 shadow-sm">
                         <div class="card-header py-3">
-                            <h4 class="my-0 fw-normal">Paket Kedua</h4>
+                            <h4 class="my-0 fw-bold title">Paket Kedua</h4>
                         </div>
                         <div class="card-body">
                             <div id="carouselExampleControls2" class="carousel slide" data-bs-ride="carousel">
@@ -346,7 +346,7 @@
                 <div class="col">
                     <div class="card mb-4 rounded-3 shadow-sm">
                         <div class="card-header py-3">
-                            <h4 class="my-0 fw-normal">Paket Ketiga</h4>
+                            <h4 class="my-0 fw-bold title">Paket Ketiga</h4>
                         </div>
                         <div class="card-body">
                             <div id="carouselExampleControls3" class="carousel slide" data-bs-ride="carousel">
@@ -413,11 +413,12 @@
                                     lampu gantung, serta ciptakan suasana yang ramah dan elegan.
                                 </p>
                                 <div class="card-text">
-                                    <ul class="d-flex justify-content-between align-items-center">
-                                        <li class="residence-list">
-                                            <img src="https://landing.terdecor.com/user/images/square.png"
-                                                alt="image">
-                                            2 Meter
+                                    <ul class="d-flex justify-content-end align-items-cente">
+                                        <li class="residence-list badge bg-secondary fw-normal">
+                                            Japandi Style
+                                        </li>
+                                        <li class="residence-list badge bg-primary fw-normal">
+                                            Material Kayu
                                         </li>
                                     </ul>
                                 </div>
@@ -439,13 +440,13 @@
                                 </p>
 
                                 <div class="card-text">
-                                    <ul class="d-flex justify-content-between align-items-center">
-                                        <li class="residence-list">
-                                            <img src="https://landing.terdecor.com/user/images/square.png"
-                                                alt="image">
-                                            2 Meter
+                                    <ul class="d-flex justify-content-end align-items-center">
+                                        <li class="residence-list badge bg-secondary fw-normal">
+                                            Japandi Style
                                         </li>
-
+                                        <li class="residence-list badge bg-primary fw-normal">
+                                            Material Kayu
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -466,11 +467,12 @@
                                 </p>
 
                                 <div class="card-text">
-                                    <ul class="d-flex justify-content-between align-items-center">
-                                        <li class="residence-list">
-                                            <img src="https://landing.terdecor.com/user/images/square.png"
-                                                alt="image">
-                                            1 Meter
+                                    <ul class="d-flex justify-content-end align-items-cente">
+                                        <li class="residence-list badge bg-secondary fw-normal">
+                                            Japandi Style
+                                        </li>
+                                        <li class="residence-list badge bg-primary fw-normal">
+                                            Material Kayu
                                         </li>
                                     </ul>
                                 </div>

@@ -36,7 +36,7 @@
                             <th width="50">#</th>
                             <th width="200">Sampul</th>
                             <th width="300">Judul</th>
-                            <th width="300">Range Harga</th>
+                            <th width="300">Harga</th>
                             <th width="100">Aksi</th>
                         </tr>
                     </thead>
@@ -75,8 +75,8 @@
                         name: 'title'
                     },
                     {
-                        data: 'range',
-                        name: 'range'
+                        data: 'price',
+                        name: 'price'
                     },
                     {
                         data: 'action',

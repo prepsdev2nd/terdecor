@@ -119,25 +119,35 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-sm-4 mb-3">
-                                    <label for="image" class="form-label">Cover Paket<span
-                                            class="text-danger">*</span></label>
-                                </div>
-                                <div class="col-sm-8 mb-3">
-                                    <div id="imagePreviewContainer" class="bg-light text-center mb-3"
-                                        style="width: 100%;height: auto; border: 1px dashed #ccc; padding: 5px; border-radius: 4px;background-color:#f2f6fc;display:none;">
-                                        <p class="mb-2">Pratinjau Cover Paket</p>
-                                        <img id="imagePreview" class="mx-auto" style="width:100%;max-width:auto;">
+                                <div id="imageUploadContainer">
+                                    <div class="row align-items-center mb-3" id="imageUploadRow-1">
+                                        <div class="col-sm-4">
+                                            <label for="image-1" class="form-label">Gambar 1<span
+                                                    class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="position-relative">
+                                                <input class="form-control @error('image') is-invalid @enderror"
+                                                    type="file" id="image-1" name="images[]" accept="image/*" required>
+                                                <button type="button"
+                                                    class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-image-btn"
+                                                    style="display: none;" onclick="removeImageRow('imageUploadRow-1')">
+                                                    &times;
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <input class="form-control @error('image') is-invalid @enderror" type="file"
-                                            id="image" name="image" accept="image/*" required>
-                                    </div>
-                                    <div class="form-text">Direkomendasikan menggunakan gambar berukuran 1920x1080.</div>
-                                    @error('image')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
                                 </div>
+
+                                <div class="mb-3">
+                                    <button type="button" class="btn btn-primary btn-sm" id="addImageButton">Tambah
+                                        Gambar</button>
+                                </div>
+
+                                <div class="form-text">Direkomendasikan menggunakan gambar berukuran 1920x1080.</div>
+                                @error('image')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
@@ -206,25 +216,13 @@
                         <div class="card-body">
 
                             <div class="col-sm-12">
-                                <label for="lowest_price" class="form-label">Harga Terendah <span
+                                <label for="price" class="form-label">Harga Mulai dari <span
                                         class="text-danger">*</span></label>
                             </div>
                             <div class="col-sm-12 mb-3">
-                                <input type="text" class="form-control @error('lowest_price') is-invalid @enderror"
-                                    id="lowest_price" name="lowest_price" placeholder="Rp. xxx.xxx" required>
-                                @error('lowest_price')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="col-sm-12">
-                                <label for="highest_price" class="form-label">Harga Tertinggi <span
-                                        class="text-danger">*</span></label>
-                            </div>
-                            <div class="col-sm-12 mb-3">
-                                <input type="text" class="form-control @error('highest_price') is-invalid @enderror"
-                                    id="highest_price" name="highest_price" placeholder="Rp. xxx.xxx" required>
-                                @error('highest_price')
+                                <input type="text" class="form-control @error('price') is-invalid @enderror"
+                                    id="price" name="price" placeholder="Rp. xxx.xxx" required>
+                                @error('price')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -315,12 +313,53 @@
             return prefix === undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
         }
 
-        document.getElementById('lowest_price').addEventListener('keyup', function(e) {
+        document.getElementById('price').addEventListener('keyup', function(e) {
             this.value = formatRupiah(this.value, 'Rp. ');
+        });
+    </script>
+    <script>
+        let imageCounter = 1;
+
+        document.getElementById('addImageButton').addEventListener('click', function() {
+            imageCounter++;
+
+            const newRow = document.createElement('div');
+            newRow.classList.add('row', 'align-items-center', 'mb-3');
+            newRow.id = `imageUploadRow-${imageCounter}`;
+
+            newRow.innerHTML = `
+        <div class="col-sm-4">
+            <label for="image-${imageCounter}" class="form-label">Gambar ${imageCounter}<span class="text-danger">*</span></label>
+        </div>
+        <div class="col-sm-8">
+            <div class="position-relative">
+                <input 
+                    class="form-control" 
+                    type="file" 
+                    id="image-${imageCounter}" 
+                    name="images[]" 
+                    accept="image/*" 
+                    required
+                >
+                <button 
+                    type="button" 
+                    class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-image-btn" 
+                    onclick="removeImageRow('imageUploadRow-${imageCounter}')"
+                >
+                    &times;
+                </button>
+            </div>
+        </div>
+    `;
+
+            document.getElementById('imageUploadContainer').appendChild(newRow);
         });
 
-        document.getElementById('highest_price').addEventListener('keyup', function(e) {
-            this.value = formatRupiah(this.value, 'Rp. ');
-        });
+        function removeImageRow(rowId) {
+            const row = document.getElementById(rowId);
+            if (row) {
+                row.remove();
+            }
+        }
     </script>
 @endpush

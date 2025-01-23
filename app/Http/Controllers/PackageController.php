@@ -26,12 +26,15 @@ class PackageController extends Controller
             ->addColumn('action', function ($data) {
                 return '<div class="btn-group"><a href="' . route('admin.package.edit', $data->id) . '" class="btn btn-sm btn-warning"><i data-feather="edit"></i></a><button class="btn btn-sm btn-danger" onclick="deleteRow(`' . route('admin.package.delete', $data->id) . '`)"><i data-feather="trash-2"></i></button></div>';
             })
-            ->editColumn('range', function ($data) {
-                return 'Rp. ' . number_format($data->lowest_price, 0, ',', '.') . ' - Rp. ' . number_format($data->highest_price, 0, ',', '.');
+            ->editColumn('price', function ($data) {
+                return 'Rp. ' . number_format($data->price, 0, ',', '.');
             })
             ->editColumn('image', function ($data) {
-                return '<img src="' . asset('images/packages/' . $data->image) . '" alt="' . e($data->title) . '" style="max-height: 150px; max-width: 150px;">';
+                $images = explode(';', $data->image);
+                $firstImage = $images[0];
+                return '<img src="' . asset('images/packages/' . $firstImage) . '" alt="' . e($data->title) . '" style="max-height: 150px; max-width: 150px;">';
             })
+
             ->rawColumns(['action', 'image'])
             ->make(true);
     }
@@ -45,24 +48,31 @@ class PackageController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        if ($request->hasFile('image')) {
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images/packages'), $imageName);
+        $images = $request->file('images');
+        $imageNames = [];
+
+        if ($images && count($images) > 0) {
+            foreach ($images as $image) {
+                $filename = time() . '-' . $image->getClientOriginalName();
+                $destinationPath = public_path('images/packages');
+                $image->move($destinationPath, $filename);
+                $imageNames[] = $filename;
+            }
         }
 
-        $lowestPrice = str_replace('.', '', str_replace('Rp. ', '', $request->input('lowest_price')));
-        $highestPrice = str_replace('.', '', str_replace('Rp. ', '', $request->input('highest_price')));
+        // Combine filenames into a single string
+        $imagesString = implode(';', $imageNames);
+
+        $price = str_replace('.', '', str_replace('Rp. ', '', $request->input('price')));
 
         $data = new Package();
         $data->title = $request->input('title');
         $data->slug = Str::slug($request->input('title'));
-        $data->image = $imageName ?? null;
+        $data->image = $imagesString;
         $data->description = $request->input('content');
-        $data->lowest_price = (int) $lowestPrice;
-        $data->highest_price = (int) $highestPrice;
+        $data->price = (int) $price;
 
         $data->save();
 
@@ -79,42 +89,58 @@ class PackageController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'title' => 'required|string|max:255'
         ]);
 
-        $blog = Package::where('id', $id)->first();
+        $package = Package::where('id', $id)->first();
+        $existingImages = explode(';', $package->images);
+        $newImageNames = [];
 
-        if ($request->hasFile('image')) {
-            if ($blog->image && file_exists(public_path('images/packages/' . $blog->image))) {
-                unlink(public_path('images/packages/' . $blog->image));
+        if ($request->hasFile('images')) {
+            $uploadedImages = $request->file('images');
+
+            if (!is_array($uploadedImages)) {
+                $uploadedImages = [$uploadedImages];
             }
 
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images/packages'), $imageName);
-            $blog->image = $imageName;
+            foreach ($uploadedImages as $image) {
+                $filename = time() . '-' . uniqid() . '-' . $image->getClientOriginalName();
+                $destinationPath = public_path('images/packages');
+                $image->move($destinationPath, $filename);
+                $newImageNames[] = $filename;
+            }
         }
 
-        $blog->title = $request->input('title');
-        $blog->slug = Str::slug($request->input('title'));
-        $blog->content = $request->input('content');
-        $blog->tags = implode(', ', $request->input('tags'));
-        $blog->status = $request->input('status') ? 'Aktif' : 'Tidak Aktif';
+        $removedImages = $request->input('removed_images', []); // Array of filenames to remove
+        $existingImages = array_filter($existingImages, function ($image) use ($removedImages) {
+            return !in_array($image, $removedImages) && !empty($image);
+        });
 
-        $blog->save();
+        $finalImages = array_merge($existingImages, $newImageNames);
+        $finalImages = array_filter($finalImages);
+
+        $price = str_replace('.', '', str_replace('Rp. ', '', $request->input('price')));
+
+        $package->title = $request->input('title');
+        $package->slug = Str::slug($request->input('title'));
+        $package->description = $request->input('content');
+        $package->price = (int) $price;
+        $package->image = implode(';', $finalImages);
+
+        $package->save();
 
         return redirect()->route('admin.package.index')->with('success', 'Paket berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
-        $blog = Package::where('id', $id)->first();
+        $package = Package::where('id', $id)->first();
 
-        if ($blog->image && file_exists(public_path('images/packages/' . $blog->image))) {
-            unlink(public_path('images/packages/' . $blog->image));
-        }
+        // if ($blog->image && file_exists(public_path('images/packages/' . $package->image))) {
+        //     package(public_path('images/packages/' . $package->image));
+        // }
 
-        $blog->delete();
+        $package->delete();
 
         return response()->json(['warning' => 'Paket berhasil dihapus.']);
     }

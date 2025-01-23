@@ -17,8 +17,7 @@ return new class extends Migration
             $table->string('slug')->nullable();
             $table->longText('description')->nullable();
             $table->longText('image')->nullable();
-            $table->bigInteger('lowest_price')->nullable();
-            $table->bigInteger('highest_price')->nullable();
+            $table->bigInteger('price')->nullable();
             $table->timestamps();
         });
     }

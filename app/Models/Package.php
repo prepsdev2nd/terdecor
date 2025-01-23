@@ -21,8 +21,7 @@ class Package extends Model
         'title',
         'slug',
         'description',
-        'lowest_price',
-        'highest_price',
+        'price',
         'image',
     ];
 }

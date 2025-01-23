@@ -1,7 +1,7 @@
 @extends('app')
 
 @push('page-title')
-    Ubah Blog
+    Ubah Package
 @endpush
 
 @push('page-styles')
@@ -81,17 +81,17 @@
             <div class="page-header-content pt-4">
                 <div class="row align-items-center justify-content-between">
                     <div class="col-auto mt-4">
-                        <h1 class="mb-0">Ubah Blog</h1>
+                        <h1 class="mb-0">Ubah Package</h1>
                         <div class="small text-dark mt-2">
                             <a href="{{ route('admin.dashboard') }}" class="fw-500 text-dark"><i data-feather="home"></i>
                                 Beranda </a>
                             /
-                            <a href="{{ route('admin.blog.index') }}" class="fw-500 text-dark"> Blog </a>
+                            <a href="{{ route('admin.package.index') }}" class="fw-500 text-dark"> Package </a>
                             / Ubah
                         </div>
                     </div>
                     <div class="col-12 col-xl-auto mt-4">
-                        <a href="{{ route('admin.blog.index') }}" class="btn btn-danger">Kembali</a>
+                        <a href="{{ route('admin.package.index') }}" class="btn btn-danger">Kembali</a>
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
     <!-- Main page content-->
     <div class="container-xl px-4 mt-n10">
         <!-- Style Reference-->
-        <form class="row" id="blog" action="{{ route('admin.blog.update', $data->id) }}" method="POST"
+        <form class="row" id="blog" action="{{ route('admin.package.update', $data->id) }}" method="POST"
             enctype="multipart/form-data">
             @csrf
             <div class="col-lg-9">
@@ -109,58 +109,71 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-4 mb-3">
-                                    <label for="title" class="form-label">Judul Blog<span
+                                    <label for="title" class="form-label">Judul Paket<span
                                             class="text-danger">*</span></label>
                                 </div>
                                 <div class="col-sm-8 mb-3">
                                     <input type="text" class="form-control @error('title') is-invalid @enderror"
-                                        id="title" name="title" placeholder="Judul Blog" value="{{ $data->title }}"
+                                        id="title" name="title" placeholder="Judul Paket" value="{{ $data->title }}"
                                         required>
                                     @error('title')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="col-sm-4 mb-3">
-                                    <label for="image" class="form-label">Sampul Blog (Opsional)</label>
+                                    <label for="image" class="form-label">Gambar Paket<span
+                                            class="text-danger">*</span></label>
                                 </div>
                                 <div class="col-sm-8 mb-3">
-                                    <div class="row m-0 p-2 bg-light text-center"
+                                    <div class="row m-0 p-2 bg-light text-start align-items-start"
                                         style="width: 100%;height: auto; border: 1px dashed #ccc; padding: 5px; border-radius: 4px;background-color:#f2f6fc">
-                                        <p class="mb-0">Pratinjau Sampul Blog</p>
-                                        <div class="col-6 p-1">
-                                            <div class="rounded bg-white p-2" style="border: 1px dashed #ccc;"
-                                                style="height: 150px">
-                                                <div class="d-flex" style="height: 130px">
-                                                    <img src="{{ asset('images/blogs/' . $data->image) }}"
-                                                        alt="Gambar Sampul {{ $data->name }}" class="mx-auto my-auto"
-                                                        style="max-height: 120px; max-width: 160px;">
-                                                </div>
-                                                <p class="mb-0">Sampul Sebelumnya</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 p-1">
-                                            <div class="rounded bg-white p-2" style="border: 1px dashed #ccc;">
-                                                <div class="d-flex" style="height: 130px">
-                                                    <img id="imagePreview" class="mx-auto my-auto"
-                                                        style="max-height: 120px; max-width: 160px;">
-                                                </div>
-                                                <p class="mb-0">Pratinjau Sampul Baru</p>
+                                        <p class="mb-2">Pratinjau Gambar</p>
+
+                                        @php
+                                            // Split the image string into an array
+                                            $images = explode(';', $data->image);
+                                        @endphp
+
+                                        <div id="imageContainer" class="d-flex flex-wrap">
+                                            <div class="row">
+                                                @foreach ($images as $index => $image)
+                                                    <div class="col-6">
+                                                        <div class="image-item me-2 mb-2" data-index="{{ $index }}">
+                                                            <div class="rounded bg-white p-2"
+                                                                style="border: 1px dashed #ccc; height: 150px;">
+                                                                <div class="d-flex" style="height: 130px;">
+                                                                    <img id="existingImagePreview{{ $index }}"
+                                                                        src="{{ asset('images/packages/' . $image) }}"
+                                                                        alt="Gambar {{ $index + 1 }}"
+                                                                        class="mx-auto my-auto"
+                                                                        style="max-height: 120px; max-width: 160px;">
+                                                                </div>
+                                                                <p class="text-center small">Gambar {{ $index + 1 }}</p>
+                                                            </div>
+                                                            <div class="mt-2 d-flex justify-content-between">
+                                                                <input class="form-control form-control-sm" type="file"
+                                                                    id="image{{ $index }}"
+                                                                    name="images[{{ $index }}]" accept="image/*"
+                                                                    multiple>
+                                                                <button type="button"
+                                                                    class="btn btn-danger btn-sm remove-image"
+                                                                    data-index="{{ $index }}">Hapus</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="mt-3">
-                                        <input class="form-control @error('image') is-invalid @enderror" type="file"
-                                            id="image" name="image" accept="image/*">
+                                    <div class="mt-3 d-flex justify-content-between">
+                                        <button id="addImageField" type="button" class="btn btn-success btn-sm">Tambah
+                                            Gambar</button>
                                     </div>
                                     <div class="form-text">Direkomendasikan menggunakan gambar berukuran 1920x1080.</div>
-                                    @error('image')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
                                 </div>
                             </div>
-
                             <div class="mb-3">
-                                <label for="content" class="form-label">Konten Blog<span
+                                <label for="content" class="form-label">Konten Paket<span
                                         class="text-danger">*</span></label>
                                 <input name="content" type="hidden">
                                 <div id="toolbar-container">
@@ -209,7 +222,7 @@
                                     </span>
                                 </div>
                                 <div id="editor" style="min-height: 100px;">
-                                    {!! $data->content !!}
+                                    {!! $data->description !!}
                                 </div>
                                 @error('content')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -218,7 +231,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             <!-- Sticky Nav-->
             <div class="col-lg-3">
@@ -226,27 +238,15 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <div class="mb-3">
-                                <label for="tags" class="form-label">Tagar<span class="text-danger">*</span></label>
-                                <select class="form-control @error('tags') is-invalid @enderror" id="tags"
-                                    name="tags[]" multiple="multiple" required>
-                                    @foreach (explode(', ', $data->tags) as $tag)
-                                        <option value="{{ $tag }}" selected>{{ $tag }}</option>
-                                    @endforeach
-                                </select>
-                                @error('tags')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                            <div class="col-sm-12">
+                                <label for="price" class="form-label">Harga Mulai dari <span
+                                        class="text-danger">*</span></label>
                             </div>
-
-                            <div class="mb-3">
-                                <div class="form-label">Status</div>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="status-switch"
-                                        name="status" {{ $data->status == 'Aktif' ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="status-switch">Publikasikan</label>
-                                </div>
-                                @error('status')
+                            <div class="col-sm-12 mb-3">
+                                <input type="text" class="form-control @error('price') is-invalid @enderror"
+                                    id="price" name="price" placeholder="Rp. xxx.xxx" value="{{ $data->price }}"
+                                    required>
+                                @error('price')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -292,63 +292,107 @@
             var content = document.querySelector('input[name=content]');
             content.value = quill.root.innerHTML;
         };
-
-        document.getElementById('status-switch').addEventListener('change', function() {
-            const statusLabel = document.getElementById('status-label');
-            statusLabel.textContent = this.checked ? 'Aktif' : 'Tidak Aktif';
-        });
     </script>
-
     <script>
-        document.getElementById('image').addEventListener('change', function(event) {
-            const fileInput = event.target;
-            const imagePreview = document.getElementById('imagePreview');
-            const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+        function formatRupiah(angka, prefix) {
+            // Ensure the input is a string
+            let number_string = angka.toString().replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
 
-            // Check if a file is selected
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
+            if (ribuan) {
+                let separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
 
-                // Load the image and show the preview
-                reader.onload = function(e) {
-                    imagePreview.src = e.target.result; // Update the image src to the new file
-                    imagePreview.style.display = 'block'; // Ensure the preview is visible
-                    imagePreviewContainer.style.display = 'block'; // Ensure the preview is visible
-                };
+            rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix === undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+        }
 
-                reader.readAsDataURL(fileInput.files[0]);
+        document.getElementById('price').addEventListener('keyup', function(e) {
+            this.value = formatRupiah(this.value, 'Rp. ');
+        });
+
+        // Format the value when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const priceInput = document.getElementById('price');
+            if (priceInput.value) {
+                priceInput.value = formatRupiah(priceInput.value, 'Rp. ');
             }
         });
     </script>
 
+
     <script>
-        $(document).ready(function() {
-            $('#labels').select2({
-                placeholder: "Pilih Satu atau Beberapa",
-                tokenSeparators: [',']
+        document.getElementById('addImageField').addEventListener('click', function() {
+            const container = document.getElementById('imageContainer');
+            const count = container.querySelectorAll('.image-item').length;
+
+            const newField = document.createElement('div');
+            newField.classList.add('col-6');
+            newField.setAttribute('data-index', count);
+            newField.innerHTML = `
+            <div class="image-item me-2 mb-2">
+                <div class="rounded bg-white p-2" style="border: 1px dashed #ccc; height: 150px;">
+                    <div class="d-flex" style="height: 130px;">
+                        <img id="newImagePreview${count}" src="#" alt="Pratinjau ${count + 1}" 
+                            class="mx-auto my-auto" style="max-height: 120px; max-width: 160px; display: none;">
+                    </div>
+                    <p class="text-center small">Gambar ${count + 1}</p>
+                </div>
+                <div class="mt-2 d-flex justify-content-between">
+                    <input class="form-control form-control-sm" type="file" id="newImage${count}" 
+                        name="images[new][${count}]" accept="image/*">
+                    <button type="button" class="btn btn-danger btn-sm remove-image" data-index="${count}">Hapus</button>
+                </div>
+            </div>
+            `;
+            container.appendChild(newField);
+
+            // Add event listener for previewing the new image
+            const fileInput = newField.querySelector(`#newImage${count}`);
+            const preview = newField.querySelector(`#newImagePreview${count}`);
+            fileInput.addEventListener('change', function() {
+                if (fileInput.files && fileInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(fileInput.files[0]);
+                }
             });
 
-            $('#tags').select2({
-                placeholder: "Ketik Apa Saja",
-                tags: true,
-                tokenSeparators: [','],
-                ajax: {
-                    url: "{{ route('admin.blog.getTags') }}",
-                    dataType: 'json',
-                    delay: 250,
-                    data: function(params) {
-                        return {
-                            q: params.term // Search term
-                        };
-                    },
-                    processResults: function(data) {
-                        console.log("Data returned from server:", data); // Log data for debugging
-                        return {
-                            results: data
-                        };
-                    },
-                    cache: true
+            // Add remove functionality
+            newField.querySelector('.remove-image').addEventListener('click', function() {
+                newField.remove();
+            });
+        });
+
+        // Add preview functionality for existing images
+        document.querySelectorAll('.image-item input[type="file"]').forEach(function(fileInput) {
+            const index = fileInput.id.match(/\d+/)[0]; // Extract index from id
+            const preview = document.getElementById(`existingImagePreview${index}`);
+
+            fileInput.addEventListener('change', function() {
+                if (fileInput.files && fileInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                    };
+                    reader.readAsDataURL(fileInput.files[0]);
                 }
+            });
+        });
+
+        // Remove existing image fields
+        document.querySelectorAll('.remove-image').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const index = button.getAttribute('data-index');
+                const imageItem = document.querySelector(`.image-item[data-index="${index}"]`);
+                imageItem.remove();
             });
         });
     </script>
