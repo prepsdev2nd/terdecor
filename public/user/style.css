@@ -161,7 +161,7 @@ i:hover {
   color: var(----body-text-color);
 }
 
-.text-main{
+.text-main {
   color: var(--accent-color);
 }
 
@@ -199,17 +199,107 @@ i:hover {
   width: 100%;
 }
 
+.form-container {
+  max-width: 400px;
+  background: linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(145deg, transparent 35%, #ffb48f, #ffb48f, #ffb48f) border-box;
+  border: 2px solid transparent;
+  padding: 32px 24px;
+  font-size: 14px;
+  font-family: inherit;
+  color: white;
+  gap: 20px;
+  box-sizing: border-box;
+  border-radius: 16px;
+}
+
+.form-container button:active {
+  scale: 0.95;
+}
+
+.form-container .form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-container .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.form-container .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #212121;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.form-container .form-group input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  color: #212121;
+  font-family: inherit;
+  background-color: transparent;
+  border: 1px solid #414141;
+}
+
+.form-container .form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  resize: none;
+  color: #212121;
+  height: 96px;
+  border: 1px solid #414141;
+  background-color: transparent;
+  font-family: inherit;
+}
+
+.form-container .form-group input::placeholder {
+  opacity: 0.5;
+}
+
+.form-container .form-group input:focus {
+  outline: none;
+  border-color: #ffb48f;
+}
+
+.form-container .form-group textarea:focus {
+  outline: none;
+  border-color: #ffb48f;
+}
+
+.form-container .form-submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  font-family: inherit;
+  color: #717171;
+  font-weight: 600;
+  width: 40%;
+  background: #313131;
+  border: 1px solid #414141;
+  padding: 12px 16px;
+  font-size: inherit;
+  gap: 8px;
+  margin-top: 8px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.form-container .form-submit-btn:hover {
+  background-color: #fff;
+  border-color: #fff;
+}
+
 /* login form  */
 a.password:hover {
   color: var(--link-color);
-}
-
-.form-control:focus {
-  color: #212529;
-  background-color: #fff;
-  border-color: var(--dark-color);
-  outline: 0;
-  box-shadow: 0 0 0 0.25rem #ffffffea;
 }
 
 .bg-dark {
@@ -243,17 +333,6 @@ a.nav-link.dropdown-toggle {
 /*---- billboard section start ----  */
 .row.billboard-row {
   display: flex;
-}
-
-.form-select {
-  border: 1px solid transparent;
-  border-radius: none;
-}
-
-.form-select:focus {
-  border-color: transparent;
-  outline: 0;
-  box-shadow: 0 0 0 0.25rem transparent;
 }
 
 .billboard-select {
@@ -303,6 +382,13 @@ button.btn.btn-primary.btn-lg.billboard-search {
 
 
 /*---- residence section start ----  */
+.carousel-item img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border: 3px solid #c79677;
+  padding: 5px;
+}
 
 .card {
   --bs-card-border-width: none;
@@ -599,11 +685,6 @@ iconify-icon.quote {
 /*--------------------------------------------------------------
 Properties page style start
 --------------------------------------------------------------*/
-
-.form-check-input:checked {
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
-}
 
 /* price slider style  */
 .price-input {

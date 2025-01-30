@@ -36,11 +36,6 @@
             text-align: center;
             text-transform: capitalize;
         }
-
-        .carousel-inner img {
-            border: 3px solid #c79677;
-            padding: 5px;
-        }
     </style>
 </head>
 
@@ -202,7 +197,7 @@
 
     <!-- billboard start  -->
     <section id="billboard">
-        <div class="container ">
+        <div class="container">
             <div class="row flex-lg-row-reverse align-items-center ">
 
                 <div class="col-lg-6">
@@ -247,8 +242,6 @@
                                         class="btn btn-primary btn-lg billboard-search">Search</button>
                                 </div>
                             </div>
-
-
                         </div>
                     </nav>
                 </div>
@@ -256,141 +249,101 @@
         </div>
     </section>
 
-    <section id="package" class="py-5"
-        style="background: linear-gradient(270deg, #c79677 0.01%, rgba(26, 36, 47, 0.00) 100%);">
-        <div class="container-lg my-5">
+    <section id="banner" class="py-3">
+        <div class="container-fluid px-lg-5">
+            <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
+                <!-- Indicators (Optional) -->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                </div>
 
-            <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-                <div class="col">
-                    <div class="card mb-4 rounded-3 shadow-sm">
-                        <div class="card-header py-3">
-                            <h4 class="my-0 fw-bold title">Paket Pertama</h4>
-                        </div>
-                        <div class="card-body">
-                            <div id="carouselExampleControls1" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img src="{{ asset('user/images/caro1.JPG') }}"
-                                            class="d-block w-100 border rounded" alt="Image 1">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="{{ asset('user/images/caro2.JPG') }}"
-                                            class="d-block w-100 border rounded" alt="Image 1">
-                                    </div>
-                                </div>
-                                <button class="carousel-control-prev" type="button"
-                                    data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button"
-                                    data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>
-                            <ul class="list-unstyled mt-3 mb-4">
-                                <li>Ruang Tengah</li>
-                                <li>2 Kamar Tidur</li>
-                                <li>Material Kayu</li>
-                                <li>Aestethic</li>
-                            </ul>
-                            <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">mulai
-                                    dari</small><br> Rp 1.999.999
-                            </h1>
-                            <button type="button" class="w-100 btn btn-lg btn-primary">Hubungi Kami</button>
-                        </div>
+                <!-- Carousel Images -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://placehold.co/250x120" class="d-block w-100" alt="Banner 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://placehold.co/300x120" class="d-block w-100" alt="Banner 2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://placehold.co/300x120" class="d-block w-100" alt="Banner 3">
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card mb-4 rounded-3 shadow-sm">
-                        <div class="card-header py-3">
-                            <h4 class="my-0 fw-bold title">Paket Kedua</h4>
-                        </div>
-                        <div class="card-body">
-                            <div id="carouselExampleControls2" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img src="{{ asset('user/images/caro1.JPG') }}"
-                                            class="d-block w-100 border rounded" alt="Image 1">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="{{ asset('user/images/caro2.JPG') }}"
-                                            class="d-block w-100 border rounded" alt="Image 1">
-                                    </div>
-                                </div>
-                                <button class="carousel-control-prev" type="button"
-                                    data-bs-target="#carouselExampleControls2" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button"
-                                    data-bs-target="#carouselExampleControls2" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>
-                            <ul class="list-unstyled mt-3 mb-4">
-                                <li>Ruang Tengah</li>
-                                <li>2 Kamar Tidur</li>
-                                <li>Material Kayu</li>
-                                <li>Aestethic</li>
-                            </ul>
-                            <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">mulai
-                                    dari</small><br> Rp 1.999.999
-                            </h1>
-                            <button type="button" class="w-100 btn btn-lg btn-primary">Hubungi Kami</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card mb-4 rounded-3 shadow-sm">
-                        <div class="card-header py-3">
-                            <h4 class="my-0 fw-bold title">Paket Ketiga</h4>
-                        </div>
-                        <div class="card-body">
-                            <div id="carouselExampleControls3" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img src="{{ asset('user/images/caro1.JPG') }}"
-                                            class="d-block w-100 border rounded" alt="Image 1">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="{{ asset('user/images/caro2.JPG') }}"
-                                            class="d-block w-100 border rounded" alt="Image 1">
-                                    </div>
-                                </div>
-                                <button class="carousel-control-prev" type="button"
-                                    data-bs-target="#carouselExampleControls3" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button"
-                                    data-bs-target="#carouselExampleControls3" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>
-                            <ul class="list-unstyled mt-3 mb-4">
-                                <li>Ruang Tengah</li>
-                                <li>2 Kamar Tidur</li>
-                                <li>Material Kayu</li>
-                                <li>Aestethic</li>
-                            </ul>
-                            <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">mulai
-                                    dari</small><br> Rp 1.999.999
-                            </h1>
-                            <button type="button" class="w-100 btn btn-lg btn-primary">Hubungi Kami</button>
-                        </div>
-                    </div>
-                </div>
+
+                <!-- Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
-
         </div>
     </section>
 
-    <section id="design">
-        <div class="container  my-5 py-5">
+    <section id="package" class="py-3">
+        <div class="container-lg">
+            <h2 class="m-0 py-lg-5 title">Paket Unggulan</h2>
+            <div class="row row-cols-1 row-cols-md-3 mb-3 text-center justify-content-center">
+                @foreach ($package as $row)
+                    <div class="col d-flex justify-content-center">
+                        <div class="card mb-4 rounded-3 shadow-sm h-100">
+                            <div class="card-header py-3">
+                                <h4 class="my-0 fw-bold title">{{ $row->title }}</h4>
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <!-- Added justify-content-between -->
+                                <div id="carouselExampleControls2" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            <img src="{{ asset('user/images/caro1.JPG') }}"
+                                                class="d-block w-100 border rounded" alt="Image 1">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img src="{{ asset('user/images/caro2.JPG') }}"
+                                                class="d-block w-100 border rounded" alt="Image 1">
+                                        </div>
+                                    </div>
+                                    <button class="carousel-control-prev" type="button"
+                                        data-bs-target="#carouselExampleControls2" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button"
+                                        data-bs-target="#carouselExampleControls2" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                                <p class="mt-2 fw-bold">Daftar yang kamu dapatkan:</p>
+                                <ul style="list-unstyled">
+                                    {!! $row->description !!}
+                                </ul>
+                                <div class="mt-auto">
+                                    <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">mulai
+                                            dari</small><br> Rp 1.999.999</h1>
+                                    <button type="button" class="w-100 btn btn-lg btn-primary rounded">Hubungi
+                                        Kami</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <section id="design" class="py-3">
+        <div class="container my-5">
             <h2 class="m-0 py-lg-5 title">Desain Interior</h2>
 
             <div class="swiper-button-next residence-swiper-next  residence-arrow"></div>
@@ -484,13 +437,13 @@
         </div>
     </section>
 
-    <section id="help" class="py-5"
+    <section id="help" class="py-3"
         style="background: linear-gradient(270deg, #c79677 0.01%, rgba(26, 36, 47, 0.00) 100%);">
         <div class="container-lg my-5">
 
             <div class="row d-flex justify-content-between align-items-center">
 
-                <div class="col-md-3">
+                <div class="col-md-3 d-none d-sm-block">
                     <div class="image-holder d-flex">
                         <img src="{{ asset('user/images/cta-2.jpg') }}" class="img-fluid" alt="Bootstrap Themes"
                             loading="lazy">
@@ -508,7 +461,7 @@
                         <h2 class="text-capitalize">Kami Siap Membuat Rumah Idamanmu</h2>
                         <p>Dari ide jadi realita! Wujudkan Interior yang Menginspirasi. Gak perlu bingung lagi, kami
                             hadir dengan solusi desain interior yang personal, fungsional, dan instagramable!</p>
-                        <a href="index.html" class="btn btn-primary btn-lg">Hubungi Kami</a>
+                        <a href="index.html" class="btn btn-primary btn-lg rounded">Hubungi Kami</a>
                     </div>
                 </div>
 
@@ -518,7 +471,7 @@
     </section>
 
     <!--About us start  -->
-    <section id="about-us">
+    <section id="about-us" class="py-3">
         <div class="container">
             <div class="row py-lg-5">
 
@@ -549,8 +502,9 @@
     </section>
 
     <!-- Lets start  -->
-    <section id="start" style="background: linear-gradient(270deg, #c79677 0.01%, rgba(26, 36, 47, 0.00) 100%);">
-        <div class="container my-5 py-5">
+    <section id="start" class="py-3"
+        style="background: linear-gradient(270deg, #c79677 0.01%, rgba(26, 36, 47, 0.00) 100%);">
+        <div class="container my-5">
             <div class="row featurette py-lg-5 ">
                 <div class="col-md-5 order-md-1 d-flex">
                     <h1 class=" lh-1 mb-3">Ciptakan Rumah Idamanmu Bersama terdecor.id</h1>
@@ -560,7 +514,7 @@
                         <p class="py-lg-2">Langkah pertama menuju rumah impian dimulai dari sini. Klik untuk mulai
                             sekarang dan nikmati pengalaman desain terbaik!</p>
                         <a href="https://wa.me/6281224377189?text=Aku%20mau%20tanya" target="_blank"
-                            class="btn btn-primary btn-lg px-4 me-md-2">Hubungi Kami</a>
+                            class="btn btn-primary btn-lg px-4 me-md-2 rounded">Hubungi Kami</a>
                     </div>
                 </div>
             </div>
@@ -614,9 +568,38 @@
     <section id="complaint" style="background: linear-gradient(270deg, #c79677 0.01%, rgba(26, 36, 47, 0.00) 100%);">
         <div class="container my-5 py-5">
             <h2 class="text-center title">Kritik dan Saran</h2>
-            <div class="card">
-                <div class="card-body">
-                    <form class="row justify-content-center" id="testimony"
+            <div class="d-flex justify-content-center align-items-center my-5">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-container">
+                            <form class="form" action="{{ route('complaintuser.store') }}" method="POST">
+                                <div class="form-group">
+                                    @csrf
+                                    <label for="email">Nama</label>
+                                    <input type="text" class="@error('name') is-invalid @enderror mx-auto"
+                                        id="name" name="name" autocomplete="off" required>
+                                    @error('name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="textarea">Deskripsi</label>
+                                    <textarea class="@error('description') is-invalid @enderror mx-auto" id="description" name="description"
+                                        rows="10" cols="50" required></textarea>
+                                    @error('description')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <button class="btn btn-primary btn-lg px-5 rounded" type="submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div> <!-- end card-body -->
+            </div> <!-- end card-->
+        </div>
+    </section>
+    {{-- <form class="row justify-content-center" id="testimony"
                         action="{{ route('complaint.userstore') }}" method="POST">
                         @csrf
                         <!-- Name Input -->
@@ -643,13 +626,7 @@
                         <div class="col-12 text-center mt-3">
                             <button type="submit" class="btn btn-primary btn-lg px-5">Kirim</button>
                         </div>
-                    </form>
-
-                </div> <!-- end card-body -->
-            </div> <!-- end card-->
-        </div>
-    </section>
-
+                    </form> --}}
     <!-- Footer start  -->
     <section id="footer">
         <div class="container footer-container">

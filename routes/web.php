@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ComplaintController;
+use App\Http\Controllers\ComplaintUserController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DesignController;
@@ -19,7 +20,7 @@ Route::post('/survey', [SurveyController::class, 'store'])->name('survey.store')
 Route::get('/testapi', [SurveyController::class, 'testapi'])->name('survey.testapi');
 Route::get('/testimony', [TestimonyController::class, 'form'])->name('testimony.form');
 Route::post('/testimony', [TestimonyController::class, 'userstore'])->name('testimonyuser.store');
-Route::post('/complaint', [ComplaintController::class, 'userstore'])->name('complaint.userstore');
+Route::post('/complaint', [ComplaintUserController::class, 'store'])->name('complaintuser.store');
 
 Route::get('/api/provinces', function () {
     try {
