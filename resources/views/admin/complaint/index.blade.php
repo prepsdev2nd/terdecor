@@ -31,6 +31,7 @@
                             <th width="50">#</th>
                             <th width="100">Nama</th>
                             <th width="300">Teks</th>
+                            <th width="200">No Handphone</th>
                             <th width="100">Aksi</th>
                         </tr>
                     </thead>
@@ -63,6 +64,10 @@
                     {
                         data: 'name',
                         name: 'name'
+                    },
+                    {
+                        data: 'phone',
+                        name: 'phone'
                     },
                     {
                         data: 'description',

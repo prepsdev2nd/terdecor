@@ -119,6 +119,46 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                <div class="col-sm-4 mb-3">
+                                    <label for="description" class="form-label">Deskripsi<span
+                                            class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-sm-8 mb-3">
+                                    <textarea class="form-control" id="description" name="description" placeholder="Deskripsi singkat" rows="5"
+                                        required></textarea>
+                                </div>
+                                <div id="imageUploadContainer">
+                                    <div class="row align-items-center mb-3" id="imageUploadRow-1">
+                                        <div class="col-sm-4">
+                                            <label for="image-1" class="form-label">Gambar 1<span
+                                                    class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="position-relative">
+                                                <input class="form-control @error('image') is-invalid @enderror"
+                                                    type="file" id="image-1" name="images[]" accept="image/*" required>
+                                                <button type="button"
+                                                    class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-image-btn"
+                                                    style="display: none;" onclick="removeImageRow('imageUploadRow-1')">
+                                                    &times;
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="videoUploadContainer"></div>
+                                <div class="mb-3 text-end">
+                                    <button type="button" class="btn btn-primary btn-sm" id="addImageButton">Tambah
+                                        Gambar</button>
+                                    <button type="button" class="btn btn-success btn-sm" id="addVideoButton">Tambah
+                                        Video</button>
+                                </div>
+
+                                <div class="form-text mb-3 text-end">Direkomendasikan menggunakan gambar berukuran
+                                    1920x1080.</div>
+                                @error('image')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
@@ -176,99 +216,6 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="row">
-                                <div class="col-sm-4 mb-3">
-                                    <label for="pic1" class="form-label">Gambar 1<span
-                                            class="text-danger">*</span></label>
-                                </div>
-                                <div class="col-sm-8 mb-3">
-                                    <div id="imagePreviewContainer1" class="bg-light text-center mb-3"
-                                        style="width: 100%;height: auto; border: 1px dashed #ccc; padding: 5px; border-radius: 4px;background-color:#f2f6fc;display:none;">
-                                        <p class="mb-2">Pratinjau Gambar 1</p>
-                                        <img id="imagePreview1" class="mx-auto" style="width:100%;max-width:auto;">
-                                    </div>
-                                    <div>
-                                        <input class="form-control @error('pic1') is-invalid @enderror" type="file"
-                                            id="pic1" name="pic1" accept="image/*" required>
-                                    </div>
-                                    <div class="form-text">Direkomendasikan menggunakan gambar berukuran 1920x1080.</div>
-                                    @error('pic1')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-4 mb-3">
-                                    <label for="pic2" class="form-label">Gambar 2</label>
-                                </div>
-                                <div class="col-sm-8 mb-3">
-                                    <div id="imagePreviewContainer2" class="bg-light text-center mb-3"
-                                        style="width: 100%;height: auto; border: 1px dashed #ccc; padding: 5px; border-radius: 4px;background-color:#f2f6fc;display:none;">
-                                        <p class="mb-2">Pratinjau Gambar 2</p>
-                                        <img id="imagePreview2" class="mx-auto" style="width:100%;max-width:auto;">
-                                    </div>
-                                    <div>
-                                        <input class="form-control @error('pic2') is-invalid @enderror" type="file"
-                                            id="pic2" name="pic2" accept="image/*">
-                                    </div>
-                                    <div class="form-text">Direkomendasikan menggunakan gambar berukuran 1920x1080.</div>
-                                    @error('pic2')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-4 mb-3">
-                                    <label for="pic3" class="form-label">Gambar 3</label>
-                                </div>
-                                <div class="col-sm-8 mb-3">
-                                    <div id="imagePreviewContainer3" class="bg-light text-center mb-3"
-                                        style="width: 100%;height: auto; border: 1px dashed #ccc; padding: 5px; border-radius: 4px;background-color:#f2f6fc;display:none;">
-                                        <p class="mb-2">Pratinjau Gambar 3</p>
-                                        <img id="imagePreview3" class="mx-auto" style="width:100%;max-width:auto;">
-                                    </div>
-                                    <div>
-                                        <input class="form-control @error('pic3') is-invalid @enderror" type="file"
-                                            id="pic3" name="pic3" accept="image/*">
-                                    </div>
-                                    <div class="form-text">Direkomendasikan menggunakan gambar berukuran 1920x1080.</div>
-                                    @error('pic3')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-4 mb-3">
-                                    <label for="rgba(199, 150, 119, 0.25)" class="form-label">Gambar 4</label>
-                                </div>
-                                <div class="col-sm-8 mb-3">
-                                    <div id="imagePreviewContainer4" class="bg-light text-center mb-3"
-                                        style="width: 100%;height: auto; border: 1px dashed #ccc; padding: 5px; border-radius: 4px;background-color:#f2f6fc;display:none;">
-                                        <p class="mb-2">Pratinjau Gambar 4</p>
-                                        <img id="imagePreview4" class="mx-auto" style="width:100%;max-width:auto;">
-                                    </div>
-                                    <div>
-                                        <input class="form-control @error('pic4') is-invalid @enderror" type="file"
-                                            id="pic4" name="pic4" accept="image/*">
-                                    </div>
-                                    <div class="form-text">Direkomendasikan menggunakan gambar berukuran 1920x1080.</div>
-                                    @error('pic4')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-4 mb-3">
-                                    <label for="pic1" class="form-label">Gambar 5</label>
-                                </div>
-                                <div class="col-sm-8 mb-3">
-                                    <div id="imagePreviewContainer5" class="bg-light text-center mb-3"
-                                        style="width: 100%;height: auto; border: 1px dashed #ccc; padding: 5px; border-radius: 4px;background-color:#f2f6fc;display:none;">
-                                        <p class="mb-2">Pratinjau Gambar 5</p>
-                                        <img id="imagePreview5" class="mx-auto" style="width:100%;max-width:auto;">
-                                    </div>
-                                    <div>
-                                        <input class="form-control @error('pic5') is-invalid @enderror" type="file"
-                                            id="pic5" name="pic5" accept="image/*">
-                                    </div>
-                                    <div class="form-text">Direkomendasikan menggunakan gambar berukuran 1920x1080.</div>
-                                    @error('pic5')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -319,19 +266,6 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-
-                            {{-- <div class="mb-3">
-                                <div class="form-label">Status</div>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="status-switch"
-                                        name="status" checked>
-                                    <label class="form-check-label" for="status-switch">Publikasikan</label>
-                                </div>
-                                @error('status')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div> --}}
-
                             <div class="mt-3">
                                 <button type="submit" class="btn btn-primary" style="width:100%;">Submit</button>
                             </div>
@@ -400,109 +334,6 @@
             this.value = formatRupiah(this.value, 'Rp. ');
         });
     </script>
-
-    <script>
-        document.getElementById('pic1').addEventListener('change', function(event) {
-            const fileInput1 = event.target;
-            const imagePreview1 = document.getElementById('imagePreview1');
-            const imagePreviewContainer1 = document.getElementById('imagePreviewContainer1');
-
-            // Check if a file is selected
-            if (fileInput1.files && fileInput1.files[0]) {
-                const reader = new FileReader();
-
-                // Load the image and show the preview
-                reader.onload = function(e) {
-                    imagePreview1.src = e.target.result; // Update the image src to the new file
-                    imagePreview1.style.display = 'block'; // Ensure the preview is visible
-                    imagePreviewContainer1.style.display = 'block'; // Ensure the preview is visible
-                };
-
-                reader.readAsDataURL(fileInput1.files[0]);
-            }
-        });
-
-        document.getElementById('pic2').addEventListener('change', function(event) {
-            const fileInput2 = event.target;
-            const imagePreview2 = document.getElementById('imagePreview2');
-            const imagePreviewContainer2 = document.getElementById('imagePreviewContainer2');
-
-            // Check if a file is selected
-            if (fileInput2.files && fileInput2.files[0]) {
-                const reader = new FileReader();
-
-                // Load the image and show the preview
-                reader.onload = function(e) {
-                    imagePreview2.src = e.target.result; // Update the image src to the new file
-                    imagePreview2.style.display = 'block'; // Ensure the preview is visible
-                    imagePreviewContainer2.style.display = 'block'; // Ensure the preview is visible
-                };
-
-                reader.readAsDataURL(fileInput2.files[0]);
-            }
-        });
-
-        document.getElementById('pic3').addEventListener('change', function(event) {
-            const fileInput3 = event.target;
-            const imagePreview3 = document.getElementById('imagePreview3');
-            const imagePreviewContainer3 = document.getElementById('imagePreviewContainer3');
-
-            // Check if a file is selected
-            if (fileInput3.files && fileInput3.files[0]) {
-                const reader = new FileReader();
-
-                // Load the image and show the preview
-                reader.onload = function(e) {
-                    imagePreview3.src = e.target.result; // Update the image src to the new file
-                    imagePreview3.style.display = 'block'; // Ensure the preview is visible
-                    imagePreviewContainer3.style.display = 'block'; // Ensure the preview is visible
-                };
-
-                reader.readAsDataURL(fileInput3.files[0]);
-            }
-        });
-
-        document.getElementById('pic4').addEventListener('change', function(event) {
-            const fileInput4 = event.target;
-            const imagePreview4 = document.getElementById('imagePreview4');
-            const imagePreviewContainer4 = document.getElementById('imagePreviewContainer4');
-
-            // Check if a file is selected
-            if (fileInput4.files && fileInput4.files[0]) {
-                const reader = new FileReader();
-
-                // Load the image and show the preview
-                reader.onload = function(e) {
-                    imagePreview4.src = e.target.result; // Update the image src to the new file
-                    imagePreview4.style.display = 'block'; // Ensure the preview is visible
-                    imagePreviewContainer4.style.display = 'block'; // Ensure the preview is visible
-                };
-
-                reader.readAsDataURL(fileInput4.files[0]);
-            }
-        });
-
-        document.getElementById('pic5').addEventListener('change', function(event) {
-            const fileInput5 = event.target;
-            const imagePreview5 = document.getElementById('imagePreview5');
-            const imagePreviewContainer5 = document.getElementById('imagePreviewContainer5');
-
-            // Check if a file is selected
-            if (fileInput5.files && fileInput5.files[0]) {
-                const reader = new FileReader();
-
-                // Load the image and show the preview
-                reader.onload = function(e) {
-                    imagePreview5.src = e.target.result; // Update the image src to the new file
-                    imagePreview5.style.display = 'block'; // Ensure the preview is visible
-                    imagePreviewContainer5.style.display = 'block'; // Ensure the preview is visible
-                };
-
-                reader.readAsDataURL(fileInput5.files[0]);
-            }
-        });
-    </script>
-
     <script>
         $(document).ready(function() {
             $('#labels').select2({
@@ -533,5 +364,88 @@
                 }
             });
         });
+    </script>
+    <script>
+        let imageCounter = 1;
+        let videoCounter = 0;
+
+        // Add Image Upload Input
+        document.getElementById('addImageButton').addEventListener('click', function() {
+            imageCounter++;
+
+            const newRow = document.createElement('div');
+            newRow.classList.add('row', 'align-items-center', 'mb-3');
+            newRow.id = `imageUploadRow-${imageCounter}`;
+
+            newRow.innerHTML = `
+            <div class="col-sm-4">
+                <label for="image-${imageCounter}" class="form-label">Gambar ${imageCounter}<span class="text-danger">*</span></label>
+            </div>
+            <div class="col-sm-8">
+                <div class="position-relative">
+                    <input 
+                        class="form-control" 
+                        type="file" 
+                        id="image-${imageCounter}" 
+                        name="images[]" 
+                        accept="image/*" 
+                        required
+                    >
+                    <button 
+                        type="button" 
+                        class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-image-btn" 
+                        onclick="removeRow('imageUploadRow-${imageCounter}')"
+                    >
+                        &times;
+                    </button>
+                </div>
+            </div>
+        `;
+
+            document.getElementById('imageUploadContainer').appendChild(newRow);
+        });
+
+        // Add Video URL Input
+        document.getElementById('addVideoButton').addEventListener('click', function() {
+            videoCounter++;
+
+            const newRow = document.createElement('div');
+            newRow.classList.add('row', 'align-items-center', 'mb-3');
+            newRow.id = `videoUploadRow-${videoCounter}`;
+
+            newRow.innerHTML = `
+            <div class="col-sm-4">
+                <label for="video-${videoCounter}" class="form-label">Video ${videoCounter} (URL)</label>
+            </div>
+            <div class="col-sm-8">
+                <div class="position-relative">
+                    <input 
+                        class="form-control" 
+                        type="text" 
+                        id="video-${videoCounter}" 
+                        name="videos[]" 
+                        placeholder="Masukkan URL video"
+                    >
+                    <button 
+                        type="button" 
+                        class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-video-btn" 
+                        onclick="removeRow('videoUploadRow-${videoCounter}')"
+                    >
+                        &times;
+                    </button>
+                </div>
+            </div>
+        `;
+
+            document.getElementById('videoUploadContainer').appendChild(newRow);
+        });
+
+        // Remove any row (image or video)
+        function removeRow(rowId) {
+            const row = document.getElementById(rowId);
+            if (row) {
+                row.remove();
+            }
+        }
     </script>
 @endpush

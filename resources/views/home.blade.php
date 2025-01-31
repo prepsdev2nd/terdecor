@@ -298,41 +298,46 @@
                     <div class="col d-flex justify-content-center">
                         <div class="card mb-4 rounded-3 shadow-sm h-100">
                             <div class="card-header py-3">
-                                <h4 class="my-0 fw-bold title">{{ $row->title }}</h4>
+                                <h4 class="my-0 fw-bold">{{ $row->title }}</h4>
                             </div>
                             <div class="card-body d-flex flex-column justify-content-between">
                                 <!-- Added justify-content-between -->
-                                <div id="carouselExampleControls2" class="carousel slide" data-bs-ride="carousel">
+                                <div id="carouselExampleControls{{ $row->id }}" class="carousel slide"
+                                    data-bs-ride="carousel">
                                     <div class="carousel-inner">
-                                        <div class="carousel-item active">
-                                            <img src="{{ asset('user/images/caro1.JPG') }}"
-                                                class="d-block w-100 border rounded" alt="Image 1">
-                                        </div>
-                                        <div class="carousel-item">
-                                            <img src="{{ asset('user/images/caro2.JPG') }}"
-                                                class="d-block w-100 border rounded" alt="Image 1">
-                                        </div>
+                                        @foreach ($row->images as $detail)
+                                            @if ($detail->image_type === 'Image')
+                                                <div class="carousel-item active">
+                                                    <img src="{{ asset($detail->image_path) }}"
+                                                        class="d-block w-100 border rounded" alt="Image 1">
+                                                </div>
+                                            @endif
+                                        @endforeach
                                     </div>
                                     <button class="carousel-control-prev" type="button"
-                                        data-bs-target="#carouselExampleControls2" data-bs-slide="prev">
+                                        data-bs-target="#carouselExampleControls{{ $row->id }}"
+                                        data-bs-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Previous</span>
                                     </button>
                                     <button class="carousel-control-next" type="button"
-                                        data-bs-target="#carouselExampleControls2" data-bs-slide="next">
+                                        data-bs-target="#carouselExampleControls{{ $row->id }}"
+                                        data-bs-slide="next">
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Next</span>
                                     </button>
                                 </div>
                                 <p class="mt-2 fw-bold">Daftar yang kamu dapatkan:</p>
-                                <ul style="list-unstyled">
-                                    {!! $row->description !!}
+                                <ul style="">
+                                    @foreach ($row->details as $detail)
+                                        <li class="list-unstyled">{{ $detail->title }}</li>
+                                    @endforeach
                                 </ul>
                                 <div class="mt-auto">
                                     <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">mulai
                                             dari</small><br> Rp 1.999.999</h1>
-                                    <button type="button" class="w-100 btn btn-lg btn-primary rounded">Hubungi
-                                        Kami</button>
+                                    <button type="button" class="w-100 btn btn-lg btn-primary rounded">Detail
+                                        Paket</button>
                                 </div>
                             </div>
                         </div>
@@ -351,87 +356,31 @@
 
             <div class="swiper residence-swiper">
                 <div class="swiper-wrapper">
+                    @foreach ($design as $row)
+                        <div class="swiper-slide">
+                            <div class="card">
+                                <div class="position-relative">
+                                    <img src="{{ $row->images->first()->image_path }}" class="card-img-top img-fluid"
+                                        alt="{{ $row->title }}"
+                                        style="object-fit: cover; height: 280px; width: 100%; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
 
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <img src="https://landing.terdecor.com/user/temp/1.jpg" class="card-img-top img-fluid"
-                                alt="Judul Test"
-                                style="object-fit: cover; height: 280px; width: 100%; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-                            <div class="card-body p-0">
-                                <h5 class="card-title pt-4">Ruang Tamu</h5>
-                                <p class="card-text">
-                                    Ruang tamu adalah cerminan dari kehangatan rumah Anda. Dengan penataan yang tepat,
-                                    ruang tamu dapat menjadi tempat sempurna untuk menyambut tamu dan berkumpul bersama
-                                    keluarga. Pilih furnitur yang nyaman, tambahkan elemen dekorasi seperti karpet dan
-                                    lampu gantung, serta ciptakan suasana yang ramah dan elegan.
-                                </p>
-                                <div class="card-text">
-                                    <ul class="d-flex justify-content-end align-items-cente">
-                                        <li class="residence-list badge bg-secondary fw-normal">
-                                            Japandi Style
-                                        </li>
-                                        <li class="residence-list badge bg-primary fw-normal">
-                                            Material Kayu
-                                        </li>
-                                    </ul>
+                                    <div class="position-absolute top-0 end-0 p-2">
+                                        <span class="badge bg-secondary me-1 fw-normal">{{ $row->type }}</span>
+                                        <span class="badge bg-primary fw-normal">{{ $row->material }}</span>
+                                    </div>
+                                </div>
+                                <div class="card-body p-0">
+                                    <h5 class="card-title pt-4">{{ $row->title }}</h5>
+                                    <p class="card-text">
+                                        {{ $row->description }}
+                                    </p>
+                                </div>
+                                <div class="p-3 text-center">
+                                    <a href="/" class="btn btn-primary"> Lihat Detail</a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <img src="https://landing.terdecor.com/user/temp/2.jpg" class="card-img-top img-fluid"
-                                alt="Judul Test"
-                                style="object-fit: cover; height: 280px; width: 100%; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-                            <div class="card-body p-0">
-                                <h5 class="card-title pt-4">Ruang Dapur</h5>
-                                <p class="card-text">
-                                    Dapur bukan hanya tempat memasak, tetapi juga jantung dari rumah Anda. Buat dapur
-                                    lebih fungsional dengan peralatan modern dan tata letak yang efisien. Tambahkan
-                                    sentuhan estetis seperti backsplash dengan motif unik, kabinet berwarna cerah, dan
-                                    pencahayaan yang terang untuk suasana dapur yang menyenangkan.
-                                </p>
-
-                                <div class="card-text">
-                                    <ul class="d-flex justify-content-end align-items-center">
-                                        <li class="residence-list badge bg-secondary fw-normal">
-                                            Japandi Style
-                                        </li>
-                                        <li class="residence-list badge bg-primary fw-normal">
-                                            Material Kayu
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <img src="https://landing.terdecor.com/user/temp/3.jpg" class="card-img-top img-fluid"
-                                alt="test yaaa"
-                                style="object-fit: cover; height: 280px; width: 100%; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-                            <div class="card-body p-0">
-                                <h5 class="card-title pt-4">Ruang Tidur</h5>
-                                <p class="card-text">
-                                    Ruang tidur adalah tempat Anda melepas lelah dan mencari ketenangan. Pastikan
-                                    kenyamanan dengan memilih kasur yang mendukung, warna dinding yang menenangkan, dan
-                                    pencahayaan lembut. Tambahkan elemen personal seperti foto atau dekorasi dinding
-                                    untuk menciptakan suasana yang intim dan nyaman.
-                                </p>
-
-                                <div class="card-text">
-                                    <ul class="d-flex justify-content-end align-items-cente">
-                                        <li class="residence-list badge bg-secondary fw-normal">
-                                            Japandi Style
-                                        </li>
-                                        <li class="residence-list badge bg-primary fw-normal">
-                                            Material Kayu
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -509,7 +458,7 @@
                 <div class="col-md-5 order-md-1 d-flex">
                     <h1 class=" lh-1 mb-3">Ciptakan Rumah Idamanmu Bersama terdecor.id</h1>
                 </div>
-                <div class="col-md-7 order-md-2">
+                <div class="col-md-7 order-md-2 d-flex justify-content-center align-items-center">
                     <div class="text-content ps-md-5 mt-4 mt-md-0">
                         <p class="py-lg-2">Langkah pertama menuju rumah impian dimulai dari sini. Klik untuk mulai
                             sekarang dan nikmati pengalaman desain terbaik!</p>
@@ -565,7 +514,33 @@
         </div>
     </section>
 
-    <section id="complaint" style="background: linear-gradient(270deg, #c79677 0.01%, rgba(26, 36, 47, 0.00) 100%);">
+    <section id="blog" style="background: #F8F5F2">
+        <div class="container my-5 py-5">
+            <h2 class="text-center title my-3">Blog</h2>
+            <div class="row">
+                @foreach ($blog as $row)
+                    <div class="col-lg-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                        <div class="post-box">
+                            <div class="post-img">
+                                <img loading="lazy" src="{{ asset('images/blogs/' . $row->image) }}"
+                                    alt="{{ $row->title }}" class="img-fluid rounded">
+                            </div>
+                            <div class="meta mt-2">
+                                <small class="text-muted">{{ $row->created_at->translatedFormat('d F Y') }}</small>
+                                <small class="post-author"> / Admin</small>
+                            </div>
+                            <h3 class="post-title">{{ $row->title }}</h3>
+                            <p>{{ Str::words(strip_tags($row->content), 75) }}...</p>
+                            <a href="{{ url($row->slug) }}" title="{{ $row->title }}"
+                                class="btn btn-outline-primary stretched-link"><span>Selengkapnya </span><i
+                                    class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    <section id="complaint">
         <div class="container my-5 py-5">
             <h2 class="text-center title">Kritik dan Saran</h2>
             <div class="d-flex justify-content-center align-items-center my-5">
@@ -599,35 +574,6 @@
             </div> <!-- end card-->
         </div>
     </section>
-    {{-- <form class="row justify-content-center" id="testimony"
-                        action="{{ route('complaint.userstore') }}" method="POST">
-                        @csrf
-                        <!-- Name Input -->
-                        <div class="col-sm-7 mb-2">
-                            <input type="text" class="form-control @error('name') is-invalid @enderror mx-auto"
-                                id="name" name="name" placeholder="Masukkan nama Anda"
-                                style="max-width: 600px; padding: 15px; font-size: 1rem;" required>
-                            @error('name')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Testimony Textarea -->
-                        <div class="col-sm-7 mb-2">
-                            <textarea class="form-control @error('description') is-invalid @enderror mx-auto" id="description" name="description"
-                                placeholder="Tulis deskripsi Kritik dan Saran Anda di sini"
-                                style="max-width: 600px; padding: 15px; font-size: 1rem; height: 150px; resize: none;" required></textarea>
-                            @error('description')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Submit Button -->
-                        <div class="col-12 text-center mt-3">
-                            <button type="submit" class="btn btn-primary btn-lg px-5">Kirim</button>
-                        </div>
-                    </form> --}}
-    <!-- Footer start  -->
     <section id="footer">
         <div class="container footer-container">
             <footer class="d-flex flex-wrap justify-content-between align-items-center border-top"></footer>

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('testimonies', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->string('phone')->nullable();
             $table->string('type')->nullable();
             $table->longText('testi')->nullable();
             $table->string('status')->nullable();

@@ -7,29 +7,20 @@ use Illuminate\Support\Str;
 
 class Design extends Model
 {
-    public $incrementing = false; // Non-auto increment
-    protected $keyType = 'string'; // UUID adalah string
-
-    protected static function booted()
-    {
-        static::creating(function ($uuid) {
-            $uuid->id = (string) Str::uuid(); // Generate UUID sebelum insert
-        });
-    }
-
     protected $fillable = [
         'title',
         'slug',
         'description',
+        'content',
         'tags',
-        'pic1',
-        'pic2',
-        'pic3',
-        'pic4',
-        'pic5',
         'type',
         'material',
         'size,',
         'status'
     ];
+
+    public function images()
+    {
+        return $this->hasMany(DesignImages::class);
+    }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Package;
+use App\Models\PackageDetails;
+use App\Models\PackageImages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
@@ -21,7 +23,7 @@ class PackageController extends Controller
 
     public function getData()
     {
-        $data = Package::orderBy('id', 'desc')->get();
+        $data = Package::with(['images', 'details'])->orderBy('id', 'desc')->get();
         return DataTables::of($data)
             ->addColumn('action', function ($data) {
                 return '<div class="btn-group"><a href="' . route('admin.package.edit', $data->id) . '" class="btn btn-sm btn-warning"><i data-feather="edit"></i></a><button class="btn btn-sm btn-danger" onclick="deleteRow(`' . route('admin.package.delete', $data->id) . '`)"><i data-feather="trash-2"></i></button></div>';
@@ -30,12 +32,27 @@ class PackageController extends Controller
                 return 'Rp. ' . number_format($data->price, 0, ',', '.');
             })
             ->editColumn('image', function ($data) {
-                $images = explode(';', $data->image);
-                $firstImage = $images[0];
-                return '<img src="' . asset('images/packages/' . $firstImage) . '" alt="' . e($data->title) . '" style="max-height: 150px; max-width: 150px;">';
+                $image = $data->images->where('image_type', 'Image')->first();
+
+                if ($image) {
+                    return '<img src="' . asset($image->image_path) . '" alt="Image" class="img-thumbnail" width="150">';
+                } else {
+                    return '<span>No image</span>';
+                }
+            })
+            ->editColumn('list', function ($data) {
+                $titles = $data->details->pluck('title')->toArray();
+
+                $return = '<ul class="list-unstyled">';
+                foreach ($titles as $title) {
+                    $return .= '<li>' . $title . '</li>';
+                }
+                $return .= '</ul>';
+
+                return $return;
             })
 
-            ->rawColumns(['action', 'image'])
+            ->rawColumns(['action', 'image', 'list'])
             ->make(true);
     }
 
@@ -48,36 +65,62 @@ class PackageController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
+            'videos.*' => 'nullable|string|url', // Ensure video URLs are valid
         ]);
 
-        $images = $request->file('images');
-        $imageNames = [];
+        // Handle price formatting
+        $price = str_replace('.', '', str_replace('Rp. ', '', $request->input('price')));
 
-        if ($images && count($images) > 0) {
+        // Create the package
+        $package = new Package();
+        $package->title = $request->input('title');
+        $package->slug = Str::slug($request->input('title'));
+        $package->description = $request->input('content');
+        $package->price = (int) $price;
+        $package->save();
+
+        $images = $request->file('images');
+        if ($images) {
             foreach ($images as $image) {
                 $filename = time() . '-' . $image->getClientOriginalName();
                 $destinationPath = public_path('images/packages');
                 $image->move($destinationPath, $filename);
-                $imageNames[] = $filename;
+
+                PackageImages::create([
+                    'package_id' => $package->id,
+                    'image_path' => 'images/packages/' . $filename,
+                    'image_type' => 'Image',
+                ]);
             }
         }
 
-        // Combine filenames into a single string
-        $imagesString = implode(';', $imageNames);
+        $videos = $request->input('videos');
+        if ($videos) {
+            foreach ($videos as $videoUrl) {
+                if (!empty($videoUrl)) {
+                    PackageImages::create([
+                        'package_id' => $package->id,
+                        'image_path' => $videoUrl,
+                        'image_type' => 'Video',
+                    ]);
+                }
+            }
+        }
 
-        $price = str_replace('.', '', str_replace('Rp. ', '', $request->input('price')));
-
-        $data = new Package();
-        $data->title = $request->input('title');
-        $data->slug = Str::slug($request->input('title'));
-        $data->image = $imagesString;
-        $data->description = $request->input('content');
-        $data->price = (int) $price;
-
-        $data->save();
+        $lists = $request->input('list');
+        if ($lists) {
+            foreach ($lists as $list) {
+                PackageDetails::create([
+                    'package_id' => $package->id,
+                    'title' => $list,
+                ]);
+            }
+        }
 
         return redirect()->route('admin.package.index')->with('success', 'Paket berhasil ditambahkan.');
     }
+
+
 
     public function edit($id)
     {

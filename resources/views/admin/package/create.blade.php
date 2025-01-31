@@ -138,16 +138,40 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="mb-3">
+                                <div id="videoUploadContainer"></div>
+                                <div class="mb-3 text-end">
                                     <button type="button" class="btn btn-primary btn-sm" id="addImageButton">Tambah
                                         Gambar</button>
+                                    <button type="button" class="btn btn-success btn-sm" id="addVideoButton">Tambah
+                                        Video</button>
                                 </div>
 
-                                <div class="form-text">Direkomendasikan menggunakan gambar berukuran 1920x1080.</div>
+                                <div class="form-text mb-3 text-end">Direkomendasikan menggunakan gambar berukuran
+                                    1920x1080.</div>
                                 @error('image')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 mb-3">
+                                    <label for="list" class="form-label">List Detail <span
+                                            class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-sm-8 mb-3">
+                                    <div id="listContainer">
+                                        <div class="input-group mb-2" id="listRow-1">
+                                            <input type="text" class="form-control @error('list.*') is-invalid @enderror"
+                                                name="list[]" placeholder="Detail" required>
+                                            <button type="button" class="btn btn-danger"
+                                                onclick="removeListItem('listRow-1')">×</button>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-primary mt-2" id="addListButton">Tambah
+                                        List</button>
+                                    @error('list.*')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
 
                             <div class="mb-3">
@@ -319,7 +343,9 @@
     </script>
     <script>
         let imageCounter = 1;
+        let videoCounter = 0;
 
+        // Add Image Upload Input
         document.getElementById('addImageButton').addEventListener('click', function() {
             imageCounter++;
 
@@ -328,34 +354,95 @@
             newRow.id = `imageUploadRow-${imageCounter}`;
 
             newRow.innerHTML = `
-        <div class="col-sm-4">
-            <label for="image-${imageCounter}" class="form-label">Gambar ${imageCounter}<span class="text-danger">*</span></label>
-        </div>
-        <div class="col-sm-8">
-            <div class="position-relative">
-                <input 
-                    class="form-control" 
-                    type="file" 
-                    id="image-${imageCounter}" 
-                    name="images[]" 
-                    accept="image/*" 
-                    required
-                >
-                <button 
-                    type="button" 
-                    class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-image-btn" 
-                    onclick="removeImageRow('imageUploadRow-${imageCounter}')"
-                >
-                    &times;
-                </button>
+            <div class="col-sm-4">
+                <label for="image-${imageCounter}" class="form-label">Gambar ${imageCounter}<span class="text-danger">*</span></label>
             </div>
-        </div>
-    `;
+            <div class="col-sm-8">
+                <div class="position-relative">
+                    <input 
+                        class="form-control" 
+                        type="file" 
+                        id="image-${imageCounter}" 
+                        name="images[]" 
+                        accept="image/*" 
+                        required
+                    >
+                    <button 
+                        type="button" 
+                        class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-image-btn" 
+                        onclick="removeRow('imageUploadRow-${imageCounter}')"
+                    >
+                        &times;
+                    </button>
+                </div>
+            </div>
+        `;
 
             document.getElementById('imageUploadContainer').appendChild(newRow);
         });
 
-        function removeImageRow(rowId) {
+        // Add Video URL Input
+        document.getElementById('addVideoButton').addEventListener('click', function() {
+            videoCounter++;
+
+            const newRow = document.createElement('div');
+            newRow.classList.add('row', 'align-items-center', 'mb-3');
+            newRow.id = `videoUploadRow-${videoCounter}`;
+
+            newRow.innerHTML = `
+            <div class="col-sm-4">
+                <label for="video-${videoCounter}" class="form-label">Video ${videoCounter} (URL)</label>
+            </div>
+            <div class="col-sm-8">
+                <div class="position-relative">
+                    <input 
+                        class="form-control" 
+                        type="text" 
+                        id="video-${videoCounter}" 
+                        name="videos[]" 
+                        placeholder="Masukkan URL video"
+                    >
+                    <button 
+                        type="button" 
+                        class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-video-btn" 
+                        onclick="removeRow('videoUploadRow-${videoCounter}')"
+                    >
+                        &times;
+                    </button>
+                </div>
+            </div>
+        `;
+
+            document.getElementById('videoUploadContainer').appendChild(newRow);
+        });
+
+        // Remove any row (image or video)
+        function removeRow(rowId) {
+            const row = document.getElementById(rowId);
+            if (row) {
+                row.remove();
+            }
+        }
+    </script>
+    <script>
+        let listCounter = 1;
+
+        document.getElementById('addListButton').addEventListener('click', function() {
+            listCounter++;
+
+            const newRow = document.createElement('div');
+            newRow.classList.add('input-group', 'mb-2');
+            newRow.id = `listRow-${listCounter}`;
+
+            newRow.innerHTML = `
+                <input type="text" class="form-control" name="list[]" placeholder="Detail" required>
+                <button type="button" class="btn btn-danger" onclick="removeListItem('listRow-${listCounter}')">×</button>
+            `;
+
+            document.getElementById('listContainer').appendChild(newRow);
+        });
+
+        function removeListItem(rowId) {
             const row = document.getElementById(rowId);
             if (row) {
                 row.remove();

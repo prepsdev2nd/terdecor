@@ -36,6 +36,7 @@
                             <th width="50">#</th>
                             <th width="200">Sampul</th>
                             <th width="300">Judul</th>
+                            <th width="200">List</th>
                             <th width="300">Harga</th>
                             <th width="100">Aksi</th>
                         </tr>
@@ -73,6 +74,10 @@
                     {
                         data: 'title',
                         name: 'title'
+                    },
+                    {
+                        data: 'list',
+                        name: 'list'
                     },
                     {
                         data: 'price',

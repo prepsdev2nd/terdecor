@@ -76,7 +76,7 @@
 @endpush
 
 @section('content')
-    <header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
+    <header class="page-header pb-10">
         <div class="container-xl px-4">
             <div class="page-header-content pt-4">
                 <div class="row align-items-center justify-content-between">
@@ -133,8 +133,19 @@
                                 </div>
                                 <div class="col-sm-8 mb-3">
                                     <textarea class="form-control @error('testi') is-invalid @enderror" id="testi" name="testi"
-                                        placeholder="Teks Testimoni" required></textarea>
+                                        placeholder="Teks Testimoni" rows="10" required></textarea>
                                     @error('testi')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-4 mb-3">
+                                    <label for="type" class="form-label">No Handphone<span
+                                            class="text-danger"></span></label>
+                                </div>
+                                <div class="col-sm-8 mb-3">
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                        id="phone" name="phone" placeholder="Cth: 081213141516">
+                                    @error('phone')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>

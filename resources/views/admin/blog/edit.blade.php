@@ -252,8 +252,7 @@
                             </div>
 
                             <div class="mt-3">
-                                <button type="submit" class="btn btn-primary" style="width:100%;">Posting
-                                    Blog</button>
+                                <button type="submit" class="btn btn-primary" style="width:100%;">Submit</button>
                             </div>
                         </div>
                     </div>

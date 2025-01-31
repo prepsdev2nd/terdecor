@@ -12,15 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('designs', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
             $table->longText('description')->nullable();
-            $table->longText('pic1')->nullable();
-            $table->longText('pic2')->nullable();
-            $table->longText('pic3')->nullable();
-            $table->longText('pic4')->nullable();
-            $table->longText('pic5')->nullable();
+            $table->longText('content')->nullable();
             $table->string('type')->nullable();
             $table->string('material')->nullable();
             $table->bigInteger('price')->nullable();
