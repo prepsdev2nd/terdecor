@@ -543,16 +543,26 @@
     <section id="complaint">
         <div class="container my-5 py-5">
             <h2 class="text-center title">Kritik dan Saran</h2>
-            <div class="d-flex justify-content-center align-items-center my-5">
-                <div class="card">
+            <div class="row d-flex justify-content-center pt-5">
+                <div class="col-12 col-lg-8">
                     <div class="card-body">
                         <div class="form-container">
                             <form class="form" action="{{ route('complaintuser.store') }}" method="POST">
+                                @csrf
                                 <div class="form-group">
-                                    @csrf
                                     <label for="email">Nama</label>
                                     <input type="text" class="@error('name') is-invalid @enderror mx-auto"
                                         id="name" name="name" autocomplete="off" required>
+                                    @error('name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="email"> No Handphone
+                                        <small class="text-muted"> (Opsional)</small></label>
+                                    <input type="text" class="@error('name') is-invalid @enderror mx-auto"
+                                        id="name" name="name" autocomplete="off"
+                                        placeholder="Cth: 0812xxxxxxx">
                                     @error('name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -569,6 +579,10 @@
                             </form>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center align-items-center my-5">
+                <div class="card">
 
                 </div> <!-- end card-body -->
             </div> <!-- end card-->
