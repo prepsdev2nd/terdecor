@@ -83,6 +83,7 @@ class TestimonyController extends Controller
         $data->name = $request->input('name');
         $data->type = $request->input('type');
         $data->testi = $request->input('testi');
+        $data->phone = $request->input('phone');
         $data->status = $request->input('status') ? 'Published' : 'Draft';
 
         $data->save();
@@ -114,6 +115,7 @@ class TestimonyController extends Controller
 
         $data = new Testimony();
         $data->name = $request->input('name');
+        $data->phone = $request->input('phone');
         $data->type = $request->input('type');
         $data->testi = $request->input('testi');
         $data->status = 'Draft';

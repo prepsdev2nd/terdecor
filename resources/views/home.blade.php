@@ -252,7 +252,6 @@
     <section id="banner" class="py-3">
         <div class="container-fluid px-lg-5">
             <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
-                <!-- Indicators (Optional) -->
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" class="active"
                         aria-current="true" aria-label="Slide 1"></button>
@@ -264,15 +263,14 @@
 
                 <!-- Carousel Images -->
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="https://placehold.co/250x120" class="d-block w-100" alt="Banner 1">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://placehold.co/300x120" class="d-block w-100" alt="Banner 2">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://placehold.co/300x120" class="d-block w-100" alt="Banner 3">
-                    </div>
+                    @foreach ($banner as $row)
+                        <div class="carousel-item active">
+                            <a href="{{ $row->url }}">
+                                <img src="{{ asset('images/banners/' . $row->image_path) }}" class="d-block w-100"
+                                    alt="{{ $row->alt }}">
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
 
                 <!-- Controls -->
@@ -336,8 +334,9 @@
                                 <div class="mt-auto">
                                     <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">mulai
                                             dari</small><br> Rp 1.999.999</h1>
-                                    <button type="button" class="w-100 btn btn-lg btn-primary rounded">Detail
-                                        Paket</button>
+                                    <a href="{{ route('paket', $row->slug) }}"
+                                        class="w-100 btn btn-lg btn-primary rounded">Detail
+                                        Paket</a>
                                 </div>
                             </div>
                         </div>

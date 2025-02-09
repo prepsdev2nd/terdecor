@@ -133,6 +133,11 @@
                             <div class="nav-link-icon"><i data-feather="home"></i></div>Home Page
                         </a>
 
+                        <a class="nav-link {{ Route::is('admin.banner*') ? 'active' : '' }}"
+                            href="{{ route('admin.banner.index') }}">
+                            <div class="nav-link-icon"><i data-feather="image"></i></div>Banner
+                        </a>
+
                         <a class="nav-link {{ Route::is('admin.customer*') ? 'active' : '' }}"
                             href="{{ route('admin.customer.index') }}">
                             <div class="nav-link-icon"><i data-feather="file-text"></i></div>Form Customer

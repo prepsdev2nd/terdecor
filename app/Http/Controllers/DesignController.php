@@ -125,69 +125,56 @@ class DesignController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'pic1' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'pic2' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'pic3' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'pic4' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'pic5' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'tags' => 'required',
+            'price' => 'required',
+            'type' => 'required',
+            'material' => 'required'
         ]);
 
-        $design = Design::where('id', $id)->first();
+        $price = str_replace('.', '', str_replace('Rp. ', '', $request->input('price')));
+
+        $data = Design::where('id', $id)->first();
 
 
-        if ($request->hasFile('pic1')) {
-            if ($design->pic1 && file_exists(public_path('images/designs/' . $design->pic1))) {
-                unlink(public_path('images/designs/' . $design->pic1));
+        $data->title = $request->input('title');
+        $data->slug = Str::slug($request->input('title'));
+        $data->price = (int) $price;
+        $data->type = $request->input('type');
+        $data->material = $request->input('material');
+        $data->description = $request->input('description');
+        $data->content = $request->input('content');
+        $data->tags = implode(', ', $request->input('tags'));
+        $data->status = $request->input('status') ? 'Aktif' : 'Tidak Aktif';
+
+        $images = $request->file('images');
+        if ($images) {
+            foreach ($images as $image) {
+                $filename = time() . '-' . $image->getClientOriginalName();
+                $destinationPath = public_path('images/designs');
+                $image->move($destinationPath, $filename);
+
+                DesignImages::create([
+                    'design_id' => $data->id,
+                    'image_path' => 'images/designs/' . $filename,
+                    'image_type' => 'Image',
+                ]);
             }
-
-            $imageName1 = time() . '.' . $request->image->extension();
-            $request->pic1->move(public_path('images/designs'), $imageName1);
         }
 
-        if ($request->hasFile('pic2')) {
-            if ($design->pic2 && file_exists(public_path('images/designs/' . $design->pic2))) {
-                unlink(public_path('images/designs/' . $design->pic2));
+        $videos = $request->input('videos');
+        if ($videos) {
+            foreach ($videos as $videoUrl) {
+                if (!empty($videoUrl)) {
+                    DesignImages::create([
+                        'design_id' => $data->id,
+                        'image_path' => $videoUrl,
+                        'image_type' => 'Video',
+                    ]);
+                }
             }
-
-            $imageName2 = time() . '.' . $request->image->extension();
-            $request->pic2->move(public_path('images/designs'), $imageName2);
         }
 
-        if ($request->hasFile('pic3')) {
-            if ($design->pic3 && file_exists(public_path('images/designs/' . $design->pic3))) {
-                unlink(public_path('images/designs/' . $design->pic3));
-            }
-
-            $imageName3 = time() . '.' . $request->image->extension();
-            $request->pic3->move(public_path('images/designs'), $imageName3);
-        }
-
-        if ($request->hasFile('pic4')) {
-            if ($design->pic4 && file_exists(public_path('images/designs/' . $design->pic4))) {
-                unlink(public_path('images/designs/' . $design->pic4));
-            }
-
-            $imageName4 = time() . '.' . $request->image->extension();
-            $request->pic4->move(public_path('images/designs'), $imageName4);
-        }
-
-        if ($request->hasFile('pic5')) {
-            if ($design->pic5 && file_exists(public_path('images/designs/' . $design->pic5))) {
-                unlink(public_path('images/designs/' . $design->pic5));
-            }
-
-            $imageName5 = time() . '.' . $request->image->extension();
-            $request->pic5->move(public_path('images/designs'), $imageName5);
-        }
-
-        $design->title = $request->input('title');
-        $design->slug = Str::slug($request->input('title'));
-        $design->content = $request->input('content');
-        $design->tags = implode(', ', $request->input('tags'));
-        $design->status = $request->input('status') ? 'Aktif' : 'Tidak Aktif';
-
-        $design->save();
+        $data->save();
 
         return redirect()->route('admin.design.index')->with('success', 'Blog berhasil diperbarui.');
     }
@@ -240,5 +227,22 @@ class DesignController extends Controller
         });
 
         return response()->json($results);
+    }
+
+    public function deleteImage($id)
+    {
+        $image = DesignImages::find($id);
+
+        if (!$image) {
+            return response()->json(['success' => false, 'message' => 'Image not found.'], 404);
+        }
+
+        if ($image->image_path && file_exists(public_path('images/designs/' . $image->image_path))) {
+            unlink(public_path('images/designs/' . $image->image_path));
+        }
+
+        $image->delete();
+
+        return response()->json(['success' => true, 'message' => 'Image deleted successfully.']);
     }
 }

@@ -124,7 +124,7 @@ class PackageController extends Controller
 
     public function edit($id)
     {
-        $data = Package::findOrFail($id);
+        $data = Package::with(['images', 'details'])->findOrFail($id);
 
         return view('admin.package.edit', compact('data'));
     }
@@ -136,31 +136,6 @@ class PackageController extends Controller
         ]);
 
         $package = Package::where('id', $id)->first();
-        $existingImages = explode(';', $package->images);
-        $newImageNames = [];
-
-        if ($request->hasFile('images')) {
-            $uploadedImages = $request->file('images');
-
-            if (!is_array($uploadedImages)) {
-                $uploadedImages = [$uploadedImages];
-            }
-
-            foreach ($uploadedImages as $image) {
-                $filename = time() . '-' . uniqid() . '-' . $image->getClientOriginalName();
-                $destinationPath = public_path('images/packages');
-                $image->move($destinationPath, $filename);
-                $newImageNames[] = $filename;
-            }
-        }
-
-        $removedImages = $request->input('removed_images', []); // Array of filenames to remove
-        $existingImages = array_filter($existingImages, function ($image) use ($removedImages) {
-            return !in_array($image, $removedImages) && !empty($image);
-        });
-
-        $finalImages = array_merge($existingImages, $newImageNames);
-        $finalImages = array_filter($finalImages);
 
         $price = str_replace('.', '', str_replace('Rp. ', '', $request->input('price')));
 
@@ -168,7 +143,46 @@ class PackageController extends Controller
         $package->slug = Str::slug($request->input('title'));
         $package->description = $request->input('content');
         $package->price = (int) $price;
-        $package->image = implode(';', $finalImages);
+
+        $images = $request->file('images');
+        if ($images) {
+            foreach ($images as $image) {
+                $filename = time() . '-' . $image->getClientOriginalName();
+                $destinationPath = public_path('images/packages');
+                $image->move($destinationPath, $filename);
+
+                PackageImages::create([
+                    'package_id' => $package->id,
+                    'image_path' => 'images/packages/' . $filename,
+                    'image_type' => 'Image',
+                ]);
+            }
+        }
+
+        $videos = $request->input('videos');
+        if ($videos) {
+            PackageImages::where('package_id', $package->id)->where('image_type', 'Video')->delete();
+            foreach ($videos as $videoUrl) {
+                if (!empty($videoUrl)) {
+                    PackageImages::create([
+                        'package_id' => $package->id,
+                        'image_path' => $videoUrl,
+                        'image_type' => 'Video',
+                    ]);
+                }
+            }
+        }
+
+        $lists = $request->input('list');
+        if ($lists) {
+            PackageDetails::where('package_id', $package->id)->delete();
+            foreach ($lists as $list) {
+                PackageDetails::create([
+                    'package_id' => $package->id,
+                    'title' => $list,
+                ]);
+            }
+        }
 
         $package->save();
 
@@ -186,5 +200,22 @@ class PackageController extends Controller
         $package->delete();
 
         return response()->json(['warning' => 'Paket berhasil dihapus.']);
+    }
+
+    public function deleteImage($id)
+    {
+        $image = PackageImages::find($id);
+
+        if (!$image) {
+            return response()->json(['success' => false, 'message' => 'Image not found.'], 404);
+        }
+
+        if ($image->image_path && file_exists(public_path('images/packages/' . $image->image_path))) {
+            unlink(public_path('images/packages/' . $image->image_path));
+        }
+
+        $image->delete();
+
+        return response()->json(['success' => true, 'message' => 'Image deleted successfully.']);
     }
 }

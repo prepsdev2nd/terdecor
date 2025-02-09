@@ -120,56 +120,87 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-sm-4 mb-3">
-                                    <label for="image" class="form-label">Gambar Paket<span
-                                            class="text-danger">*</span></label>
-                                </div>
-                                <div class="col-sm-8 mb-3">
-                                    <div class="row m-0 p-2 bg-light text-start align-items-start"
-                                        style="width: 100%;height: auto; border: 1px dashed #ccc; padding: 5px; border-radius: 4px;background-color:#f2f6fc">
-                                        <p class="mb-2">Pratinjau Gambar</p>
+                                <!-- Image Upload Section -->
+                                <div id="imageUploadContainer">
+                                    @php $imageCounter = 1; @endphp
+                                    @foreach ($data->images->where('image_type', 'Image') as $image)
+                                        <div class="row align-items-center mb-3" id="imageUploadRow-{{ $imageCounter }}">
+                                            <div class="col-sm-4">
+                                                <label class="form-label">Gambar<span class="text-danger">*</span></label>
+                                            </div>
+                                            <div class="col-sm-8 text-center">
+                                                <img src="{{ asset($image->image_path) }}" class="my-2 img-preview"
+                                                    id="preview-{{ $imageCounter }}" style="max-width: 250px">
 
-                                        @php
-                                            // Split the image string into an array
-                                            $images = explode(';', $data->image);
-                                        @endphp
-
-                                        <div id="imageContainer" class="d-flex flex-wrap">
-                                            <div class="row">
-                                                @foreach ($images as $index => $image)
-                                                    <div class="col-6">
-                                                        <div class="image-item me-2 mb-2" data-index="{{ $index }}">
-                                                            <div class="rounded bg-white p-2"
-                                                                style="border: 1px dashed #ccc; height: 150px;">
-                                                                <div class="d-flex" style="height: 130px;">
-                                                                    <img id="existingImagePreview{{ $index }}"
-                                                                        src="{{ asset('images/packages/' . $image) }}"
-                                                                        alt="Gambar {{ $index + 1 }}"
-                                                                        class="mx-auto my-auto"
-                                                                        style="max-height: 120px; max-width: 160px;">
-                                                                </div>
-                                                                <p class="text-center small">Gambar {{ $index + 1 }}</p>
-                                                            </div>
-                                                            <div class="mt-2 d-flex justify-content-between">
-                                                                <input class="form-control form-control-sm" type="file"
-                                                                    id="image{{ $index }}"
-                                                                    name="images[{{ $index }}]" accept="image/*"
-                                                                    multiple>
-                                                                <button type="button"
-                                                                    class="btn btn-danger btn-sm remove-image"
-                                                                    data-index="{{ $index }}">Hapus</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @endforeach
+                                                <button type="button" class="btn btn-sm btn-danger delete-image"
+                                                    data-id="{{ $image->id }}">
+                                                    X
+                                                </button>
                                             </div>
                                         </div>
+                                        @php $imageCounter++; @endphp
+                                    @endforeach
+                                </div>
+
+                                <!-- Video Upload Section -->
+                                <div id="videoUploadContainer">
+                                    @php $videoCounter = 1; @endphp
+                                    @foreach ($data->images->where('image_type', 'Video') as $video)
+                                        <div class="row align-items-center mb-3" id="videoUploadRow-{{ $videoCounter }}">
+                                            <div class="col-sm-4">
+                                                <label for="video-{{ $videoCounter }}" class="form-label">Video
+                                                    (URL)
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="position-relative">
+                                                    <input class="form-control" type="text"
+                                                        id="video-{{ $videoCounter }}" name="videos[]"
+                                                        value="{{ $video->image_path }}">
+                                                    <input type="hidden" name="existing_videos[]"
+                                                        value="{{ $video->id }}">
+                                                    <button type="button"
+                                                        class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-video-btn"
+                                                        onclick="removeRow('videoUploadRow-{{ $videoCounter }}')">
+                                                        &times;
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @php $videoCounter++; @endphp
+                                    @endforeach
+                                </div>
+
+                                <div class="mb-3 text-end">
+                                    <button type="button" class="btn btn-primary btn-sm" id="addImageButton">Tambah
+                                        Gambar</button>
+                                    <button type="button" class="btn btn-success btn-sm" id="addVideoButton">Tambah
+                                        Video</button>
+                                </div>
+
+
+                                <!-- List Detail Section -->
+                                <div class="row">
+                                    <div class="col-sm-4 mb-3">
+                                        <label for="list" class="form-label">List Detail <span
+                                                class="text-danger">*</span></label>
                                     </div>
-                                    <div class="mt-3 d-flex justify-content-between">
-                                        <button id="addImageField" type="button" class="btn btn-success btn-sm">Tambah
-                                            Gambar</button>
+                                    <div class="col-sm-8 mb-3">
+                                        <div id="listContainer">
+                                            @php $listCounter = 1; @endphp
+                                            @foreach ($data->details as $detail)
+                                                <div class="input-group mb-2" id="listRow-{{ $listCounter }}">
+                                                    <input type="text" class="form-control" name="list[]"
+                                                        value="{{ $detail->title }}" required>
+                                                    <button type="button" class="btn btn-danger"
+                                                        onclick="removeListItem('listRow-{{ $listCounter }}')">×</button>
+                                                </div>
+                                                @php $listCounter++; @endphp
+                                            @endforeach
+                                        </div>
+                                        <button type="button" class="btn btn-sm btn-primary mt-2" id="addListButton">Tambah
+                                            List</button>
                                     </div>
-                                    <div class="form-text">Direkomendasikan menggunakan gambar berukuran 1920x1080.</div>
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -271,6 +302,10 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 @endpush
 
 @push('scripts')
@@ -323,76 +358,134 @@
             }
         });
     </script>
-
-
     <script>
-        document.getElementById('addImageField').addEventListener('click', function() {
-            const container = document.getElementById('imageContainer');
-            const count = container.querySelectorAll('.image-item').length;
+        let videoCounter = {{ $videoCounter }};
+        let listCounter = {{ $listCounter }};
 
-            const newField = document.createElement('div');
-            newField.classList.add('col-6');
-            newField.setAttribute('data-index', count);
-            newField.innerHTML = `
-            <div class="image-item me-2 mb-2">
-                <div class="rounded bg-white p-2" style="border: 1px dashed #ccc; height: 150px;">
-                    <div class="d-flex" style="height: 130px;">
-                        <img id="newImagePreview${count}" src="#" alt="Pratinjau ${count + 1}" 
-                            class="mx-auto my-auto" style="max-height: 120px; max-width: 160px; display: none;">
+        // Add Video URL Input
+        document.getElementById('addVideoButton').addEventListener('click', function() {
+            videoCounter++;
+
+            const newRow = document.createElement('div');
+            newRow.classList.add('row', 'align-items-center', 'mb-3');
+            newRow.id = `videoUploadRow-${videoCounter}`;
+
+            newRow.innerHTML = `
+                <div class="col-sm-4">
+                    <label for="video-${videoCounter}" class="form-label">Video (URL)</label>
+                </div>
+                <div class="col-sm-8">
+                    <div class="position-relative">
+                        <input class="form-control" type="text" id="video-${videoCounter}" name="videos[]" placeholder="Masukkan URL video">
+                        <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-video-btn" onclick="removeRow('videoUploadRow-${videoCounter}')">
+                            &times;
+                        </button>
                     </div>
-                    <p class="text-center small">Gambar ${count + 1}</p>
                 </div>
-                <div class="mt-2 d-flex justify-content-between">
-                    <input class="form-control form-control-sm" type="file" id="newImage${count}" 
-                        name="images[new][${count}]" accept="image/*">
-                    <button type="button" class="btn btn-danger btn-sm remove-image" data-index="${count}">Hapus</button>
-                </div>
-            </div>
             `;
-            container.appendChild(newField);
 
-            // Add event listener for previewing the new image
-            const fileInput = newField.querySelector(`#newImage${count}`);
-            const preview = newField.querySelector(`#newImagePreview${count}`);
-            fileInput.addEventListener('change', function() {
-                if (fileInput.files && fileInput.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        preview.src = e.target.result;
-                        preview.style.display = 'block';
-                    };
-                    reader.readAsDataURL(fileInput.files[0]);
-                }
-            });
-
-            // Add remove functionality
-            newField.querySelector('.remove-image').addEventListener('click', function() {
-                newField.remove();
-            });
+            document.getElementById('videoUploadContainer').appendChild(newRow);
         });
 
-        // Add preview functionality for existing images
-        document.querySelectorAll('.image-item input[type="file"]').forEach(function(fileInput) {
-            const index = fileInput.id.match(/\d+/)[0]; // Extract index from id
-            const preview = document.getElementById(`existingImagePreview${index}`);
+        function removeRow(rowId) {
+            document.getElementById(rowId)?.remove();
+        }
 
-            fileInput.addEventListener('change', function() {
-                if (fileInput.files && fileInput.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        preview.src = e.target.result;
-                    };
-                    reader.readAsDataURL(fileInput.files[0]);
-                }
-            });
+        function removeListItem(rowId) {
+            const row = document.getElementById(rowId);
+            if (row) {
+                row.remove();
+            }
+        }
+    </script>
+    <script>
+        let imageCounter = {{ $imageCounter }};
+
+        // Function to preview image before upload
+        function previewImage(input, previewId) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById(previewId).src = e.target.result;
+                    document.getElementById(previewId).style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Add Image Upload Input
+        document.getElementById('addImageButton').addEventListener('click', function() {
+            imageCounter++;
+
+            const newRow = document.createElement('div');
+            newRow.classList.add('row', 'align-items-center', 'mb-3');
+            newRow.id = `imageUploadRow-${imageCounter}`;
+
+            newRow.innerHTML = `
+                <div class="col-sm-4">
+                    <label class="form-label">Gambar<span class="text-danger">*</span></label>
+                </div>
+                <div class="col-sm-8">
+                    <div class="position-relative text-center">
+                    <img src="" class="mt-2 img-preview" id="preview-${imageCounter}" width="250px" style="display: none;">
+                        <input class="form-control image-input" type="file" name="images[]" accept="image/*"
+                            onchange="previewImage(this, 'preview-${imageCounter}')">
+                        <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-image-btn"
+                            onclick="removeRow('imageUploadRow-${imageCounter}')">
+                            &times;
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('imageUploadContainer').appendChild(newRow);
         });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll(".delete-image").forEach(button => {
+                button.addEventListener("click", function() {
+                    let imageId = this.getAttribute("data-id");
 
-        // Remove existing image fields
-        document.querySelectorAll('.remove-image').forEach(function(button) {
-            button.addEventListener('click', function() {
-                const index = button.getAttribute('data-index');
-                const imageItem = document.querySelector(`.image-item[data-index="${index}"]`);
-                imageItem.remove();
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "This action cannot be undone!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#d33",
+                        cancelButtonColor: "#3085d6",
+                        confirmButtonText: "Yes, delete it!"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            fetch("{{ url('/admin/package/image') }}/" + imageId, {
+                                    method: "DELETE",
+                                    headers: {
+                                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                                        "Content-Type": "application/json"
+                                    }
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        document.getElementById(rowId)
+                                            .remove();
+                                        Swal.fire("Deleted!",
+                                            "The image has been deleted.", "success"
+                                        );
+                                    } else {
+                                        Swal.fire("Error!", "Failed to delete image.",
+                                            "error");
+                                    }
+                                })
+                                .catch(error => {
+                                    Swal.fire("Error!", "Something went wrong.",
+                                        "error");
+                                    console.error("Error:", error);
+                                });
+                        }
+                    });
+                });
             });
         });
     </script>

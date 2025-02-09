@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\ComplaintUserController;
@@ -21,6 +22,7 @@ Route::get('/testapi', [SurveyController::class, 'testapi'])->name('survey.testa
 Route::get('/testimony', [TestimonyController::class, 'form'])->name('testimony.form');
 Route::post('/testimony', [TestimonyController::class, 'userstore'])->name('testimonyuser.store');
 Route::post('/complaint', [ComplaintUserController::class, 'store'])->name('complaintuser.store');
+Route::post('/paket/$id', [HomeController::class, 'paket'])->name('paket');
 
 Route::get('/api/provinces', function () {
     try {
@@ -70,6 +72,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/admin/blog/{id}', [BlogController::class, 'destroy'])->name('admin.blog.delete');
     Route::get('/admin/blog/getTags', [BlogController::class, 'getTags'])->name('admin.blog.getTags');
 
+    Route::get('/admin/banner', [BannerController::class, 'index'])->name('admin.banner.index');
+    Route::get('/admin/banner/getData', [BannerController::class, 'getData'])->name('admin.banner.getData');
+    Route::get('/admin/banner/create', [BannerController::class, 'create'])->name('admin.banner.create');
+    Route::post('/admin/banner', [BannerController::class, 'store'])->name('admin.banner.store');
+    Route::get('/admin/banner/edit/{id}', [BannerController::class, 'edit'])->name('admin.banner.edit');
+    Route::post('/admin/banner/update/{id}', [BannerController::class, 'update'])->name('admin.banner.update');
+    Route::delete('/admin/banner/{id}', [BannerController::class, 'destroy'])->name('admin.banner.delete');
+
     Route::get('/admin/package', [PackageController::class, 'index'])->name('admin.package.index');
     Route::get('/admin/package/getData', [PackageController::class, 'getData'])->name('admin.package.getData');
     Route::get('/admin/package/create', [PackageController::class, 'create'])->name('admin.package.create');
@@ -77,6 +87,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/package/edit/{id}', [PackageController::class, 'edit'])->name('admin.package.edit');
     Route::post('/admin/package/update/{id}', [PackageController::class, 'update'])->name('admin.package.update');
     Route::delete('/admin/package/{id}', [PackageController::class, 'destroy'])->name('admin.package.delete');
+    Route::delete('/admin/package/image/{id}', [PackageController::class, 'deleteImage'])->name('admin.package.deleteImage');
+
 
     Route::get('/admin/design', [DesignController::class, 'index'])->name('admin.design.index');
     Route::get('/admin/design/getData', [DesignController::class, 'getData'])->name('admin.design.getData');
@@ -86,6 +98,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/design/update/{id}', [DesignController::class, 'update'])->name('admin.design.update');
     Route::delete('/admin/design/{id}', [DesignController::class, 'destroy'])->name('admin.design.delete');
     Route::get('/admin/design/getTags', [DesignController::class, 'getTags'])->name('admin.design.getTags');
+    Route::delete('/admin/design/image/{id}', [DesignController::class, 'deleteImage'])->name('admin.design.deleteImage');
 
     Route::get('/admin/customer', [CustomerController::class, 'index'])->name('admin.customer.index');
     Route::get('/admin/customer/getData', [CustomerController::class, 'getData'])->name('admin.customer.getData');
