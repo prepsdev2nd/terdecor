@@ -99,29 +99,4 @@ class TestimonyController extends Controller
 
         return response()->json(['warning' => 'Data berhasil dihapus.']);
     }
-
-    public function form()
-    {
-        return view('testimony');
-    }
-
-    public function userstore(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
-            'testi' => 'required|string|max:255',
-        ]);
-
-        $data = new Testimony();
-        $data->name = $request->input('name');
-        $data->phone = $request->input('phone');
-        $data->type = $request->input('type');
-        $data->testi = $request->input('testi');
-        $data->status = 'Draft';
-
-        $data->save();
-
-        return redirect()->route('testimony.form')->with('success', 'Testimoni berhasil ditambahkan.<br>Terima kasih telah meluangkan waktu untuk memberikan testimonial pada kami!');
-    }
 }

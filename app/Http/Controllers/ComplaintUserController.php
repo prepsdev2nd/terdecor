@@ -16,6 +16,7 @@ class ComplaintUserController extends Controller
 
         $data = new Complaint();
         $data->name = $request->input('name');
+        $data->phone = $request->input('phone');
         $data->description = $request->input('description');
 
         $data->save();

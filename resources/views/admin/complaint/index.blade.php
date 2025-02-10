@@ -66,12 +66,12 @@
                         name: 'name'
                     },
                     {
-                        data: 'phone',
-                        name: 'phone'
-                    },
-                    {
                         data: 'description',
                         name: 'description'
+                    },
+                    {
+                        data: 'phone',
+                        name: 'phone'
                     },
                     {
                         data: 'action',

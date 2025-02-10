@@ -12,6 +12,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\TestimonyController;
+use App\Http\Controllers\TestimonyUserController;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
@@ -19,10 +20,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/survey', [SurveyController::class, 'form'])->name('survey.form');
 Route::post('/survey', [SurveyController::class, 'store'])->name('survey.store');
 Route::get('/testapi', [SurveyController::class, 'testapi'])->name('survey.testapi');
-Route::get('/testimony', [TestimonyController::class, 'form'])->name('testimony.form');
-Route::post('/testimony', [TestimonyController::class, 'userstore'])->name('testimonyuser.store');
+Route::get('/testimony', [TestimonyUserController::class, 'form'])->name('testimony.form');
+Route::post('/testimony', [TestimonyUserController::class, 'store'])->name('testimonyuser.store');
 Route::post('/complaint', [ComplaintUserController::class, 'store'])->name('complaintuser.store');
-Route::post('/paket/$id', [HomeController::class, 'paket'])->name('paket');
+Route::get('/paket/{id}', [HomeController::class, 'paket'])->name('paket');
 
 Route::get('/api/provinces', function () {
     try {
