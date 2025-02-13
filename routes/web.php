@@ -17,13 +17,18 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
+Route::get('/blog/{id}', [HomeController::class, 'blogDetail'])->name('blog.detail');
+Route::get('/paket', [HomeController::class, 'paket'])->name('paket');
+Route::get('/paket/{id}', [HomeController::class, 'paketDetail'])->name('paket.detail');
+Route::get('/desain', [HomeController::class, 'desain'])->name('desain');
+Route::get('/desain/{id}', [HomeController::class, 'desainDetail'])->name('desain.detail');
 Route::get('/survey', [SurveyController::class, 'form'])->name('survey.form');
 Route::post('/survey', [SurveyController::class, 'store'])->name('survey.store');
 Route::get('/testapi', [SurveyController::class, 'testapi'])->name('survey.testapi');
 Route::get('/testimony', [TestimonyUserController::class, 'form'])->name('testimony.form');
 Route::post('/testimony', [TestimonyUserController::class, 'store'])->name('testimonyuser.store');
 Route::post('/complaint', [ComplaintUserController::class, 'store'])->name('complaintuser.store');
-Route::get('/paket/{id}', [HomeController::class, 'paket'])->name('paket');
 
 Route::get('/api/provinces', function () {
     try {

@@ -32,7 +32,7 @@
         <!-- * * * * * * When using an image, we recommend the SVG format.-->
         <!-- * * * * * * Dimensions: Maximum height: 32px, maximum width: 240px-->
         <a class="navbar-brand pe-3 ps-4 ps-lg-2" href="{{ route('admin.dashboard') }}">
-            <img class="img-fluid" src="https://landing.terdecor.com/user/images/logo.png" style="height:25px;">
+            <img class="img-fluid" src="{{ asset('user/images/logo.png') }}" style="height:25px;">
         </a>
         <!-- Navbar Items-->
         <ul class="navbar-nav align-items-center ms-auto">

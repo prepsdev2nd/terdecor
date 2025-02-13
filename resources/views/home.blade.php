@@ -139,7 +139,7 @@
                                     <div class="mt-auto">
                                         <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">mulai
                                                 dari</small><br> Rp 1.999.999</h1>
-                                        <a href="{{ route('paket', $row->slug) }}"
+                                        <a href="{{ route('paket.detail', $row->slug) }}"
                                             class="w-100 btn btn-lg btn-primary rounded">Detail
                                             Paket</a>
                                     </div>
@@ -180,7 +180,9 @@
                                         </p>
                                     </div>
                                     <div class="p-3 text-center">
-                                        <a href="/" class="btn btn-primary"> Lihat Detail</a>
+                                        <a href="{{ route('desain.detail', $row->slug) }}" class="btn btn-primary">
+                                            Lihat
+                                            Detail</a>
                                     </div>
                                 </div>
                             </div>
@@ -334,8 +336,8 @@
                                     <small class="post-author"> / Admin</small>
                                 </div>
                                 <h3 class="post-title">{{ $row->title }}</h3>
-                                <p>{{ Str::words(strip_tags($row->content), 75) }}...</p>
-                                <a href="{{ url($row->slug) }}" title="{{ $row->title }}"
+                                <p>{{ Str::words(strip_tags($row->content), 40) }}...</p>
+                                <a href="{{ route('blog.detail', $row->slug) }}" title="{{ $row->title }}"
                                     class="btn btn-outline-primary stretched-link"><span>Selengkapnya </span><i
                                         class="bi bi-arrow-right"></i></a>
                             </div>

@@ -4,7 +4,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> Terdecor - {{ $title }}</title>
+    @if (request()->is('/') || request()->is('blog') || request()->is('paket') || request()->is('desain'))
+        <title>Home - Terdecor</title>
+        <meta name="description" content="Welcome to Terdecor, your go-to place for home decor solutions.">
+        <meta name="keywords" content="home decor, interior design, Terdecor">
+        <meta name="author" content="Terdecor">
+    @else
+        <title>{{ $title }} - Terdecor</title>
+        <meta name="description" content="{{ $description }}">
+        <meta name="keywords" content="{{ $keywords }}">
+        <meta name="author" content="Terdecor">
+    @endif
 
     <link rel="stylesheet" type="text/css" href="css/vendor.css">
 
@@ -47,7 +57,7 @@
 
             <div class="container ">
 
-                <a class="navbar-brand" href="./index.html"><img src="{{ asset('user/images/logo.png') }}"
+                <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('user/images/logo.png') }}"
                         alt="terdecor.id" style="max-width: 175px;"></a>
 
 
@@ -66,16 +76,20 @@
                     <div class="offcanvas-body">
                         <ul class="navbar-nav align-items-center justify-content-end align-items-center flex-grow-1 ">
                             <li class="nav-item">
-                                <a class="nav-link active me-md-4" href="#billboard">Home</a>
+                                <a class="nav-link me-md-4 {{ request()->is('/') ? 'active' : '' }}"
+                                    href="{{ route('home') }}">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-md-4" href="#portfolio">Portfolio</a>
+                                <a class="nav-link me-md-4 {{ request()->is('paket') ? 'active' : '' }}"
+                                    href="{{ route('paket') }}">Paket</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-md-4" href="#about">About</a>
+                                <a class="nav-link me-md-4 {{ request()->is('desain') ? 'active' : '' }}"
+                                    href="{{ route('desain') }}">Desain</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-md-4" href="#testimoni">Testimoni</a>
+                                <a class="nav-link me-md-4 {{ request()->is('blog') ? 'active' : '' }}"
+                                    href="{{ route('blog') }}">Blog</a>
                             </li>
                             <li class="nav-item">
                                 <a class="btn-medium btn btn-primary"

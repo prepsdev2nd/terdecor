@@ -22,12 +22,73 @@ class HomeController extends Controller
         return view('home', compact('testi', 'package', 'design', 'blog', 'banner', 'title'));
     }
 
-    public function paket($id)
+    public function paket()
+    {
+        $data = Package::with(['images', 'details'])->orderBy('updated_at', 'desc')->paginate(10);
+        $title = 'Paket';
+
+        return view('paket', compact('data', 'title'));
+    }
+
+
+    public function paketDetail($id)
     {
         $data = Package::with(['images', 'details'])->where('slug', $id)->first();
         $title = $data->title;
+        $description = strip_tags($data->description);
+        $keywords = $data->title;
 
-        // dd($data->images); 
-        return view('paket', compact('data', 'title'));
+        return view('paketDetail', compact('data', 'title', 'description', 'keywords'));
+    }
+
+    public function desain()
+    {
+        $data = Design::with(['images'])->orderBy('updated_at', 'desc')->paginate(10);
+        $title = 'Desain';
+
+        return view('desain', compact('data', 'title'));
+    }
+
+
+    public function desainDetail($id)
+    {
+        $data = Design::with(['images'])->where('slug', $id)->first();
+        $title = $data->title;
+        $description = strip_tags($data->description);
+        $keywords = $data->title;
+
+        return view('desainDetail', compact('data', 'title', 'description', 'keywords'));
+    }
+
+    public function blog()
+    {
+        $data = Blog::orderBy('updated_at', 'desc')->paginate(10);
+        $title = 'Blog';
+
+        return view('blog', compact('data', 'title'));
+    }
+
+    public function blogDetail($id)
+    {
+        $data = Blog::where('slug', $id)->first();
+        $title = $data->title;
+        $description = strip_tags($data->content);
+        $keywords = $data->tags;
+
+        $tags = explode('; ', $data->tags);
+
+        $relatedBlogs = Blog::where('id', '!=', $data->id)
+            ->where(function ($query) use ($tags) {
+                foreach ($tags as $tag) {
+                    $query->orWhere('tags', 'LIKE', "%$tag%");
+                }
+            })
+            ->limit(3)
+            ->get();
+        if ($relatedBlogs->isEmpty()) {
+            $relatedBlogs = Blog::where('id', '!=', $data->id)->limit(3)->get();
+        }
+
+        return view('blogDetail', compact('data', 'title', 'relatedBlogs', 'description', 'keywords'));
     }
 }

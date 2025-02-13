@@ -18,9 +18,15 @@
                     <div class="col-md-4 d-flex flex-column">
                         <article class="post-item pb-3 d-flex flex-column justify-content-between">
                             <div class="post-image">
-                                <a href="{{ url($row->slug) }}" title={{ $row->title }}><img
-                                        src="{{ asset('images/blogs/' . $row->image) }}" class="img-fluid"
-                                        alt="{{ $row->title }}"></a>
+                                @php
+                                    $coverImage = \App\Models\DesignImages::where('design_id', $row->id)->first();
+                                @endphp
+                                @if ($coverImage)
+                                    <a href="{{ route('desain.detail', $row->slug) }}" title="{{ $row->title }}">
+                                        <img src="{{ $coverImage->image_path }}" class="img-fluid"
+                                            alt="{{ $row->title }}">
+                                    </a>
+                                @endif
                             </div>
                             <div class="post-content mt-auto">
                                 <a href="#" class="text-decoration-none">
@@ -28,12 +34,12 @@
                                         {{ $row->created_at->translatedFormat('d F Y') }}
                                     </p>
                                 </a>
-                                <a href="{{ url($row->slug) }}" class="text-decoration-none">
+                                <a href="{{ route('desain.detail', $row->slug) }}" class="text-decoration-none">
                                     <h4 class="blog-title my-3">{{ $row->title }}</h4>
                                 </a>
-                                <p>{{ Str::words(strip_tags($row->content), 40) }}...</p>
+                                <p>{{ Str::words(strip_tags($row->description), 40) }}...</p>
 
-                                <a href="{{ route('blog.detail', $row->slug) }}" title="{{ $row->title }}"
+                                <a href="{{ route('desain.detail', $row->slug) }}" title="{{ $row->title }}"
                                     class="btn btn-outline-primary stretched-link"><span>Selengkapnya </span><i
                                         class="bi bi-arrow-right"></i></a>
                             </div>
