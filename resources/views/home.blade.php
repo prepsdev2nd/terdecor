@@ -463,7 +463,7 @@
                     bottom: 20px;
                     left: 50%;
                     transform: translateX(-50%);
-                    background: #198754;
+                    background: #c79677;
                     color: white;
                     padding: 0px;
                     border-radius: 8px;
