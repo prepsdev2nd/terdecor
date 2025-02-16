@@ -41,9 +41,10 @@
                                                     <img src="{{ url($media->image_path) }}" class="img-thumbnail"
                                                         alt="Thumbnail">
                                                 @elseif($media->image_type == 'Video')
-                                                    <div class="video-container">
-                                                        <iframe src="https://www.youtube.com/embed/{{ $media->image_path }}"
-                                                            allowfullscreen></iframe>
+                                                    <div class="video-container" onclick="showVideo()">
+                                                        <img src="https://img.youtube.com/vi/{{ $media->image_path }}/hqdefault.jpg"
+                                                            alt="Video Thumbnail" class="video-thumbnail">
+                                                        <div class="play-button">▶</div>
                                                     </div>
                                                 @endif
                                             </div>
@@ -194,7 +195,7 @@
                 top: 0;
                 left: 0;
                 width: 100%;
-                height: 100%;
+                height: 100;
             }
         </style>
 
