@@ -95,7 +95,7 @@
 
         <section id="package" class="py-3">
             <div class="container-lg">
-                <h2 class="m-0 py-lg-5 title">Paket Unggulan</h2>
+                <h2 class="mb-sm-3 mb-md-0 py-lg-5 title">Paket Unggulan</h2>
                 <div class="row row-cols-1 row-cols-md-3 mb-3 text-center justify-content-center">
                     @foreach ($package as $row)
                         <div class="col d-flex justify-content-center">
@@ -153,7 +153,7 @@
 
         <section id="design" class="py-3">
             <div class="container my-5">
-                <h2 class="m-0 py-lg-5 title">Desain Interior</h2>
+                <h2 class="mb-sm-3 mb-md-0 py-lg-5 title">Desain Interior</h2>
 
                 <div class="swiper-button-next residence-swiper-next  residence-arrow"></div>
                 <div class="swiper-button-prev residence-swiper-prev residence-arrow"></div>

@@ -17,7 +17,7 @@
                         </div>
                         <div class="product-container">
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col-lg-4 col-md-5 col-sm-12">
                                     <div class="main-image">
                                         @foreach ($data->images as $index => $media)
                                             <div class="image-container {{ $index == 0 ? 'active' : 'd-none' }}"
@@ -27,7 +27,7 @@
                                                         alt="Product Image" onclick="openPopup()">
                                                 @elseif($media->image_type == 'Video')
                                                     <iframe width="100%" height="315"
-                                                        src="https://www.youtube.com/embed/08Ndzf5-HxI"
+                                                        src="https://www.youtube.com/embed/{{ $media->image_path }}"
                                                         title="YouTube video player" frameborder="0"
                                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                         allowfullscreen onclick="openPopup()"></iframe>
@@ -42,8 +42,8 @@
                                                     <img src="{{ url($media->image_path) }}" class="img-thumbnail"
                                                         alt="Thumbnail">
                                                 @elseif($media->image_type == 'Video')
-                                                    <iframe width="100" height="60"
-                                                        src="https://www.youtube.com/embed/08Ndzf5-HxI"
+                                                    <iframe width="100%" height="315"
+                                                        src="https://www.youtube.com/embed/{{ $media->image_path }}"
                                                         class="img-thumbnail" allowfullscreen></iframe>
                                                 @endif
                                             </div>
@@ -52,7 +52,7 @@
                                 </div>
 
                                 <!-- Bagian Kanan (Judul, Detail, Deskripsi) -->
-                                <div class="col-9">
+                                <div class="col-lg-8 col-md-7 col-sm-12">
                                     <div class="post-detail">
                                         <h4>Detail:</h4>
                                         <ul class="list-unstyled">
