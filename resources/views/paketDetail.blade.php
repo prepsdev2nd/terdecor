@@ -26,7 +26,7 @@
                                                     <img src="{{ url($media->image_path) }}" class="d-block w-100"
                                                         alt="Product Image" onclick="openPopup()">
                                                 @elseif($media->image_type == 'Video')
-                                                    <iframe width="100%" height="315"
+                                                    <iframe width="100%" height="100%"
                                                         src="https://www.youtube.com/embed/{{ $media->image_path }}"
                                                         title="YouTube video player" frameborder="0"
                                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -42,7 +42,7 @@
                                                     <img src="{{ url($media->image_path) }}" class="img-thumbnail"
                                                         alt="Thumbnail">
                                                 @elseif($media->image_type == 'Video')
-                                                    <iframe width="100%" height="315"
+                                                    <iframe width="100%" height="100%"
                                                         src="https://www.youtube.com/embed/{{ $media->image_path }}"
                                                         class="img-thumbnail" allowfullscreen></iframe>
                                                 @endif
