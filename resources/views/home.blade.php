@@ -114,9 +114,13 @@
                                                         <img src="{{ asset($detail->image_path) }}"
                                                             class="d-block w-100 border rounded" alt="Image 1">
                                                     </div>
+                                                    <div class="carousel-caption custom-caption">
+                                                        <p class="my-1 text-white">Termasuk Instalasi</p>
+                                                    </div>
                                                 @endif
                                             @endforeach
                                         </div>
+
                                         <button class="carousel-control-prev" type="button"
                                             data-bs-target="#carouselExampleControls{{ $row->id }}"
                                             data-bs-slide="prev">
@@ -151,6 +155,46 @@
             </div>
         </section>
 
+        <section id="checker" class="py-3">
+            <div class="container my-5">
+                <h2 class="mb-sm-3 mb-md-0 py-lg-3 title">Cek Perkiraan Desainmu</h2>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card mb-4 rounded-3 shadow-sm h-100">
+                            <div class="card-body">
+                                <form id="roomForm">
+                                    @csrf
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <label for="input1" class="form-label">Panjang Ruangan Kamu</label>
+                                            <input type="text" class="form-control" id="input1" name="input1"
+                                                placeholder="5" required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="input2" class="form-label">Lebar Ruangan Kamu</label>
+                                            <input type="text" class="form-control" id="input2" name="input2"
+                                                placeholder="10" required>
+                                        </div>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button type="button" class="btn btn-primary btn-lg rounded"
+                                            onclick="calculateTotal()">Cek Sekarang</button>
+                                    </div>
+                                    <div class="text-center fw-bold mt-3">
+                                        <h4 id="result">
+                                        </h4>
+                                        <small id="result-note" class="text-muted" hidden>*Harga diatas adalah harga
+                                            perkiraan, harga dapat
+                                            berubah
+                                            sesuai pengunaan material dan kebutuhan lainnya.</small>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section id="design" class="py-3">
             <div class="container my-5">
                 <h2 class="mb-sm-3 mb-md-0 py-lg-5 title">Desain Interior</h2>
@@ -412,8 +456,24 @@
             </div>
         </section>
 
-
-
+        @push('styles')
+            <style>
+                .custom-caption {
+                    position: absolute;
+                    bottom: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: #198754;
+                    color: white;
+                    padding: 0px;
+                    border-radius: 8px;
+                    width: 100%;
+                    opacity: 70%;
+                    text-align: center;
+                    white-space: nowrap;
+                }
+            </style>
+        @endpush
 
         @push('scripts')
             <script src="{{ asset('user/js/jquery-1.11.0.min.js') }}"></script>
@@ -453,6 +513,22 @@
                     document.getElementById('typeField').style.display = 'none';
                 });
             </script>
+            <script>
+                function calculateTotal() {
+                    const length = document.getElementById('input1').value;
+                    const width = document.getElementById('input2').value;
+                    const pricePerSquareMeter = 89000;
+
+                    if (length && width) {
+                        const totalArea = length * width;
+                        const totalPrice = totalArea * pricePerSquareMeter;
+                        document.getElementById('result').innerText = `Total Harga: Rp ${totalPrice.toLocaleString()}`;
+                        document.getElementById('result-note').removeAttribute('hidden');
+                    } else {
+                        document.getElementById('result').innerText = 'Mohon masukkan panjang dan lebar ruangan.';
+                    }
+                }
+            </script>
             @if (session('success'))
                 <script>
                     Swal.fire({
@@ -463,5 +539,4 @@
                 </script>
             @endif
         @endpush
-
     @endsection
