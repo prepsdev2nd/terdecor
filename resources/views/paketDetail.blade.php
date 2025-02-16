@@ -41,10 +41,9 @@
                                                     <img src="{{ url($media->image_path) }}" class="img-thumbnail"
                                                         alt="Thumbnail">
                                                 @elseif($media->image_type == 'Video')
-                                                    <div class="video-container" onclick="showVideo()">
+                                                    <div class="video-container-preview" onclick="showVideo()">
                                                         <img src="https://img.youtube.com/vi/{{ $media->image_path }}/hqdefault.jpg"
-                                                            alt="Video Thumbnail" class="video-thumbnail">
-                                                        <div class="play-button">▶</div>
+                                                            alt="Video Thumbnail" class="img-thumbnail">
                                                     </div>
                                                 @endif
                                             </div>
@@ -195,7 +194,13 @@
                 top: 0;
                 left: 0;
                 width: 100%;
-                height: 100;
+                height: 100%;
+            }
+
+            .video-container-preview {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
             }
         </style>
 
