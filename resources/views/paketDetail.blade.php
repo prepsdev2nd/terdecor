@@ -26,11 +26,10 @@
                                                     <img src="{{ url($media->image_path) }}" class="d-block w-100"
                                                         alt="Product Image" onclick="openPopup()">
                                                 @elseif($media->image_type == 'Video')
-                                                    <iframe width="100%" height="100"
-                                                        src="https://www.youtube.com/embed/{{ $media->image_path }}"
-                                                        title="YouTube video player" frameborder="0"
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                        allowfullscreen onclick="openPopup()"></iframe>
+                                                    <div class="video-container">
+                                                        <iframe src="https://www.youtube.com/embed/{{ $media->image_path }}"
+                                                            allowfullscreen></iframe>
+                                                    </div>
                                                 @endif
                                             </div>
                                         @endforeach
@@ -42,9 +41,10 @@
                                                     <img src="{{ url($media->image_path) }}" class="img-thumbnail"
                                                         alt="Thumbnail">
                                                 @elseif($media->image_type == 'Video')
-                                                    <iframe width="100%" height="100"
-                                                        src="https://www.youtube.com/embed/{{ $media->image_path }}"
-                                                        class="img-thumbnail" allowfullscreen></iframe>
+                                                    <div class="video-container">
+                                                        <iframe src="https://www.youtube.com/embed/{{ $media->image_path }}"
+                                                            allowfullscreen></iframe>
+                                                    </div>
                                                 @endif
                                             </div>
                                         @endforeach
@@ -180,6 +180,21 @@
             .main-image iframe {
                 pointer-events: auto;
                 /* Ensures the event works */
+            }
+
+            .video-container {
+                position: relative;
+                width: 100%;
+                padding-top: 56.25%;
+                /* 16:9 Aspect Ratio (change if needed) */
+            }
+
+            .video-container iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
             }
         </style>
 
