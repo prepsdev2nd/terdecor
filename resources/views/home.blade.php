@@ -467,8 +467,8 @@
                     color: white;
                     padding: 0px;
                     border-radius: 8px;
-                    width: 100%;
-                    opacity: 70%;
+                    width: 90%;
+                    opacity: 90%;
                     text-align: center;
                     white-space: nowrap;
                 }
