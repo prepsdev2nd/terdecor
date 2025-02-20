@@ -119,6 +119,18 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+
+                                <div class="col-sm-4 mb-3">
+                                    <label for="type" class="form-label">Tipe Paket<span
+                                            class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-sm-8 mb-3">
+                                    <select class="form-control" name="type" id="type" required>
+                                        <option value="Desain Only">Desain Only</option>
+                                        <option value="Include Instalasi">Include Instalasi</option>
+                                    </select>
+                                </div>
+
                                 <div id="imageUploadContainer">
                                     <div class="row align-items-center mb-3" id="imageUploadRow-1">
                                         <div class="col-sm-4">

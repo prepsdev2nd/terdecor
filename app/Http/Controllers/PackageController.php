@@ -76,6 +76,7 @@ class PackageController extends Controller
         $package->title = $request->input('title');
         $package->slug = Str::slug($request->input('title'));
         $package->description = $request->input('content');
+        $package->type = $request->input('type');
         $package->price = (int) $price;
         $package->save();
 
@@ -142,6 +143,7 @@ class PackageController extends Controller
         $package->title = $request->input('title');
         $package->slug = Str::slug($request->input('title'));
         $package->description = $request->input('content');
+        $package->type = $request->input('type');
         $package->price = (int) $price;
 
         $images = $request->file('images');

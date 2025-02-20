@@ -114,9 +114,15 @@
                                                         <img src="{{ asset($detail->image_path) }}"
                                                             class="d-block w-100 border rounded" alt="Image 1">
                                                     </div>
-                                                    <div class="carousel-caption custom-caption">
-                                                        <p class="my-1 text-white">Termasuk Instalasi</p>
-                                                    </div>
+                                                    @if ($row->type == 'Desain Only')
+                                                        <div class="carousel-caption custom-caption">
+                                                            <p class="my-1 text-white">Desain Only</p>
+                                                        </div>
+                                                    @else
+                                                        <div class="carousel-caption custom-caption">
+                                                            <p class="my-1 text-white">Include Instalasi</p>
+                                                        </div>
+                                                    @endif
                                                 @endif
                                             @endforeach
                                         </div>
@@ -165,6 +171,13 @@
                                 <form id="roomForm">
                                     @csrf
                                     <div class="row mb-3">
+                                        <div class="col">
+                                            <label for="roomType" class="form-label">Tipe Paket</label>
+                                            <select class="form-select" id="roomType" name="roomType" required>
+                                                <option value="1">Desain Only</option>
+                                                <option value="2">Include Instalasi</option>
+                                            </select>
+                                        </div>
                                         <div class="col">
                                             <label for="input1" class="form-label">Panjang Ruangan Kamu</label>
                                             <input type="text" class="form-control" id="input1" name="input1"
@@ -517,7 +530,13 @@
                 function calculateTotal() {
                     const length = document.getElementById('input1').value;
                     const width = document.getElementById('input2').value;
-                    const pricePerSquareMeter = 89000;
+                    const roomType = document.getElementById('roomType').value;
+
+                    if (roomType === '1') {
+                        var pricePerSquareMeter = 89000;
+                    } else {
+                        var pricePerSquareMeter = 2899000;
+                    }
 
                     if (length && width) {
                         const totalArea = length * width;

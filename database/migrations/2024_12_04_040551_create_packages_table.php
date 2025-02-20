@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('slug')->nullable();
             $table->longText('description')->nullable();
             $table->bigInteger('price')->nullable();
+            $table->string('type')->nullable();
             $table->timestamps();
         });
     }

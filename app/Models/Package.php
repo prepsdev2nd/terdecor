@@ -12,6 +12,7 @@ class Package extends Model
         'slug',
         'description',
         'price',
+        'type',
     ];
 
     public function images()

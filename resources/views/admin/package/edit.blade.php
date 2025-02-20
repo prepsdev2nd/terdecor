@@ -120,6 +120,21 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+
+                                <div class="col-sm-4 mb-3">
+                                    <label for="type" class="form-label">Tipe Paket<span
+                                            class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-sm-8 mb-3">
+                                    <select class="form-control" name="type" id="type" required>
+                                        <option value="Desain Only" {{ $data->type == 'Desain Only' ? 'selected' : '' }}>
+                                            Desain
+                                            Only</option>
+                                        <option value="Include Instalasi"
+                                            {{ $data->type == 'Include Instalasi' ? 'selected' : '' }}>
+                                            Include Instalasi</option>
+                                    </select>
+                                </div>
                                 <!-- Image Upload Section -->
                                 <div id="imageUploadContainer">
                                     @php $imageCounter = 1; @endphp
@@ -198,7 +213,8 @@
                                                 @php $listCounter++; @endphp
                                             @endforeach
                                         </div>
-                                        <button type="button" class="btn btn-sm btn-primary mt-2" id="addListButton">Tambah
+                                        <button type="button" class="btn btn-sm btn-primary mt-2"
+                                            id="addListButton">Tambah
                                             List</button>
                                     </div>
                                 </div>
