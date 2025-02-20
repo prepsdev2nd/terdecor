@@ -116,11 +116,11 @@
                                                     </div>
                                                     @if ($row->type == 'Desain Only')
                                                         <div class="carousel-caption custom-caption">
-                                                            <p class="my-1 text-white">Desain Only</p>
+                                                            <p class="my-1 text-white fw-bold">Desain Only</p>
                                                         </div>
                                                     @else
                                                         <div class="carousel-caption custom-caption">
-                                                            <p class="my-1 text-white">Include Instalasi</p>
+                                                            <p class="my-1 text-white fw-bold">Include Instalasi</p>
                                                         </div>
                                                     @endif
                                                 @endif
