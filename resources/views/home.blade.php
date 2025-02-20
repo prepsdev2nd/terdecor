@@ -148,8 +148,8 @@
                                     </ul>
                                     <div class="mt-auto">
                                         <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">mulai
-                                                dari</small><br> Rp 1.999.999</h1>
-                                        <a href="{{ route('paket.detail', $row->slug) }}"
+                                                dari</small><br> Rp {{ number_format($row->price, 0, ',', '.') }}</h1> <a
+                                            href="{{ route('paket.detail', $row->slug) }}"
                                             class="w-100 btn btn-lg btn-primary rounded">Detail
                                             Paket</a>
                                     </div>
