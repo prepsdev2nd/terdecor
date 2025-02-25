@@ -505,4 +505,28 @@
             });
         });
     </script>
+    <script>
+
+        document.getElementById('addListButton').addEventListener('click', function() {
+            listCounter++;
+
+            const newRow = document.createElement('div');
+            newRow.classList.add('input-group', 'mb-2');
+            newRow.id = `listRow-${listCounter}`;
+
+            newRow.innerHTML = `
+                <input type="text" class="form-control" name="list[]" placeholder="Detail" required>
+                <button type="button" class="btn btn-danger" onclick="removeListItem('listRow-${listCounter}')">×</button>
+            `;
+
+            document.getElementById('listContainer').appendChild(newRow);
+        });
+
+        function removeListItem(rowId) {
+            const row = document.getElementById(rowId);
+            if (row) {
+                row.remove();
+            }
+        }
+    </script>
 @endpush
