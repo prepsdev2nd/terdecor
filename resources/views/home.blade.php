@@ -221,10 +221,15 @@
                             <div class="swiper-slide">
                                 <div class="card">
                                     <div class="position-relative">
+                                        @if($row->images->count() > 0)
                                         <img src="{{ $row->images->first()->image_path }}" class="card-img-top img-fluid"
                                             alt="{{ $row->title }}"
                                             style="object-fit: cover; height: 280px; width: 100%; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-
+                                        @else
+                                        <img src="https://placehold.co/400x400" class="card-img-top img-fluid"
+                                            alt="{{ $row->title }}"
+                                            style="object-fit: cover; height: 280px; width: 100%; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                                        @endif
                                         <div class="position-absolute top-0 end-0 p-2">
                                             <span class="badge bg-secondary me-1 fw-normal">{{ $row->type }}</span>
                                             <span class="badge bg-primary fw-normal">{{ $row->material }}</span>
