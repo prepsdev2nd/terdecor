@@ -1361,6 +1361,15 @@
             });
         });
     </script>
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses',
+                html: "{!! session('success') !!}",
+            });
+        </script>
+    @endif
 </body>
 
 </html>

@@ -156,6 +156,8 @@
 @endsection
 
 @push('page-styles')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <style>
         .nowrap {
             white-space: nowrap;
@@ -254,12 +256,55 @@
         }
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.update-status').forEach(button => {
-                button.addEventListener('click', function() {
-                    console.log('Tombol diklik!'); // Debug: Periksa apakah tombol diklik
-                });
+        document.addEventListener('click', function(event) {
+            let button = event.target.closest('.update-status');
+            if (!button) return;
+
+            let id = button.getAttribute('data-id');
+            let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+
+            Swal.fire({
+                title: "Apakah Anda yakin?",
+                text: "Status akan diupdate ke tahap selanjutnya!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.post(`/admin/customer/updateStatus/${id}`, {}, {
+                            headers: {
+                                "X-CSRF-TOKEN": csrfToken,
+                                "Content-Type": "application/json"
+                            }
+                        })
+                        .then(response => {
+                            Swal.fire(
+                                'Diperbarui!',
+                                'Status berhasil diperbarui.',
+                                'success'
+                            ).then(() => {
+                                $('#blogsDatatable').DataTable().ajax.reload();
+                            });
+                        })
+                        .catch(error => {
+                            Swal.fire(
+                                'Error!',
+                                'Terjadi kesalahan: ' + (error.response?.data?.error ||
+                                    'Server tidak merespons.'),
+                                'error'
+                            );
+                            console.error('Update error:', error);
+                        });
+                }
             });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
             const detailModal = document.getElementById('detailModal');
 
             detailModal.addEventListener('show.bs.modal', function(event) {
