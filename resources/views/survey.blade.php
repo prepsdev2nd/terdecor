@@ -72,6 +72,18 @@
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <a href="#basictab4" data-bs-toggle="tab" data-toggle="tab"
+                                            class="nav-link rounded-0 py-2" aria-selected="true" role="tab">
+                                            <span class="d-none d-sm-inline">Preferensi Desain</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a href="#basictab5" data-bs-toggle="tab" data-toggle="tab"
+                                            class="nav-link rounded-0 py-2" aria-selected="true" role="tab">
+                                            <span class="d-none d-sm-inline">Preferensi Favorit</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a href="#basictab6" data-bs-toggle="tab" data-toggle="tab"
                                             class="nav-link rounded-0 py-2 active" aria-selected="true" role="tab">
                                             <span class="d-none d-sm-inline">Finish</span>
                                         </a>
@@ -225,7 +237,7 @@
                                                         <div id="others-input" class="form-group"
                                                             style="display: none;">
                                                             <input type="text" class="form-control"
-                                                                id="others-text"
+                                                                id="others-text" name="kebutuhan_ruangan_other"
                                                                 placeholder="Masukkan kebutuhan lainnya">
                                                         </div>
                                                     </div>
@@ -289,19 +301,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="row mb-3">
                                                     <label class="col-md-3 col-form-label"
                                                         for="proyek_ruangan">Silakan pilih ruangan yang akan disertakan
                                                         dalam proyek. (Mohon centang semua yang berlaku)</label>
                                                     <div class="col-md-9">
-                                                        <div class="form-check mb-2">
-                                                            <input type="checkbox" class="form-check-input"
-                                                                name="ruangan[]" value="Default Checkbox"
-                                                                id="customCheckcolor1">
-                                                            <label class="form-check-label"
-                                                                for="customCheckcolor1">Default Checkbox</label>
-                                                        </div>
                                                         <div class="form-check mb-2">
                                                             <input type="checkbox" class="form-check-input"
                                                                 name="ruangan[]" value="Entry Hall" id="entryHall">
@@ -465,27 +469,721 @@
                                             </li>
                                         </ul>
                                     </div>
-
-                                    <div class="tab-pane show" id="basictab4" role="tabpanel">
+                                    <div class="tab-pane" id="basictab4" role="tabpanel">
                                         <div class="row">
                                             <div class="col-12">
-                                                <div class="text-center">
-                                                    <h2 class="mt-0"><i data-feather="check"></i> </h2>
-                                                    <h3 class="mt-0">Terima Kasih!</h3>
-
-                                                    <p class="w-75 mb-2 mx-auto">Apakah anda sudah mengisi data
-                                                        informasi yang telah tersedia? Kami akan memproses pengajuan
-                                                        form survey yang telah anda berikan setelah anda menekan tombol
-                                                        <b>SUBMIT</b>.<br>Kami akan memberikan infomasi melalui Whatsapp
-                                                        yang telah anda berikan sebagai feedback dari kami.
-                                                    </p>
-                                                    <div class="text-center">
+                                                <div class="row mb-3">
+                                                    <label class="col-md-3 col-form-label"
+                                                        for="desain_prioritas">Pilihlah prioritas tujuan desain pribadi
+                                                        berikut ini untuk interior Anda</label>
+                                                    <div class="col-md-9">
+                                                        <div class="form-check mb-2">
+                                                            <input type="radio" class="form-check-input"
+                                                                name="desain_prioritas" id="desain_prioritas_1"
+                                                                value="Saya tertarik untuk mendapatkan tampilan yang lebih bergaya/indah untuk interior saya">
+                                                            <label class="form-check-label">Saya tertarik untuk
+                                                                mendapatkan tampilan yang lebih bergaya/indah untuk
+                                                                interior saya</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="radio" class="form-check-input"
+                                                                name="desain_prioritas" id="desain_prioritas_2"
+                                                                value="Saya ingin interior saya berfungsi lebih efektif untuk ruangan saya">
+                                                            <label class="form-check-label">Saya ingin interior saya
+                                                                berfungsi lebih efektif untuk ruangan saya</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="radio" class="form-check-input"
+                                                                name="desain_prioritas" id="desain_prioritas_3"
+                                                                value="Saya ingin interior saya lebih mencerminkan selera pribadi saya">
+                                                            <label class="form-check-label">Saya ingin interior saya
+                                                                lebih mencerminkan selera pribadi saya</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="radio" id="desain_prioritas_4"
+                                                                name="desain_prioritas" class="form-check-input"
+                                                                value="others">
+                                                            <label class="form-check-label"
+                                                                for="kebutuhan_ruangan_4">Lainnya</label>
+                                                        </div>
+                                                        <div id="desain_prioritas_other" class="form-group"
+                                                            style="display: none;">
+                                                            <input type="text" class="form-control"
+                                                                id="desain_prioritas_text"
+                                                                name="desain_prioritas_other"
+                                                                placeholder="Masukkan kebutuhan lainnya">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label class="col-md-3 col-form-label" for="desain_ramah">Apakah
+                                                        Anda ingin menyertakan "produk ramah lingkungan" jika
+                                                        memungkinkan?</label>
+                                                    <div class="col-md-9">
+                                                        <div class="form-check mb-2">
+                                                            <input type="radio" class="form-check-input"
+                                                                name="desain_ramah" value="Ya">
+                                                            <label class="form-check-label">Ya</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="radio" class="form-check-input"
+                                                                name="desain_ramah" value="Tidak">
+                                                            <label class="form-check-label">Tidak</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label class="col-md-3 col-form-label"
+                                                        for="desain_suasana">Suasana apa yang anda inginkan ?
+                                                    </label>
+                                                    <div class="col-md-9">
                                                         <div class="form-check mb-2">
                                                             <input type="checkbox" class="form-check-input"
-                                                                id="confirmCheckbox" required>
-                                                            <label class="form-check-label" for="confirmCheckbox"
-                                                                style="margin-left: 5px;">Saya bersedia dilakukan
-                                                                Survey oleh tim Terdecor.</label>
+                                                                name="desain_suasana[]" value="Casual"
+                                                                id="casual">
+                                                            <label class="form-check-label"
+                                                                for="casual">Casual</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_suasana[]" value="Light/Airy"
+                                                                id="lightAiry">
+                                                            <label class="form-check-label"
+                                                                for="lightAiry">Light/Airy</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_suasana[]" value="Relaxed"
+                                                                id="relaxed">
+                                                            <label class="form-check-label"
+                                                                for="relaxed">Relaxed</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_suasana[]" value="Formal"
+                                                                id="formal">
+                                                            <label class="form-check-label"
+                                                                for="formal">Formal</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_suasana[]" value="Elegant"
+                                                                id="elegant">
+                                                            <label class="form-check-label"
+                                                                for="elegant">Elegant</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_suasana[]" value="Energetic"
+                                                                id="energetic">
+                                                            <label class="form-check-label"
+                                                                for="energetic">Energetic</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_suasana[]" value="Spacious"
+                                                                id="spacious">
+                                                            <label class="form-check-label"
+                                                                for="spacious">Spacious</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_suasana[]" value="Welcoming"
+                                                                id="welcoming">
+                                                            <label class="form-check-label"
+                                                                for="welcoming">Welcoming</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_suasana[]" value="Contemporary"
+                                                                id="contemporary">
+                                                            <label class="form-check-label"
+                                                                for="contemporary">Contemporary</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_suasana[]" value="Clean Lines"
+                                                                id="cleanLines">
+                                                            <label class="form-check-label" for="cleanLines">Clean
+                                                                Lines</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_suasana[]" value="Romantic"
+                                                                id="romantic">
+                                                            <label class="form-check-label"
+                                                                for="romantic">Romantic</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_suasana[]" value="Other"
+                                                                id="other">
+                                                            <label class="form-check-label"
+                                                                for="other">Other:</label>
+                                                            <input type="text" class="form-control mt-2"
+                                                                name="desain_suasana_other"
+                                                                placeholder="Please specify">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label class="col-md-3 col-form-label" for="desain_gaya">Gaya apa
+                                                        yang ingin Anda inginkan ?
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_gaya[]" value="Tuscan" id="tuscan">
+                                                            <label class="form-check-label"
+                                                                for="tuscan">Tuscan</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_gaya[]" value="Beach Cottage"
+                                                                id="beachCottage">
+                                                            <label class="form-check-label" for="beachCottage">Beach
+                                                                Cottage</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_gaya[]" value="Zen" id="zen">
+                                                            <label class="form-check-label" for="zen">Zen</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_gaya[]" value="Mediterranean"
+                                                                id="mediterranean">
+                                                            <label class="form-check-label"
+                                                                for="mediterranean">Mediterranean</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_gaya[]" value="Country Cottage"
+                                                                id="countryCottage">
+                                                            <label class="form-check-label"
+                                                                for="countryCottage">Country Cottage</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_gaya[]" value="Art Deco" id="artDeco">
+                                                            <label class="form-check-label" for="artDeco">Art
+                                                                Deco</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_gaya[]" value="French Country"
+                                                                id="frenchCountry">
+                                                            <label class="form-check-label" for="frenchCountry">French
+                                                                Country</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_gaya[]" value="Asian" id="asian">
+                                                            <label class="form-check-label"
+                                                                for="asian">Asian</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_gaya[]" value="Early American"
+                                                                id="earlyAmerican">
+                                                            <label class="form-check-label" for="earlyAmerican">Early
+                                                                American</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_gaya[]" value="Minimalist"
+                                                                id="minimalist">
+                                                            <label class="form-check-label"
+                                                                for="minimalist">Minimalist</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_gaya[]" value="Modern" id="modern">
+                                                            <label class="form-check-label"
+                                                                for="modern">Modern</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_gaya[]" value="Industrial"
+                                                                id="industrial">
+                                                            <label class="form-check-label"
+                                                                for="industrial">Industrial</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="desain_gaya[]" value="Other" id="other">
+                                                            <label class="form-check-label"
+                                                                for="other">Other:</label>
+                                                            <input type="text" class="form-control mt-2"
+                                                                name="desain_gaya_other" placeholder="Please specify">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <ul class="pager wizard mb-0 list-inline">
+                                                <li class="previous list-inline-item">
+                                                    <button type="button" class="btn btn-light"> Back</button>
+                                                </li>
+                                                <li class="next list-inline-item float-end disabled">
+                                                    <button type="button" class="btn btn-info">Next <i
+                                                            class="mdi mdi-arrow-right ms-1"></i></button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="basictab5" role="tabpanel">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="row mb-3">
+                                                    <label class="col-md-3 col-form-label" for="favorit_pribadi">
+                                                        Ketidak sukaan mengenai gaya pribadi Anda
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <textarea class="form-control" name="favorit_pribadi"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label class="col-md-3 col-form-label"
+                                                        for="favorit_preferensi">Pilihlah dari yang berikut ini untuk
+                                                        menjelaskan preferensi Anda pada bagian (Centang semua yang
+                                                        diperlukan)</label>
+                                                    <div class="col-md-9">
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_preferensi[]" value="Paisley"
+                                                                id="paisley">
+                                                            <label class="form-check-label"
+                                                                for="paisley">Paisley</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_preferensi[]" value="Sheer"
+                                                                id="sheer">
+                                                            <label class="form-check-label"
+                                                                for="sheer">Sheer</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_preferensi[]" value="Subtle pattern"
+                                                                id="subtlePattern">
+                                                            <label class="form-check-label" for="subtlePattern">Subtle
+                                                                pattern</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_preferensi[]" value="Stripe"
+                                                                id="stripe">
+                                                            <label class="form-check-label"
+                                                                for="stripe">Stripe</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_preferensi[]" value="Leather"
+                                                                id="leather">
+                                                            <label class="form-check-label"
+                                                                for="leather">Leather</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_preferensi[]" value="Satin"
+                                                                id="satin">
+                                                            <label class="form-check-label"
+                                                                for="satin">Satin</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_preferensi[]" value="Plaid"
+                                                                id="plaid">
+                                                            <label class="form-check-label"
+                                                                for="plaid">Plaid</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_preferensi[]" value="Bold pattern"
+                                                                id="boldPattern">
+                                                            <label class="form-check-label" for="boldPattern">Bold
+                                                                pattern</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_preferensi[]" value="Cotton"
+                                                                id="cotton">
+                                                            <label class="form-check-label"
+                                                                for="cotton">Cotton</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_preferensi[]" value="Toilet"
+                                                                id="toilet">
+                                                            <label class="form-check-label"
+                                                                for="toilet">Toilet</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_preferensi[]" value="Suede"
+                                                                id="suede">
+                                                            <label class="form-check-label"
+                                                                for="suede">Suede</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_preferensi[]" value="Silk"
+                                                                id="silk">
+                                                            <label class="form-check-label"
+                                                                for="silk">Silk</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_preferensi[]" value="Velvet"
+                                                                id="velvet">
+                                                            <label class="form-check-label"
+                                                                for="velvet">Velvet</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_preferensi[]" value="Other"
+                                                                id="other">
+                                                            <label class="form-check-label"
+                                                                for="other">Other:</label>
+                                                            <input type="text" class="form-control mt-2"
+                                                                name="favorit_preferensi_others"
+                                                                placeholder="Please specify">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label class="col-md-3 col-form-label"
+                                                        for="favorit_warna">Pilihlah dari yang berikut ini untuk
+                                                        menjelaskan preferensi Anda pada bagian (Centang semua yang
+                                                        diperlukan)</label>
+                                                    <div class="col-md-9">
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Whites" id="whites">
+                                                            <label class="form-check-label"
+                                                                for="whites">Whites</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Blacks" id="blacks">
+                                                            <label class="form-check-label"
+                                                                for="blacks">Blacks</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Burgundies"
+                                                                id="burgundies">
+                                                            <label class="form-check-label"
+                                                                for="burgundies">Burgundies</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Pinks" id="pinks">
+                                                            <label class="form-check-label"
+                                                                for="pinks">Pinks</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Aquas" id="aquas">
+                                                            <label class="form-check-label"
+                                                                for="aquas">Aquas</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Mint Greens"
+                                                                id="mintGreens">
+                                                            <label class="form-check-label" for="mintGreens">Mint
+                                                                Greens</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Olive Greens"
+                                                                id="oliveGreens">
+                                                            <label class="form-check-label" for="oliveGreens">Olive
+                                                                Greens</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Forest Greens"
+                                                                id="forestGreens">
+                                                            <label class="form-check-label" for="forestGreens">Forest
+                                                                Greens</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Teals" id="teals">
+                                                            <label class="form-check-label"
+                                                                for="teals">Teals</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Oranges"
+                                                                id="oranges">
+                                                            <label class="form-check-label"
+                                                                for="oranges">Oranges</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Reds" id="reds">
+                                                            <label class="form-check-label"
+                                                                for="reds">Reds</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Navy Blue"
+                                                                id="navyBlue">
+                                                            <label class="form-check-label" for="navyBlue">Navy
+                                                                Blue</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Powder Blue"
+                                                                id="powderBlue">
+                                                            <label class="form-check-label" for="powderBlue">Powder
+                                                                Blue</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Warm Colors"
+                                                                id="warmColors">
+                                                            <label class="form-check-label" for="warmColors">Warm
+                                                                Colors</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Cool Colors"
+                                                                id="coolColors">
+                                                            <label class="form-check-label" for="coolColors">Cool
+                                                                Colors</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Subtle"
+                                                                id="subtle">
+                                                            <label class="form-check-label"
+                                                                for="subtle">Subtle</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Bright"
+                                                                id="bright">
+                                                            <label class="form-check-label"
+                                                                for="bright">Bright</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Blues"
+                                                                id="blues">
+                                                            <label class="form-check-label"
+                                                                for="blues">Blues</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Jewel Tones"
+                                                                id="jewelTones">
+                                                            <label class="form-check-label" for="jewelTones">Jewel
+                                                                Tones</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Neutrals"
+                                                                id="neutrals">
+                                                            <label class="form-check-label"
+                                                                for="neutrals">Neutrals</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Earth tones"
+                                                                id="earthTones">
+                                                            <label class="form-check-label" for="earthTones">Earth
+                                                                tones</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Pale yellows"
+                                                                id="paleYellows">
+                                                            <label class="form-check-label" for="paleYellows">Pale
+                                                                yellows</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Yellows"
+                                                                id="yellows">
+                                                            <label class="form-check-label"
+                                                                for="yellows">Yellows</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Peach"
+                                                                id="peach">
+                                                            <label class="form-check-label"
+                                                                for="peach">Peach</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Bold"
+                                                                id="bold">
+                                                            <label class="form-check-label"
+                                                                for="bold">Bold</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Pastels"
+                                                                id="pastels">
+                                                            <label class="form-check-label"
+                                                                for="pastels">Pastels</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Grays"
+                                                                id="grays">
+                                                            <label class="form-check-label"
+                                                                for="grays">Grays</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Beiges"
+                                                                id="beiges">
+                                                            <label class="form-check-label"
+                                                                for="beiges">Beiges</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Tans"
+                                                                id="tans">
+                                                            <label class="form-check-label"
+                                                                for="tans">Tans</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Eggplant"
+                                                                id="eggplant">
+                                                            <label class="form-check-label"
+                                                                for="eggplant">Eggplant</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Lavenders"
+                                                                id="lavenders">
+                                                            <label class="form-check-label"
+                                                                for="lavenders">Lavenders</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Purples"
+                                                                id="purples">
+                                                            <label class="form-check-label"
+                                                                for="purples">Purples</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Greens"
+                                                                id="greens">
+                                                            <label class="form-check-label"
+                                                                for="greens">Greens</label>
+                                                        </div>
+                                                        <div class="form-check mb-2">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="favorit_warna[]" value="Other"
+                                                                id="other">
+                                                            <label class="form-check-label"
+                                                                for="other">Other:</label>
+                                                            <input type="text" class="form-control mt-2"
+                                                                name="favorit_warna_other"
+                                                                placeholder="Please specify">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label class="col-md-3 col-form-label" for="favorit_tidak">
+                                                        Warna yang tidak Anda sukai
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control mt-2"
+                                                            name="favorit_tidak">
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label class="col-md-3 col-form-label" for="favorit_tema">
+                                                        Apakah Anda memiliki tema warna dalam pikiran Anda? (Jika ada,
+                                                        Jelaskan)
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <textarea class="form-control" name="favorit_tema"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label class="col-md-3 col-form-label" for="favorit_tambahan">
+                                                        Informasi tambahan terkait preferensi
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control mt-2"
+                                                            name="favorit_tambahan">
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <label class="col-md-3 col-form-label" for="favorit_desainer">
+                                                        Apakah Anda pernah menyewa seorang desainer interior sebelumnya?
+                                                        (Jika ya, kapan itu terjadi, dan apakah Anda puas dengan
+                                                        pengalaman dan hasilnya?)
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control mt-2"
+                                                            name="favorit_desainer">
+                                                    </div>
+                                                </div>
+                                            </div> <!-- end col -->
+                                        </div> <!-- end row -->
+
+                                        <ul class="pager wizard mb-0 list-inline">
+                                            <li class="previous list-inline-item">
+                                                <button type="button" class="btn btn-light"> Back</button>
+                                            </li>
+                                            <li class="next list-inline-item float-end disabled">
+                                                <button type="button" class="btn btn-info">Next <i
+                                                        class="mdi mdi-arrow-right ms-1"></i></button>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="tab-pane show" id="basictab6" role="tabpanel">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="row text-center">
+                                                    <div class="col-12">
+                                                        <h2 class="mt-0"><i data-feather="check"></i> </h2>
+                                                        <h3 class="mt-0">Terima Kasih!</h3>
+                                                        <p class="w-75 mb-2 mx-auto">Apakah anda sudah mengisi data
+                                                            informasi yang telah tersedia? Kami akan memproses pengajuan
+                                                            form survey yang telah anda berikan setelah anda menekan
+                                                            tombol
+                                                            <b>SUBMIT</b>.<br>Kami akan memberikan infomasi melalui
+                                                            Whatsapp
+                                                            yang telah anda berikan sebagai feedback dari kami.
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-12 d-flex justify-content-center">
+                                                        <div class="col-12">
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input"
+                                                                    id="confirmCheckbox" name="survey" required>
+                                                                <label class="form-check-label"
+                                                                    for="confirmCheckbox" style="margin-left: 5px;">
+                                                                    Saya bersedia dilakukan Survey oleh tim Terdecor.
+                                                                </label>
+                                                            </div>
+                                                            <div class="d-flex justify-content-center">
+                                                                <div class="col-4">
+                                                                    <div id="tanggalSurveyContainer"
+                                                                        style="display: none;">
+                                                                        <label for="tanggal_survey">Tanggal
+                                                                            Survey:</label>
+                                                                        <input type="date" id="tanggal_survey"
+                                                                            name="tanggal_survey"
+                                                                            class="form-control w-20">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -559,6 +1257,46 @@
                     $('#others-input').hide();
                 }
             });
+
+            $('#desain_prioritas_1').on('change', function() {
+                if ($(this).is(':checked')) {
+                    $('#desain_prioritas_other').hide();
+                }
+            });
+            $('#desain_prioritas_2').on('change', function() {
+                if ($(this).is(':checked')) {
+                    $('#desain_prioritas_other').hide();
+                }
+            });
+            $('#desain_prioritas_3').on('change', function() {
+                if ($(this).is(':checked')) {
+                    $('#desain_prioritas_other').hide();
+                }
+            });
+            $('#desain_prioritas_4').on('change', function() {
+                if ($(this).is(':checked')) {
+                    $('#desain_prioritas_other').show();
+                } else {
+                    $('#desain_prioritas_other').hide();
+                }
+            });
+        });
+    </script>
+    <script>
+        // Select the checkbox, the container, and the date input
+        const confirmCheckbox = document.getElementById('confirmCheckbox');
+        const tanggalSurveyContainer = document.getElementById('tanggalSurveyContainer');
+        const tanggalSurveyInput = document.getElementById('tanggal_survey');
+
+        // Listen for changes on the checkbox
+        confirmCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                tanggalSurveyContainer.style.display = 'block';
+                tanggalSurveyInput.setAttribute('required', 'required');
+            } else {
+                tanggalSurveyContainer.style.display = 'none';
+                tanggalSurveyInput.removeAttribute('required');
+            }
         });
     </script>
     <script>
@@ -604,7 +1342,7 @@
                         .then(data => {
                             $('#kabupatenKota').empty(); // Remove loading indicator
                             const options = data.map(kabupatenKota => ({
-                                id: kabupatenKota.id,
+                                id: kabupatenKota.name,
                                 text: kabupatenKota.name
                             }));
                             $('#kabupatenKota').select2({

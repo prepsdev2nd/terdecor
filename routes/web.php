@@ -108,6 +108,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin/customer', [CustomerController::class, 'index'])->name('admin.customer.index');
     Route::get('/admin/customer/getData', [CustomerController::class, 'getData'])->name('admin.customer.getData');
+    Route::put('/admin/customer/updateStatus/{id}', [CustomerController::class, 'updateStatus'])->name('admin.customer.updateStatus');
     Route::delete('/admin/customer/{id}', [CustomerController::class, 'destroy'])->name('admin.customer.delete');
 
     Route::get('/admin/complaint', [ComplaintController::class, 'index'])->name('admin.complaint.index');

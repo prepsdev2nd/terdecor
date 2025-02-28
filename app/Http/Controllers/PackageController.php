@@ -209,15 +209,15 @@ class PackageController extends Controller
         $image = PackageImages::find($id);
 
         if (!$image) {
-            return response()->json(['success' => false, 'message' => 'Image not found.'], 404);
+            return response()->json(['error' => 'Image not found.'], 404);
         }
 
-        if ($image->image_path && file_exists(public_path('images/packages/' . $image->image_path))) {
-            unlink(public_path('images/packages/' . $image->image_path));
+        if ($image->image_path && file_exists(public_path($image->image_path))) {
+            unlink(public_path($image->image_path));
         }
 
         $image->delete();
 
-        return response()->json(['success' => true, 'message' => 'Image deleted successfully.']);
+        return response()->json(['success' => 'Gambar berhasil dihapus.']);
     }
 }

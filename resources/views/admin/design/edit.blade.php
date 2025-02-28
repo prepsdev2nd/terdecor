@@ -135,13 +135,13 @@
                                             <div class="col-sm-4">
                                                 <label class="form-label">Gambar<span class="text-danger">*</span></label>
                                             </div>
-                                            <div class="col-sm-8 text-center">
+                                            <div class="col-sm-8 position-relative">
                                                 <img src="{{ asset($image->image_path) }}" class="my-2 img-preview"
                                                     id="preview-{{ $image->id }}" style="max-width: 250px">
-
-                                                <button type="button" class="btn btn-sm btn-danger delete-image"
+                                                <button type="button"
+                                                    class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-image-btn"
                                                     data-id="{{ $image->id }}">
-                                                    X
+                                                    &times;
                                                 </button>
                                             </div>
                                         </div>
@@ -433,9 +433,8 @@
         }
     </script>
     <script>
-        let imageCounter = 1;
+        let imageCounter = 1001;
 
-        // Function to preview image before upload
         function previewImage(input, previewId) {
             const file = input.files[0];
             if (file) {
@@ -450,7 +449,6 @@
 
         // Add Image Upload Input
         document.getElementById('addImageButton').addEventListener('click', function() {
-            let imageCounter = 1;
             imageCounter++;
 
             const newRow = document.createElement('div');
@@ -463,7 +461,7 @@
             </div>
             <div class="col-sm-8">
                 <div class="position-relative text-center">
-                <img src="" class="mt-2 img-preview" id="preview-${imageCounter}" width="250px" style="display: none;">
+                <img src="" class="mt-2 img-preview" id="preview-${imageCounter}" width="250px" style="display: none;"></img>
                     <input class="form-control image-input" type="file" name="images[]" accept="image/*"
                         onchange="previewImage(this, 'preview-${imageCounter}')">
                     <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 remove-image-btn"
@@ -508,51 +506,84 @@
         });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll(".delete-image").forEach(button => {
-                button.addEventListener("click", function() {
-                    let imageId = this.getAttribute("data-id");
+        document.querySelectorAll('.remove-image-btn').forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                var imageId = this.getAttribute('data-id');
 
-                    Swal.fire({
-                        title: "Are you sure?",
-                        text: "This action cannot be undone!",
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#d33",
-                        cancelButtonColor: "#3085d6",
-                        confirmButtonText: "Yes, delete it!"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            fetch("{{ url('/admin/design/image') }}/" + imageId, {
-                                    method: "DELETE",
-                                    headers: {
-                                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                                        "Content-Type": "application/json"
+                // SweetAlert confirmation dialog
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "This action cannot be undone!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, cancel!',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Send DELETE request via fetch
+                        fetch("{{ url('/admin/design/image') }}/" + imageId, {
+                                method: "DELETE",
+                                headers: {
+                                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                                    "Content-Type": "application/json"
+                                }
+                            })
+                            .then(function(response) {
+                                if (!response.ok) {
+                                    throw new Error("Network response was not ok.");
+                                }
+                                return response.json();
+                            })
+                            .then(function(data) {
+                                if (data.success) {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'Your image has been deleted.',
+                                        'success'
+                                    );
+                                    // Remove the image row from the DOM
+                                    var row = document.getElementById('imageUploadRow-' +
+                                        imageId);
+                                    if (row) {
+                                        row.remove();
                                     }
-                                })
-                                .then(response => response.json())
-                                .then(data => {
-                                    if (data.success) {
-                                        document.getElementById("imageUploadRow-"
-                                                .imageId)
-                                            .remove();
-                                        Swal.fire("Deleted!",
-                                            "The image has been deleted.", "success"
-                                        );
-                                    } else {
-                                        Swal.fire("Error!", "Failed to delete image.",
-                                            "error");
-                                    }
-                                })
-                                .catch(error => {
-                                    Swal.fire("Error!", "Something went wrong.",
-                                        "error");
-                                    console.error("Error:", error);
-                                });
-                        }
-                    });
+                                } else {
+                                    Swal.fire(
+                                        'Error!',
+                                        data.error ||
+                                        'There was a problem deleting the image.',
+                                        'error'
+                                    );
+                                }
+                            })
+                            .catch(function(error) {
+                                console.error("Error deleting image:", error);
+                                Swal.fire(
+                                    'Error!',
+                                    'There was a problem deleting the image.',
+                                    'error'
+                                );
+                            });
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        Swal.fire(
+                            'Cancelled',
+                            'Your image is safe :)',
+                            'info'
+                        );
+                    }
                 });
             });
         });
     </script>
+
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses',
+                html: "{!! session('success') !!}",
+            });
+        </script>
+    @endif
 @endpush

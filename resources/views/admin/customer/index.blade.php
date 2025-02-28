@@ -32,6 +32,8 @@
                             <th width="200">Nama</th>
                             <th width="200">Whatsapp</th>
                             <th width="200">Email</th>
+                            <th width="200">Kebersediaan Survey</th>
+                            <th width="200">Tanggal Survey</th>
                             <th width="200">Tanggal Submit</th>
                             <th width="100">Aksi</th>
                         </tr>
@@ -42,7 +44,7 @@
     </div>
 
     <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-        <div class="modal-dialog ">
+        <div class="modal-dialog modal-lg ">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="detailModalLabel">Detail Survey</h5>
@@ -64,7 +66,8 @@
                                         <strong>Name:</strong> <span id="modalName"></span><br>
                                         <strong>Email:</strong> <span id="modalEmail"></span><br>
                                         <strong>Whatsapp:</strong> <span id="modalWhatsapp"></span><br>
-                                        <strong>Alamat:</strong> <span id="modalAlamat"></span>
+                                        <strong>Alamat:</strong> <span id="modalAlamat"></span><br>
+                                        <strong>Kota/Kabupaten:</strong> <span id="modalKota"></span>
                                     </p>
                                 </div>
                             </div>
@@ -105,6 +108,43 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    Preferensi Desain
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <strong>Prioritas Tujuan Desain:</strong> <span id="modalDesainprioritas"></span><br>
+                                    <strong>Penggunaan Ramah Lingkungan:</strong> <span id="modalDesainramah"></span><br>
+                                    <strong>Pilihan Suasana:</strong> <span id="modalDesainsuasana"></span><br>
+                                    <strong>Gaya yang Diinginkan:</strong> <span id="modalDesaingaya"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFive">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    Preferensi Favorit
+                                </button>
+                            </h2>
+                            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <strong>Ketidaksukaan Gaya Pribadi:</strong> <span id="modalFavoritpribadi"></span><br>
+                                    <strong>Prefensi Favorit:</strong> <span id="modalFavoritpreferensi"></span><br>
+                                    <strong>Prefensi Warna:</strong> <span id="modalFavoritwarna"></span><br>
+                                    <strong>Warna yang Dihindari:</strong> <span id="modalFavorittidak"></span><br>
+                                    <strong>Tema Warna:</strong> <span id="modalFavorittema"></span><br>
+                                    <strong>Informasi Tambahan:</strong> <span id="modalFavorittambahan"></span><br>
+                                    <strong>Informasi Desainer Sebelumnya:</strong> <span id="modalFavoritdesainer"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -114,6 +154,14 @@
         </div>
     </div>
 @endsection
+
+@push('page-styles')
+    <style>
+        .nowrap {
+            white-space: nowrap;
+        }
+    </style>
+@endpush
 
 @push('scripts')
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
@@ -148,12 +196,21 @@
                         name: 'email'
                     },
                     {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'tanggal_survey',
+                        name: 'tanggal_survey'
+                    },
+                    {
                         data: 'created_at',
                         name: 'created_at'
                     },
                     {
                         data: 'action',
-                        name: 'action'
+                        name: 'action',
+                        className: 'nowrap'
                     }
                 ],
                 "drawCallback": function() {
@@ -161,7 +218,6 @@
                 }
             });
         });
-
 
         function deleteRow(routeDelete) {
             Swal.fire({
@@ -199,6 +255,11 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.update-status').forEach(button => {
+                button.addEventListener('click', function() {
+                    console.log('Tombol diklik!'); // Debug: Periksa apakah tombol diklik
+                });
+            });
             const detailModal = document.getElementById('detailModal');
 
             detailModal.addEventListener('show.bs.modal', function(event) {
@@ -210,6 +271,7 @@
                 const email = button.getAttribute('data-email');
                 const whatsapp = button.getAttribute('data-whatsapp');
                 const alamat = button.getAttribute('data-alamat');
+                const kota = button.getAttribute('data-kota');
                 const luas_ruangan = button.getAttribute('data-luasruangan');
                 const jumlah_ruangan = button.getAttribute('data-jumlahruangan');
                 const jenis_ruangan = button.getAttribute('data-jenisruangan');
@@ -220,12 +282,26 @@
                 const ruangan = button.getAttribute('data-ruangan');
                 const pertahankan = button.getAttribute('data-pertahankan');
                 const diganti = button.getAttribute('data-diganti');
+                const desainprioritas = button.getAttribute('data-desainprioritas');
+                const desainramah = button.getAttribute('data-desainramah');
+                const desainsuasana = button.getAttribute('data-desainsuasana');
+                const desaingaya = button.getAttribute('data-desaingaya');
+                const favoritpribadi = button.getAttribute('data-favoritpribadi');
+                const favoritpreferensi = button.getAttribute('data-favoritpreferensi');
+                const favoritwarna = button.getAttribute('data-favoritwarna');
+                const favorittidak = button.getAttribute('data-favorittidak');
+                const favorittema = button.getAttribute('data-favorittema');
+                const favorittambahan = button.getAttribute('data-favorittambahan');
+                const favoritdesainer = button.getAttribute('data-favoritdesainer');
+                const tanggalsurvey = button.getAttribute('data-tanggalsurvey');
+                const status = button.getAttribute('data-status');
 
                 // Update modal content
                 document.getElementById('modalName').textContent = name;
                 document.getElementById('modalEmail').textContent = email;
                 document.getElementById('modalWhatsapp').textContent = whatsapp;
                 document.getElementById('modalAlamat').textContent = alamat;
+                document.getElementById('modalKota').textContent = kota;
                 document.getElementById('modalLuasruangan').textContent = luas_ruangan;
                 document.getElementById('modalJumlahruangan').textContent = jumlah_ruangan;
                 document.getElementById('modalJenisruangan').textContent = jenis_ruangan;
@@ -236,6 +312,19 @@
                 document.getElementById('modalRuangan').textContent = ruangan;
                 document.getElementById('modalPertahankan').textContent = pertahankan;
                 document.getElementById('modalDiganti').textContent = diganti;
+                document.getElementById('modalDesainprioritas').textContent = desainprioritas;
+                document.getElementById('modalDesainramah').textContent = desainramah;
+                document.getElementById('modalDesainsuasana').textContent = desainsuasana;
+                document.getElementById('modalDesaingaya').textContent = desaingaya;
+                document.getElementById('modalFavoritpribadi').textContent = favoritpribadi;
+                document.getElementById('modalFavoritpreferensi').textContent = favoritpreferensi;
+                document.getElementById('modalFavoritwarna').textContent = favoritwarna;
+                document.getElementById('modalFavorittidak').textContent = favorittidak;
+                document.getElementById('modalFavorittema').textContent = favorittema;
+                document.getElementById('modalFavorittambahan').textContent = favorittambahan;
+                document.getElementById('modalFavoritdesainer').textContent = favoritdesainer;
+                document.getElementById('modalTanggalsurvey').textContent = tanggalsurvey;
+                document.getElementById('modalStatus').textContent = status;
             });
         });
     </script>

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('domisili')->nullable();
             $table->longText('alamat')->nullable();
+            $table->string('kota')->nullable();
             $table->string('handphone')->nullable();
             $table->string('email')->nullable();
             $table->string('luas_ruangan')->nullable();
@@ -28,6 +29,20 @@ return new class extends Migration
             $table->string('ruangan')->nullable();
             $table->string('pertahankan')->nullable();
             $table->string('diganti')->nullable();
+            $table->string('desain_prioritas')->nullable();
+            $table->string('desain_ramah')->nullable();
+            $table->string('desain_suasana')->nullable();
+            $table->string('desain_gaya')->nullable();
+            $table->string('favorit_pribadi')->nullable();
+            $table->string('favorit_preferensi')->nullable();
+            $table->string('favorit_warna')->nullable();
+            $table->string('favorit_tidak')->nullable();
+            $table->string('favorit_tema')->nullable();
+            $table->string('favorit_tambahan')->nullable();
+            $table->string('favorit_desainer')->nullable();
+            $table->date('tanggal_survey')->nullable();
+            $table->string('survey')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

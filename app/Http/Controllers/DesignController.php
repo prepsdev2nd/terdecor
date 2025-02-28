@@ -176,32 +176,12 @@ class DesignController extends Controller
 
         $data->save();
 
-        return redirect()->route('admin.design.index')->with('success', 'Blog berhasil diperbarui.');
+        return redirect()->route('admin.design.index')->with('success', 'Desain berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
         $design = Design::where('id', $id)->first();
-
-        if ($design->pic1 && file_exists(public_path('images/designs/' . $design->pic1))) {
-            unlink(public_path('images/designs/' . $design->pic1));
-        }
-
-        if ($design->pic2 && file_exists(public_path('images/designs/' . $design->pic2))) {
-            unlink(public_path('images/designs/' . $design->pic2));
-        }
-
-        if ($design->pic3 && file_exists(public_path('images/designs/' . $design->pic3))) {
-            unlink(public_path('images/designs/' . $design->pic3));
-        }
-
-        if ($design->pic4 && file_exists(public_path('images/designs/' . $design->pic4))) {
-            unlink(public_path('images/designs/' . $design->pic4));
-        }
-
-        if ($design->pic5 && file_exists(public_path('images/designs/' . $design->pic5))) {
-            unlink(public_path('images/designs/' . $design->pic5));
-        }
 
         $design->delete();
 
@@ -234,15 +214,15 @@ class DesignController extends Controller
         $image = DesignImages::find($id);
 
         if (!$image) {
-            return response()->json(['success' => false, 'message' => 'Image not found.'], 404);
+            return response()->json(['error' => 'Image not found.'], 404);
         }
 
-        if ($image->image_path && file_exists(public_path('images/designs/' . $image->image_path))) {
-            unlink(public_path('images/designs/' . $image->image_path));
+        if ($image->image_path && file_exists(public_path($image->image_path))) {
+            unlink(public_path($image->image_path));
         }
 
         $image->delete();
 
-        return response()->json(['success' => true, 'message' => 'Image deleted successfully.']);
+        return response()->json(['success' => 'Gambar berhasil dihapus.']);
     }
 }
