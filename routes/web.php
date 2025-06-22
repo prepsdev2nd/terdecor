@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CheckerController;
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\ComplaintUserController;
 use App\Http\Controllers\CustomerController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DesignController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\TestimonyController;
@@ -16,13 +18,27 @@ use App\Http\Controllers\TestimonyUserController;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
+
+// Route::get('/jasa-list', function () {
+//     return view('jasa-list');
+// })->name('jasa.list');
+
+Route::get('/jasa-detail', function () {
+    return view('jasa-detail');
+})->name('jasa.detail');
+
+
+Route::get('/landing', function () {
+    return view('landing');
+})->name('landing');
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/jasa/{model}', [HomeController::class, 'jasa'])->name('jasa');
 Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
-Route::get('/blog/{id}', [HomeController::class, 'blogDetail'])->name('blog.detail');
-Route::get('/paket', [HomeController::class, 'paket'])->name('paket');
-Route::get('/paket/{id}', [HomeController::class, 'paketDetail'])->name('paket.detail');
-Route::get('/desain', [HomeController::class, 'desain'])->name('desain');
-Route::get('/desain/{id}', [HomeController::class, 'desainDetail'])->name('desain.detail');
+Route::get('/package/{slug}', [HomeController::class, 'package'])->name('package');
+Route::get('/read/{slug}', [HomeController::class, 'read'])->name('read');
+Route::get('/kategori-by-jenis/{jenis}', [HomeController::class, 'getKategoriByJenis']);
+Route::get('/quality-by-jenis-kategori/{jenis}/{kategori}', [HomeController::class, 'getQualityByJenisKategori']);
 Route::get('/survey', [SurveyController::class, 'form'])->name('survey.form');
 Route::post('/survey', [SurveyController::class, 'store'])->name('survey.store');
 Route::get('/testapi', [SurveyController::class, 'testapi'])->name('survey.testapi');
@@ -78,6 +94,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/admin/blog/{id}', [BlogController::class, 'destroy'])->name('admin.blog.delete');
     Route::get('/admin/blog/getTags', [BlogController::class, 'getTags'])->name('admin.blog.getTags');
 
+    Route::get('/admin/checker', [CheckerController::class, 'index'])->name('admin.checker.index');
+    Route::get('/admin/checker/getData', [CheckerController::class, 'getData'])->name('admin.checker.getData');
+    Route::get('/admin/checker/getDataQuality', [CheckerController::class, 'getDataQuality'])->name('admin.checker.getDataQuality');
+    Route::get('/admin/checker/create', [CheckerController::class, 'create'])->name('admin.checker.create');
+    Route::post('/admin/checker', [CheckerController::class, 'store'])->name('admin.checker.store');
+    Route::post('/admin/checker/quality', [CheckerController::class, 'storeQuality'])->name('admin.checker.storeQuality');
+    Route::get('/admin/checker/edit/{id}', [CheckerController::class, 'edit'])->name('admin.checker.edit');
+    Route::post('/admin/checker/update/{id}', [CheckerController::class, 'update'])->name('admin.checker.update');
+    Route::delete('/admin/checker/{id}', [CheckerController::class, 'destroy'])->name('admin.checker.delete');
+    Route::delete('/admin/checker/quality{id}', [CheckerController::class, 'destroyQuality'])->name('admin.checker.deleteQuality');
+
     Route::get('/admin/banner', [BannerController::class, 'index'])->name('admin.banner.index');
     Route::get('/admin/banner/getData', [BannerController::class, 'getData'])->name('admin.banner.getData');
     Route::get('/admin/banner/create', [BannerController::class, 'create'])->name('admin.banner.create');
@@ -86,12 +113,22 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/banner/update/{id}', [BannerController::class, 'update'])->name('admin.banner.update');
     Route::delete('/admin/banner/{id}', [BannerController::class, 'destroy'])->name('admin.banner.delete');
 
+    Route::get('/admin/product', [ProductController::class, 'index'])->name('admin.product.index');
+    Route::get('/admin/product/getData', [ProductController::class, 'getData'])->name('admin.product.getData');
+    Route::get('/admin/product/create', [ProductController::class, 'create'])->name('admin.product.create');
+    Route::post('/admin/product', [ProductController::class, 'store'])->name('admin.product.store');
+    Route::get('/admin/product/edit/{id}', [ProductController::class, 'edit'])->name('admin.product.edit');
+    Route::post('/admin/product/update/{id}', [ProductController::class, 'update'])->name('admin.product.update');
+    Route::delete('/admin/product/{id}', [ProductController::class, 'destroy'])->name('admin.product.delete');
+
     Route::get('/admin/package', [PackageController::class, 'index'])->name('admin.package.index');
+    Route::get('/admin/package/list', [PackageController::class, 'list'])->name('admin.package.list');
     Route::get('/admin/package/getData', [PackageController::class, 'getData'])->name('admin.package.getData');
     Route::get('/admin/package/create', [PackageController::class, 'create'])->name('admin.package.create');
     Route::post('/admin/package', [PackageController::class, 'store'])->name('admin.package.store');
     Route::get('/admin/package/edit/{id}', [PackageController::class, 'edit'])->name('admin.package.edit');
     Route::post('/admin/package/update/{id}', [PackageController::class, 'update'])->name('admin.package.update');
+    Route::post('/admin/globalPackage/update/{id}', [PackageController::class, 'globalUpdate'])->name('admin.globalPackage.update');
     Route::delete('/admin/package/{id}', [PackageController::class, 'destroy'])->name('admin.package.delete');
     Route::delete('/admin/package/image/{id}', [PackageController::class, 'deleteImage'])->name('admin.package.deleteImage');
 

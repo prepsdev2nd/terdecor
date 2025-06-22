@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GlobalPackage;
 use App\Models\Package;
 use App\Models\PackageDetails;
 use App\Models\PackageImages;
@@ -18,7 +19,13 @@ class PackageController extends Controller
 
     public function index()
     {
-        return view('admin.package.index');
+        $globalPackages = GlobalPackage::all();
+        return view('admin.package.index', compact('globalPackages'));
+    }
+
+    public function list()
+    {
+        return view('admin.package.list');
     }
 
     public function getData()
@@ -65,7 +72,6 @@ class PackageController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'videos.*' => 'nullable|string|url', // Ensure video URLs are valid
         ]);
 
         // Handle price formatting
@@ -77,6 +83,7 @@ class PackageController extends Controller
         $package->slug = Str::slug($request->input('title'));
         $package->description = $request->input('content');
         $package->type = $request->input('type');
+        $package->luas = $request->input('luas');
         $package->price = (int) $price;
         $package->save();
 
@@ -118,7 +125,7 @@ class PackageController extends Controller
             }
         }
 
-        return redirect()->route('admin.package.index')->with('success', 'Paket berhasil ditambahkan.');
+        return redirect()->route('admin.package.list')->with('success', 'Paket berhasil ditambahkan.');
     }
 
 
@@ -144,6 +151,7 @@ class PackageController extends Controller
         $package->slug = Str::slug($request->input('title'));
         $package->description = $request->input('content');
         $package->type = $request->input('type');
+        $package->luas = $request->input('luas');
         $package->price = (int) $price;
 
         $images = $request->file('images');
@@ -188,7 +196,7 @@ class PackageController extends Controller
 
         $package->save();
 
-        return redirect()->route('admin.package.index')->with('success', 'Paket berhasil diperbarui.');
+        return redirect()->route('admin.package.list')->with('success', 'Paket berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -219,5 +227,32 @@ class PackageController extends Controller
         $image->delete();
 
         return response()->json(['success' => 'Gambar berhasil dihapus.']);
+    }
+
+    public function globalUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $globalPackage = GlobalPackage::findOrFail($id);
+        $globalPackage->name = $request->input('name');
+        $globalPackage->description = $request->input('description');
+
+        if ($request->hasFile('photo')) {
+            if ($globalPackage->photo && file_exists(public_path($globalPackage->photo))) {
+                unlink(public_path($globalPackage->photo));
+            }
+            $filename = time() . '-' . $request->file('photo')->getClientOriginalName();
+            $destinationPath = public_path('user/images');
+            $request->file('photo')->move($destinationPath, $filename);
+            $globalPackage->photo = 'user/images/' . $filename;
+        }
+
+        $globalPackage->save();
+
+        return redirect()->route('admin.package.index')->with('success', 'Global package updated successfully.');
     }
 }

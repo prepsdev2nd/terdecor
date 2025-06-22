@@ -47,7 +47,6 @@ class TestimonyController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
             'testi' => 'required|string|max:255',
         ]);
 
@@ -73,7 +72,6 @@ class TestimonyController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
             'testi' => 'required|string|max:255',
         ]);
 

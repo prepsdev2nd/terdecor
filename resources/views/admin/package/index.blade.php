@@ -18,8 +18,8 @@
                         </div>
                     </div>
                     <div class="col-12 col-xl-auto mt-4">
-                        <a class="btn btn-dark p-3" href="{{ route('admin.package.create') }}">
-                            <span>Tambah <i data-feather="plus"></i></span>
+                        <a class="btn btn-dark p-3" href="{{ route('admin.package.list') }}">
+                            <span>Daftar List paket</span>
                         </a>
                     </div>
                 </div>
@@ -28,22 +28,39 @@
     </header>
     <!-- Main page content-->
     <div class="container-xl px-4 mt-n10">
-        <div class="card mb-4">
-            <div class="card-body p-3">
-                <table class="table table-bordered small text-center" id="packageDatatable">
-                    <thead>
-                        <tr>
-                            <th width="50">#</th>
-                            <th width="200">Sampul</th>
-                            <th width="300">Judul</th>
-                            <th width="200">List</th>
-                            <th width="200">Tipe</th>
-                            <th width="300">Harga</th>
-                            <th width="100">Aksi</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
+        <div class="row">
+            @foreach ($globalPackages as $row)
+                <div class="col-lg-6 col-sm-12">
+                    <div class="card mb-4">
+                        <div class="card-body p-3">
+                            <form action="{{ route('admin.globalPackage.update', $row->id) }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                @method('POST')
+                                <div class="mb-3">
+                                    <label for="name-{{ $row->id }}" class="form-label">Nama Paket</label>
+                                    <input type="text" class="form-control" id="name-{{ $row->id }}" name="name"
+                                        value="{{ $row->name }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="description-{{ $row->id }}" class="form-label">Deskripsi</label>
+                                    <textarea class="form-control" id="description-{{ $row->id }}" name="description" rows="3">{{ $row->description }}</textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="photo-{{ $row->id }}" class="form-label">Ganti Gambar</label>
+                                    <input type="file" class="form-control" id="photo-{{ $row->id }}"
+                                        name="photo">
+                                    <div class="mt-2">
+                                        <img src="{{ asset('user/images/' . $row->photo) }}" alt="{{ $row->name }}"
+                                            class="img-fluid mb-2" style="max-width: 150px;">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
 @endsection

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->bigInteger('price')->nullable();
             $table->string('type')->nullable();
+            $table->string('luas')->nullable();
             $table->timestamps();
         });
     }

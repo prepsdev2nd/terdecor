@@ -129,18 +129,18 @@
                             Beranda
                         </a>
 
-                        <a class="nav-link" href="#">
+                        {{-- <a class="nav-link" href="#">
                             <div class="nav-link-icon"><i data-feather="home"></i></div>Home Page
-                        </a>
+                        </a> --}}
 
                         <a class="nav-link {{ Route::is('admin.banner*') ? 'active' : '' }}"
                             href="{{ route('admin.banner.index') }}">
                             <div class="nav-link-icon"><i data-feather="image"></i></div>Banner
                         </a>
 
-                        <a class="nav-link {{ Route::is('admin.customer*') ? 'active' : '' }}"
-                            href="{{ route('admin.customer.index') }}">
-                            <div class="nav-link-icon"><i data-feather="file-text"></i></div>Form Customer
+                        <a class="nav-link {{ Route::is('admin.checker*') ? 'active' : '' }}"
+                            href="{{ route('admin.checker.index') }}">
+                            <div class="nav-link-icon"><i data-feather="dollar-sign"></i></div>Price Checker
                         </a>
 
                         <a class="nav-link {{ Route::is('admin.package*') ? 'active' : '' }}"
@@ -148,10 +148,15 @@
                             <div class="nav-link-icon"><i data-feather="package"></i></div>Package
                         </a>
 
-                        <a class="nav-link {{ Route::is('admin.design*') ? 'active' : '' }}"
+                        <a class="nav-link {{ Route::is('admin.customer*') ? 'active' : '' }}"
+                            href="{{ route('admin.customer.index') }}">
+                            <div class="nav-link-icon"><i data-feather="file-text"></i></div>Form Customer
+                        </a>
+
+                        {{-- <a class="nav-link {{ Route::is('admin.design*') ? 'active' : '' }}"
                             href="{{ route('admin.design.index') }}">
                             <div class="nav-link-icon"><i data-feather="columns"></i></div>Design Gallery
-                        </a>
+                        </a> --}}
 
                         <a class="nav-link {{ Route::is('admin.blog*') ? 'active' : '' }}"
                             href="{{ route('admin.blog.index') }}">

@@ -144,8 +144,27 @@
                                         <input class="form-control @error('image') is-invalid @enderror" type="file"
                                             id="image" name="image" accept="image/*" required>
                                     </div>
-                                    <div class="form-text">Direkomendasikan menggunakan gambar berukuran 1080x360.</div>
+                                    <div class="form-text">Direkomendasikan menggunakan gambar berukuran 960x300.</div>
                                     @error('image')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-4 mb-3">
+                                    <label for="image_mobile" class="form-label">Banner Mobile<span
+                                            class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-sm-8 mb-3">
+                                    <div id="imagePreviewContainerMobile" class="bg-light text-center mb-3"
+                                        style="width: 100%;height: auto; border: 1px dashed #ccc; padding: 5px; border-radius: 4px;background-color:#f2f6fc;display:none;">
+                                        <p class="mb-2">Pratinjau Banner</p>
+                                        <img id="imagePreviewMobile" class="mx-auto" style="width:100%;max-width:auto;">
+                                    </div>
+                                    <div>
+                                        <input class="form-control @error('image_mobile') is-invalid @enderror"
+                                            type="file" id="image_mobile" name="image_mobile" accept="image/*" required>
+                                    </div>
+                                    <div class="form-text">Direkomendasikan menggunakan gambar berukuran 1080x1080.</div>
+                                    @error('image_mobile')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -194,6 +213,28 @@
                 };
 
                 reader.readAsDataURL(fileInput.files[0]);
+            }
+        });
+    </script>
+
+    <script>
+        document.getElementById('image_mobile').addEventListener('change', function(event) {
+            const fileInput2 = event.target;
+            const imagePreview2 = document.getElementById('imagePreviewMobile');
+            const imagePreviewContainer2 = document.getElementById('imagePreviewContainerMobile');
+
+            // Check if a file is selected
+            if (fileInput2.files && fileInput2.files[0]) {
+                const reader = new FileReader();
+
+                // Load the image and show the preview
+                reader.onload = function(e) {
+                    imagePreview2.src = e.target.result; // Update the image src to the new file
+                    imagePreview2.style.display = 'block'; // Ensure the preview is visible
+                    imagePreviewContainer2.style.display = 'block'; // Ensure the preview is visible
+                };
+
+                reader.readAsDataURL(fileInput2.files[0]);
             }
         });
     </script>

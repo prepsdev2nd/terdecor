@@ -35,6 +35,7 @@
                         <tr>
                             <th width="50">#</th>
                             <th width="200">Banner</th>
+                            <th width="200">Banner Mobile</th>
                             <th width="300">Alt Text</th>
                             <th width="200">Url</th>
                             <th width="100">Aksi</th>
@@ -69,6 +70,10 @@
                     {
                         data: 'image',
                         name: 'image'
+                    },
+                    {
+                        data: 'image_mobile',
+                        name: 'image_mobile'
                     },
                     {
                         data: 'alt',

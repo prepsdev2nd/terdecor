@@ -119,16 +119,6 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-4 mb-3">
-                                    <label for="type" class="form-label">Jenis<span class="text-danger">*</span></label>
-                                </div>
-                                <div class="col-sm-8 mb-3">
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                        id="type" name="type" placeholder="Jenis" required>
-                                    @error('type')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-4 mb-3">
                                     <label for="testi" class="form-label">Teks<span class="text-danger">*</span></label>
                                 </div>
                                 <div class="col-sm-8 mb-3">

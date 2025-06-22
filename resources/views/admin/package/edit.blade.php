@@ -91,7 +91,7 @@
                         </div>
                     </div>
                     <div class="col-12 col-xl-auto mt-4">
-                        <a href="{{ route('admin.package.index') }}" class="btn btn-danger">Kembali</a>
+                        <a href="{{ route('admin.package.list') }}" class="btn btn-danger">Kembali</a>
                     </div>
                 </div>
             </div>
@@ -127,12 +127,11 @@
                                 </div>
                                 <div class="col-sm-8 mb-3">
                                     <select class="form-control" name="type" id="type" required>
-                                        <option value="Desain Only" {{ $data->type == 'Desain Only' ? 'selected' : '' }}>
-                                            Desain
-                                            Only</option>
-                                        <option value="Include Instalasi"
-                                            {{ $data->type == 'Include Instalasi' ? 'selected' : '' }}>
-                                            Include Instalasi</option>
+                                        <option value="Rumah" {{ $data->type == 'Rumah' ? 'selected' : '' }}>Rumah</option>
+                                        <option value="Apartemen" {{ $data->type == 'Apartemen' ? 'selected' : '' }}>
+                                            Apartemen</option>
+                                        <option value="Kantor" {{ $data->type == 'Kantor' ? 'selected' : '' }}>Kantor
+                                        </option>
                                     </select>
                                 </div>
                                 <!-- Image Upload Section -->
@@ -282,6 +281,18 @@
                     <div class="card">
                         <div class="card-body">
 
+                            <div class="col-sm-12">
+                                <label for="luas" class="form-label">Luas m2 <span
+                                        class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-sm-12 mb-3">
+                                <input type="text" class="form-control @error('luas') is-invalid @enderror"
+                                    id="luas" name="luas" placeholder="10" value="{{ $data->luas }}"
+                                    required>
+                                @error('luas')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <div class="col-sm-12">
                                 <label for="price" class="form-label">Harga Mulai dari <span
                                         class="text-danger">*</span></label>

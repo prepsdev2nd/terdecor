@@ -162,8 +162,45 @@
                                         <input class="form-control @error('image') is-invalid @enderror" type="file"
                                             id="image" name="image" accept="image/*">
                                     </div>
-                                    <div class="form-text">Direkomendasikan menggunakan gambar berukuran 1080x360.</div>
+                                    <div class="form-text">Direkomendasikan menggunakan gambar berukuran 960x300.</div>
                                     @error('image')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-4 mb-3">
+                                    <label for="image_mobile" class="form-label">Banner Mobile</label>
+                                </div>
+                                <div class="col-sm-8 mb-3">
+                                    <div class="row m-0 p-2 bg-light text-center"
+                                        style="width: 100%;height: auto; border: 1px dashed #ccc; padding: 5px; border-radius: 4px;background-color:#f2f6fc">
+                                        <p class="mb-0">Pratinjau Banner</p>
+                                        <div class="col-6 p-1">
+                                            <div class="rounded bg-white p-2" style="border: 1px dashed #ccc;"
+                                                style="height: 150px">
+                                                <div class="d-flex" style="height: 130px">
+                                                    <img src="{{ asset('images/banners/' . $data->image_path_mobile) }}"
+                                                        alt="{{ $data->alt }}" class="mx-auto my-auto"
+                                                        style="max-height: 120px; max-width: 160px;">
+                                                </div>
+                                                <p class="mb-0">Banner Sebelumnya</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 p-1">
+                                            <div class="rounded bg-white p-2" style="border: 1px dashed #ccc;">
+                                                <div class="d-flex" style="height: 130px">
+                                                    <img id="imagePreviewMobile" class="mx-auto my-auto"
+                                                        style="max-height: 120px; max-width: 160px;">
+                                                </div>
+                                                <p class="mb-0">Pratinjau Banner Baru</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3">
+                                        <input class="form-control @error('image') is-invalid @enderror" type="file"
+                                            id="image_mobile" name="image_mobile" accept="image/*">
+                                    </div>
+                                    <div class="form-text">Direkomendasikan menggunakan gambar berukuran 1080x1080.</div>
+                                    @error('image_mobile')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -185,36 +222,14 @@
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
 @endpush
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-    <script>
-        const quill = new Quill('#editor', {
-            modules: {
-                syntax: true,
-                toolbar: '#toolbar-container',
-            },
-            placeholder: 'Ketik Sesuatu',
-            theme: 'snow',
-            height: 500,
-        });
-
-        var form = document.querySelector('#blog');
-        form.onsubmit = function() {
-            var content = document.querySelector('input[name=content]');
-            content.value = quill.root.innerHTML;
-        };
-
-        document.getElementById('status-switch').addEventListener('change', function() {
-            const statusLabel = document.getElementById('status-label');
-            statusLabel.textContent = this.checked ? 'Aktif' : 'Tidak Aktif';
-        });
-    </script>
 
     <script>
         document.getElementById('image').addEventListener('change', function(event) {
@@ -236,37 +251,25 @@
                 reader.readAsDataURL(fileInput.files[0]);
             }
         });
-    </script>
 
-    <script>
-        $(document).ready(function() {
-            $('#labels').select2({
-                placeholder: "Pilih Satu atau Beberapa",
-                tokenSeparators: [',']
-            });
+        document.getElementById('image_mobile').addEventListener('change', function(event) {
+            const fileInput2 = event.target;
+            const imagePreview2 = document.getElementById('imagePreviewMobile');
+            const imagePreviewContainer2 = document.getElementById('imagePreviewContainerMobile');
 
-            $('#tags').select2({
-                placeholder: "Ketik Apa Saja",
-                tags: true,
-                tokenSeparators: [','],
-                ajax: {
-                    url: "{{ route('admin.blog.getTags') }}",
-                    dataType: 'json',
-                    delay: 250,
-                    data: function(params) {
-                        return {
-                            q: params.term // Search term
-                        };
-                    },
-                    processResults: function(data) {
-                        console.log("Data returned from server:", data); // Log data for debugging
-                        return {
-                            results: data
-                        };
-                    },
-                    cache: true
-                }
-            });
+            // Check if a file is selected
+            if (fileInput2.files && fileInput2.files[0]) {
+                const reader = new FileReader();
+
+                // Load the image and show the preview
+                reader.onload = function(e) {
+                    imagePreview2.src = e.target.result; // Update the image src to the new file
+                    imagePreview2.style.display = 'block'; // Ensure the preview is visible
+                    imagePreviewContainer2.style.display = 'block'; // Ensure the preview is visible
+                };
+
+                reader.readAsDataURL(fileInput2.files[0]);
+            }
         });
     </script>
 @endpush

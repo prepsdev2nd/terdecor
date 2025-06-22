@@ -121,13 +121,14 @@
                                 </div>
 
                                 <div class="col-sm-4 mb-3">
-                                    <label for="type" class="form-label">Tipe Paket<span
+                                    <label for="type" class="form-label">Jenis Paket<span
                                             class="text-danger">*</span></label>
                                 </div>
                                 <div class="col-sm-8 mb-3">
                                     <select class="form-control" name="type" id="type" required>
-                                        <option value="Desain Only">Desain Only</option>
-                                        <option value="Include Instalasi">Include Instalasi</option>
+                                        <option value="Rumah">Rumah</option>
+                                        <option value="Apartemen">Apartemen</option>
+                                        <option value="Kantor">Kantor</option>
                                     </select>
                                 </div>
 
@@ -250,6 +251,18 @@
                 <div class="nav-sticky">
                     <div class="card">
                         <div class="card-body">
+
+                            <div class="col-sm-12">
+                                <label for="luas" class="form-label">Luas m2 <span
+                                        class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-sm-12 mb-3">
+                                <input type="text" class="form-control @error('luas') is-invalid @enderror"
+                                    id="luas" name="luas" placeholder="10" required>
+                                @error('luas')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
 
                             <div class="col-sm-12">
                                 <label for="price" class="form-label">Harga Mulai dari <span
